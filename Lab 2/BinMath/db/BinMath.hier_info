@@ -1,0 +1,76 @@
+|BinMath
+LEDS[0] <= load_and_math:inst.displayNumber[0]
+LEDS[1] <= load_and_math:inst.displayNumber[1]
+LEDS[2] <= load_and_math:inst.displayNumber[2]
+LEDS[3] <= load_and_math:inst.displayNumber[3]
+LEDS[4] <= load_and_math:inst.displayNumber[4]
+LEDS[5] <= load_and_math:inst.displayNumber[5]
+LEDS[6] <= load_and_math:inst.displayNumber[6]
+LEDS[7] <= load_and_math:inst.displayNumber[7]
+LEDS[8] <= load_and_math:inst.displayNumber[8]
+firstLatch => load_and_math:inst.firstLatch
+secondLatch => load_and_math:inst.secondLatch
+mathType => load_and_math:inst.mathType
+number[0] => load_and_math:inst.number[0]
+number[1] => load_and_math:inst.number[1]
+number[2] => load_and_math:inst.number[2]
+number[3] => load_and_math:inst.number[3]
+number[4] => load_and_math:inst.number[4]
+number[5] => load_and_math:inst.number[5]
+number[6] => load_and_math:inst.number[6]
+number[7] => load_and_math:inst.number[7]
+
+
+|BinMath|load_and_math:inst
+number[0] => numTwo[0].DATAIN
+number[0] => numOne[0].DATAIN
+number[1] => numTwo[1].DATAIN
+number[1] => numOne[1].DATAIN
+number[2] => numTwo[2].DATAIN
+number[2] => numOne[2].DATAIN
+number[3] => numTwo[3].DATAIN
+number[3] => numOne[3].DATAIN
+number[4] => numTwo[4].DATAIN
+number[4] => numOne[4].DATAIN
+number[5] => numTwo[5].DATAIN
+number[5] => numOne[5].DATAIN
+number[6] => numTwo[6].DATAIN
+number[6] => numOne[6].DATAIN
+number[7] => numTwo[7].DATAIN
+number[7] => numOne[7].DATAIN
+firstLatch => numOne[0].LATCH_ENABLE
+firstLatch => numOne[1].LATCH_ENABLE
+firstLatch => numOne[2].LATCH_ENABLE
+firstLatch => numOne[3].LATCH_ENABLE
+firstLatch => numOne[4].LATCH_ENABLE
+firstLatch => numOne[5].LATCH_ENABLE
+firstLatch => numOne[6].LATCH_ENABLE
+firstLatch => numOne[7].LATCH_ENABLE
+secondLatch => numTwo[0].LATCH_ENABLE
+secondLatch => numTwo[1].LATCH_ENABLE
+secondLatch => numTwo[2].LATCH_ENABLE
+secondLatch => numTwo[3].LATCH_ENABLE
+secondLatch => numTwo[4].LATCH_ENABLE
+secondLatch => numTwo[5].LATCH_ENABLE
+secondLatch => numTwo[6].LATCH_ENABLE
+secondLatch => numTwo[7].LATCH_ENABLE
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+mathType => mathBuilder.OUTPUTSELECT
+displayNumber[0] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[1] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[2] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[3] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[4] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[5] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[6] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[7] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+displayNumber[8] <= mathBuilder.DB_MAX_OUTPUT_PORT_TYPE
+
+

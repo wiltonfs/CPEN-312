@@ -1,0 +1,37 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'firstLatch'
+Slack : 0.132
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'secondLatch'
+Slack : 0.248
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'firstLatch'
+Slack : 0.109
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'secondLatch'
+Slack : 0.249
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'firstLatch'
+Slack : -0.032
+TNS   : -0.124
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'secondLatch'
+Slack : 0.002
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'firstLatch'
+Slack : -0.036
+TNS   : -0.134
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'secondLatch'
+Slack : 0.004
+TNS   : 0.000
+
+------------------------------------------------------------

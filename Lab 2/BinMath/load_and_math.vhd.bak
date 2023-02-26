@@ -1,0 +1,56 @@
+library ieee;
+	use ieee.std_logic_1164.all;
+	use ieee.std_logic_unsigned.all;
+
+entity eight_bit_adder is
+	port(
+	
+		-- Input pins
+		number   : in std_logic_vector(7 downto 0);
+		carry_in : in std_logic;
+		latch0   : in std_logic;
+		latch1   : in std_logic;
+		
+		-- Output pins
+		output_value : out std_logic_vector(8 downto 0)
+	);
+end eight_bit_adder;
+
+architecture a of eight_bit_adder is
+	signal sum_temp : std_logic_vector(8 downto 0);
+	signal a 		 : std_logic_vector(7 downto 0);
+	signal b 		 : std_logic_vector(7 downto 0);
+	
+begin
+	
+	--Latch 1 for A
+	process (latch1, a)
+	begin
+		if (latch1 = '0') then
+			a <= number;
+		end if;
+	end process;
+	
+	--Latch 0 for B
+	process (latch0, b)
+	begin
+		if (latch0 = '0') then
+			b <= number;
+		end if;
+	end process;
+
+	-- checks if adding/subtracting then does the operation
+	process( carry_in,a ,b)
+	begin
+		if(carry_in = '0') then
+			sum_temp <= ('0' & a) + ('0' & b);
+		else
+			sum_temp <= ('0' & a) - ('0' & b);
+		end if;
+	end process;
+	
+	--assigns to output value
+	output_value <= sum_temp(8 downto 0);
+end a;
+
+
