@@ -1,0 +1,10 @@
+For switches, from left to right:
+If Alarm is enabled or not
+Which clock to set, down means set actual clock, up means set alarm
+Then the next 8 switches are the binary input for a 2 digit BCD number
+
+For buttons, from left to right
+Latch hours
+Latch minutes
+Latch seconds (only for actual clock, not alarm)
+Reset
