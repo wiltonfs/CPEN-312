@@ -16,7 +16,7 @@ ARCHITECTURE a of BCDcount is
 	SIGNAL ClkFlag, AM_PM_Flag, FLASH_FLAG, AM_PM_ALARM:	STD_LOGIC;
 	SIGNAL Internal_Count:	STD_LOGIC_VECTOR(28 downto 0);
 	SIGNAL HH_Digit, HL_Digit, MH_Digit, ML_Digit, SH_Digit, SL_Digit: STD_LOGIC_VECTOR(3 downto 0);
-	SIGNAL HH_ALARM, HL_ALARM, MH_ALARM, ML_ALARM, SH_ALARM, SL_ALARM: STD_LOGIC_VECTOR(3 downto 0);
+	SIGNAL HH_ALARM, HL_ALARM, MH_ALARM, ML_ALARM: STD_LOGIC_VECTOR(3 downto 0);
 	SIGNAL HH_7SEG, HL_7SEG, MH_7SEG, ML_7SEG, SH_7SEG, SL_7SEG: STD_LOGIC_VECTOR(0 to 6);
 BEGIN
 	HH<=HH_7SEG;
@@ -41,15 +41,22 @@ BEGIN
 			end if;
 		end if;
 	END PROCESS;
+	
+	-- Check if at alarm time
+	PROCESS(SL_Digit)
+	BEGIN
+		if (ALARM_ON = '1' and HH_ALARM = HH_Digit and HL_ALARM = HL_Digit and MH_ALARM = MH_Digit and ML_ALARM = ML_Digit and AM_PM_ALARM = AM_PM_Flag) then
+			FLASH_FLAG <= '1';
+		end if;
+		
+		if(RESET='0') then
+			FLASH_FLAG <= '0';
+		end if;
+	END PROCESS;
 
 	-- Handles 1 second of incrementation OR latching values
 	PROCESS(ClkFlag, RESET, SET_S, SET_M, SET_H)
 	BEGIN
-		-- Check if at alarm time
-		if (ALARM_ON = '1' and HH_ALARM = HH_Digit and HL_ALARM = HL_Digit and MH_ALARM = MH_Digit and ML_ALARM = ML_Digit and SH_ALARM = SH_Digit and SL_ALARM = SL_Digit and AM_PM_ALARM = AM_PM_Flag) then
-			FLASH_FLAG <= '1';
-		end if;
-			
 		if(RESET='0') then -- reset
 			HH_Digit<="0000";
 			HL_Digit<="0000";
@@ -59,13 +66,10 @@ BEGIN
 			SL_Digit<="0000";	
 			AM_PM_Flag <= '0';
 			-- Reset alarm
-			FLASH_FLAG <= '0';
 			HH_ALARM<="0000";
 			HL_ALARM<="0000";
 			MH_ALARM<="0000";
-			ML_ALARM<="0000";
-			SH_ALARM<="0010";
-			SL_ALARM<="0000";
+			ML_ALARM<="0001";
 			AM_PM_ALARM<= '0';
 		elsif(SET_H='0') then -- setting hours
 			if(SETTING_MODE='0') then 
@@ -138,17 +142,9 @@ BEGIN
 			
 			end if;
 		elsif(SET_S='0') then -- setting seconds
-			if(SETTING_MODE='0') then 
-				-- setting actual seconds
+		-- setting actual seconds
 				SH_Digit<=BCD_H;
 				SL_Digit<=BCD_L;
-			else
-				-- setting alarm seconds
-				SH_ALARM<=BCD_H;
-				SL_ALARM<=BCD_L;
-			
-			end if;
-			
 		elsif(ClkFlag'event and ClkFlag='1') then
 			if (SL_Digit>=9) then
 				SL_Digit<="0000";

@@ -1,11 +1,11 @@
-Fitter Status : Successful - Sat Feb 25 19:42:54 2023
+Fitter Status : Successful - Sat Feb 25 20:47:54 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : BCDcount
 Top-level Entity Name : BCDcount
 Family : Cyclone V
 Device : 5CEBA4F23C7
 Timing Models : Final
-Logic utilization (in ALMs) : 131 / 18,480 ( < 1 % )
+Logic utilization (in ALMs) : 118 / 18,480 ( < 1 % )
 Total registers : 60
 Total pins : 59 / 224 ( 26 % )
 Total virtual pins : 0

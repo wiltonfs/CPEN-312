@@ -1,5 +1,5 @@
 Timing Analyzer report for BCDcount
-Sat Feb 25 19:43:07 2023
+Sat Feb 25 20:48:07 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -101,14 +101,14 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.27        ;
+; Average used               ; 1.24        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   9.3%      ;
-;     Processor 3            ;   9.0%      ;
-;     Processor 4            ;   8.9%      ;
+;     Processor 2            ;   8.0%      ;
+;     Processor 3            ;   7.9%      ;
+;     Processor 4            ;   7.8%      ;
 +----------------------------+-------------+
 
 
@@ -129,9 +129,9 @@ refer to the applicable agreement for further details.
 +------------+-----------------+------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
 +------------+-----------------+------------+------+
-; 54.49 MHz  ; 54.49 MHz       ; RESET      ;      ;
-; 130.04 MHz ; 130.04 MHz      ; ClkFlag    ;      ;
-; 139.14 MHz ; 139.14 MHz      ; CLK_50     ;      ;
+; 76.39 MHz  ; 76.39 MHz       ; RESET      ;      ;
+; 136.87 MHz ; 136.87 MHz      ; ClkFlag    ;      ;
+; 144.84 MHz ; 144.84 MHz      ; CLK_50     ;      ;
 +------------+-----------------+------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -144,13 +144,13 @@ HTML report is unavailable in plain text report export.
 
 +-------------------------------------+
 ; Slow 1100mV 85C Model Setup Summary ;
-+---------+---------+-----------------+
-; Clock   ; Slack   ; End Point TNS   ;
-+---------+---------+-----------------+
-; ClkFlag ; -10.290 ; -187.732        ;
-; RESET   ; -9.742  ; -146.586        ;
-; CLK_50  ; -6.187  ; -130.440        ;
-+---------+---------+-----------------+
++---------+--------+------------------+
+; Clock   ; Slack  ; End Point TNS    ;
++---------+--------+------------------+
+; ClkFlag ; -9.422 ; -202.925         ;
+; RESET   ; -6.629 ; -84.703          ;
+; CLK_50  ; -5.904 ; -128.527         ;
++---------+--------+------------------+
 
 
 +------------------------------------+
@@ -158,9 +158,9 @@ HTML report is unavailable in plain text report export.
 +---------+-------+------------------+
 ; Clock   ; Slack ; End Point TNS    ;
 +---------+-------+------------------+
-; CLK_50  ; 0.437 ; 0.000            ;
-; RESET   ; 1.829 ; 0.000            ;
-; ClkFlag ; 2.182 ; 0.000            ;
+; CLK_50  ; 0.442 ; 0.000            ;
+; RESET   ; 0.740 ; 0.000            ;
+; ClkFlag ; 0.997 ; 0.000            ;
 +---------+-------+------------------+
 
 
@@ -169,9 +169,9 @@ HTML report is unavailable in plain text report export.
 +--------------+--------+----------------+
 ; Clock        ; Slack  ; End Point TNS  ;
 +--------------+--------+----------------+
-; RESET        ; -5.241 ; -99.023        ;
-; SETTING_MODE ; -4.843 ; -97.254        ;
-; ClkFlag      ; -4.278 ; -91.050        ;
+; SETTING_MODE ; -4.681 ; -61.412        ;
+; RESET        ; -4.585 ; -97.412        ;
+; ClkFlag      ; -4.017 ; -86.450        ;
 +--------------+--------+----------------+
 
 
@@ -180,9 +180,9 @@ HTML report is unavailable in plain text report export.
 +--------------+-------+----------------+
 ; Clock        ; Slack ; End Point TNS  ;
 +--------------+-------+----------------+
-; RESET        ; 1.609 ; 0.000          ;
-; ClkFlag      ; 2.147 ; 0.000          ;
-; SETTING_MODE ; 2.210 ; 0.000          ;
+; RESET        ; 0.608 ; 0.000          ;
+; ClkFlag      ; 1.718 ; 0.000          ;
+; SETTING_MODE ; 1.886 ; 0.000          ;
 +--------------+-------+----------------+
 
 
@@ -191,10 +191,10 @@ HTML report is unavailable in plain text report export.
 +--------------+--------+---------------------------+
 ; Clock        ; Slack  ; End Point TNS             ;
 +--------------+--------+---------------------------+
-; CLK_50       ; -0.538 ; -31.895                   ;
-; ClkFlag      ; -0.538 ; -18.708                   ;
-; SETTING_MODE ; -0.209 ; -1.870                    ;
-; RESET        ; -0.189 ; -2.752                    ;
+; CLK_50       ; -0.538 ; -31.994                   ;
+; ClkFlag      ; -0.538 ; -19.137                   ;
+; SETTING_MODE ; -0.254 ; -4.538                    ;
+; RESET        ; -0.178 ; -1.737                    ;
 +--------------+--------+---------------------------+
 
 
@@ -209,22 +209,22 @@ No synchronizer chains to report.
 +------------+-----------------+------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
 +------------+-----------------+------------+------+
-; 56.95 MHz  ; 56.95 MHz       ; RESET      ;      ;
-; 131.79 MHz ; 131.79 MHz      ; ClkFlag    ;      ;
-; 136.78 MHz ; 136.78 MHz      ; CLK_50     ;      ;
+; 79.06 MHz  ; 79.06 MHz       ; RESET      ;      ;
+; 140.92 MHz ; 140.92 MHz      ; ClkFlag    ;      ;
+; 143.53 MHz ; 143.53 MHz      ; CLK_50     ;      ;
 +------------+-----------------+------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
 +------------------------------------+
 ; Slow 1100mV 0C Model Setup Summary ;
-+---------+---------+----------------+
-; Clock   ; Slack   ; End Point TNS  ;
-+---------+---------+----------------+
-; ClkFlag ; -10.217 ; -185.649       ;
-; RESET   ; -9.554  ; -142.840       ;
-; CLK_50  ; -6.311  ; -130.269       ;
-+---------+---------+----------------+
++---------+--------+-----------------+
+; Clock   ; Slack  ; End Point TNS   ;
++---------+--------+-----------------+
+; ClkFlag ; -9.311 ; -201.434        ;
+; RESET   ; -6.321 ; -82.566         ;
+; CLK_50  ; -5.967 ; -127.435        ;
++---------+--------+-----------------+
 
 
 +-----------------------------------+
@@ -232,9 +232,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +---------+-------+-----------------+
 ; Clock   ; Slack ; End Point TNS   ;
 +---------+-------+-----------------+
+; RESET   ; 0.399 ; 0.000           ;
 ; CLK_50  ; 0.447 ; 0.000           ;
-; RESET   ; 1.447 ; 0.000           ;
-; ClkFlag ; 2.197 ; 0.000           ;
+; ClkFlag ; 0.956 ; 0.000           ;
 +---------+-------+-----------------+
 
 
@@ -243,9 +243,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; RESET        ; -5.087 ; -97.887       ;
-; SETTING_MODE ; -4.693 ; -94.971       ;
-; ClkFlag      ; -4.223 ; -90.422       ;
+; SETTING_MODE ; -4.703 ; -60.864       ;
+; RESET        ; -4.607 ; -96.841       ;
+; ClkFlag      ; -3.995 ; -86.412       ;
 +--------------+--------+---------------+
 
 
@@ -254,9 +254,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------------+-------+---------------+
 ; Clock        ; Slack ; End Point TNS ;
 +--------------+-------+---------------+
-; RESET        ; 1.396 ; 0.000         ;
-; SETTING_MODE ; 1.756 ; 0.000         ;
-; ClkFlag      ; 2.158 ; 0.000         ;
+; RESET        ; 0.420 ; 0.000         ;
+; SETTING_MODE ; 1.556 ; 0.000         ;
+; ClkFlag      ; 1.740 ; 0.000         ;
 +--------------+-------+---------------+
 
 
@@ -265,10 +265,10 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +--------------+--------+--------------------------+
 ; Clock        ; Slack  ; End Point TNS            ;
 +--------------+--------+--------------------------+
-; CLK_50       ; -0.538 ; -28.889                  ;
-; ClkFlag      ; -0.538 ; -18.570                  ;
-; SETTING_MODE ; -0.268 ; -2.903                   ;
-; RESET        ; -0.239 ; -3.950                   ;
+; CLK_50       ; -0.542 ; -28.920                  ;
+; ClkFlag      ; -0.538 ; -19.011                  ;
+; RESET        ; -0.234 ; -2.321                   ;
+; SETTING_MODE ; -0.216 ; -4.128                   ;
 +--------------+--------+--------------------------+
 
 
@@ -283,21 +283,21 @@ No synchronizer chains to report.
 +---------+--------+------------------+
 ; Clock   ; Slack  ; End Point TNS    ;
 +---------+--------+------------------+
-; ClkFlag ; -6.085 ; -108.613         ;
-; RESET   ; -5.181 ; -73.840          ;
-; CLK_50  ; -3.228 ; -50.208          ;
+; ClkFlag ; -5.377 ; -116.824         ;
+; RESET   ; -3.380 ; -39.517          ;
+; CLK_50  ; -3.237 ; -49.874          ;
 +---------+--------+------------------+
 
 
 +------------------------------------+
 ; Fast 1100mV 85C Model Hold Summary ;
-+---------+-------+------------------+
-; Clock   ; Slack ; End Point TNS    ;
-+---------+-------+------------------+
-; CLK_50  ; 0.198 ; 0.000            ;
-; RESET   ; 0.681 ; 0.000            ;
-; ClkFlag ; 0.827 ; 0.000            ;
-+---------+-------+------------------+
++---------+--------+-----------------+
+; Clock   ; Slack  ; End Point TNS   ;
++---------+--------+-----------------+
+; RESET   ; -0.014 ; -0.014          ;
+; CLK_50  ; 0.199  ; 0.000           ;
+; ClkFlag ; 0.392  ; 0.000           ;
++---------+--------+-----------------+
 
 
 +----------------------------------------+
@@ -305,21 +305,21 @@ No synchronizer chains to report.
 +--------------+--------+----------------+
 ; Clock        ; Slack  ; End Point TNS  ;
 +--------------+--------+----------------+
-; RESET        ; -2.685 ; -47.478        ;
-; ClkFlag      ; -2.595 ; -55.266        ;
-; SETTING_MODE ; -2.330 ; -47.229        ;
+; ClkFlag      ; -2.338 ; -51.540        ;
+; SETTING_MODE ; -2.216 ; -28.592        ;
+; RESET        ; -2.099 ; -43.911        ;
 +--------------+--------+----------------+
 
 
 +---------------------------------------+
 ; Fast 1100mV 85C Model Removal Summary ;
-+--------------+-------+----------------+
-; Clock        ; Slack ; End Point TNS  ;
-+--------------+-------+----------------+
-; RESET        ; 0.534 ; 0.000          ;
-; SETTING_MODE ; 0.723 ; 0.000          ;
-; ClkFlag      ; 0.786 ; 0.000          ;
-+--------------+-------+----------------+
++--------------+--------+---------------+
+; Clock        ; Slack  ; End Point TNS ;
++--------------+--------+---------------+
+; RESET        ; -0.012 ; -0.012        ;
+; ClkFlag      ; 0.514  ; 0.000         ;
+; SETTING_MODE ; 0.547  ; 0.000         ;
++--------------+--------+---------------+
 
 
 +---------------------------------------------------+
@@ -327,10 +327,10 @@ No synchronizer chains to report.
 +--------------+--------+---------------------------+
 ; Clock        ; Slack  ; End Point TNS             ;
 +--------------+--------+---------------------------+
-; SETTING_MODE ; -0.610 ; -23.304                   ;
-; CLK_50       ; -0.587 ; -17.426                   ;
-; RESET        ; -0.575 ; -23.573                   ;
-; ClkFlag      ; -0.021 ; -0.080                    ;
+; CLK_50       ; -0.621 ; -17.497                   ;
+; SETTING_MODE ; -0.563 ; -17.183                   ;
+; RESET        ; -0.534 ; -22.268                   ;
+; ClkFlag      ; -0.011 ; -0.030                    ;
 +--------------+--------+---------------------------+
 
 
@@ -345,21 +345,21 @@ No synchronizer chains to report.
 +---------+--------+-----------------+
 ; Clock   ; Slack  ; End Point TNS   ;
 +---------+--------+-----------------+
-; ClkFlag ; -5.609 ; -100.981        ;
-; RESET   ; -4.526 ; -61.443         ;
-; CLK_50  ; -2.903 ; -42.960         ;
+; ClkFlag ; -4.931 ; -107.418        ;
+; CLK_50  ; -2.889 ; -42.836         ;
+; RESET   ; -2.742 ; -32.531         ;
 +---------+--------+-----------------+
 
 
 +-----------------------------------+
 ; Fast 1100mV 0C Model Hold Summary ;
-+---------+-------+-----------------+
-; Clock   ; Slack ; End Point TNS   ;
-+---------+-------+-----------------+
-; CLK_50  ; 0.188 ; 0.000           ;
-; RESET   ; 0.404 ; 0.000           ;
-; ClkFlag ; 0.766 ; 0.000           ;
-+---------+-------+-----------------+
++---------+--------+----------------+
+; Clock   ; Slack  ; End Point TNS  ;
++---------+--------+----------------+
+; RESET   ; -0.221 ; -0.221         ;
+; CLK_50  ; 0.190  ; 0.000          ;
+; ClkFlag ; 0.359  ; 0.000          ;
++---------+--------+----------------+
 
 
 +---------------------------------------+
@@ -367,21 +367,21 @@ No synchronizer chains to report.
 +--------------+--------+---------------+
 ; Clock        ; Slack  ; End Point TNS ;
 +--------------+--------+---------------+
-; ClkFlag      ; -2.478 ; -53.188       ;
-; RESET        ; -2.306 ; -40.359       ;
-; SETTING_MODE ; -1.951 ; -39.649       ;
+; ClkFlag      ; -2.282 ; -50.272       ;
+; SETTING_MODE ; -1.857 ; -23.824       ;
+; RESET        ; -1.767 ; -36.251       ;
 +--------------+--------+---------------+
 
 
-+--------------------------------------+
-; Fast 1100mV 0C Model Removal Summary ;
-+--------------+-------+---------------+
-; Clock        ; Slack ; End Point TNS ;
-+--------------+-------+---------------+
-; RESET        ; 0.367 ; 0.000         ;
-; SETTING_MODE ; 0.451 ; 0.000         ;
-; ClkFlag      ; 0.742 ; 0.000         ;
-+--------------+-------+---------------+
++---------------------------------------+
+; Fast 1100mV 0C Model Removal Summary  ;
++--------------+--------+---------------+
+; Clock        ; Slack  ; End Point TNS ;
++--------------+--------+---------------+
+; RESET        ; -0.141 ; -0.172        ;
+; SETTING_MODE ; 0.322  ; 0.000         ;
+; ClkFlag      ; 0.509  ; 0.000         ;
++--------------+--------+---------------+
 
 
 +--------------------------------------------------+
@@ -389,10 +389,10 @@ No synchronizer chains to report.
 +--------------+--------+--------------------------+
 ; Clock        ; Slack  ; End Point TNS            ;
 +--------------+--------+--------------------------+
-; CLK_50       ; -0.624 ; -20.876                  ;
-; SETTING_MODE ; -0.598 ; -23.726                  ;
-; RESET        ; -0.574 ; -24.629                  ;
-; ClkFlag      ; 0.022  ; 0.000                    ;
+; CLK_50       ; -0.646 ; -20.998                  ;
+; SETTING_MODE ; -0.545 ; -16.677                  ;
+; RESET        ; -0.531 ; -22.465                  ;
+; ClkFlag      ; 0.028  ; 0.000                    ;
 +--------------+--------+--------------------------+
 
 
@@ -402,22 +402,22 @@ No synchronizer chains to report.
 No synchronizer chains to report.
 
 
-+--------------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                            ;
-+------------------+----------+-------+----------+---------+---------------------+
-; Clock            ; Setup    ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+----------+-------+----------+---------+---------------------+
-; Worst-case Slack ; -10.290  ; 0.188 ; -5.241   ; 0.367   ; -0.624              ;
-;  CLK_50          ; -6.311   ; 0.188 ; N/A      ; N/A     ; -0.624              ;
-;  ClkFlag         ; -10.290  ; 0.766 ; -4.278   ; 0.742   ; -0.538              ;
-;  RESET           ; -9.742   ; 0.404 ; -5.241   ; 0.367   ; -0.575              ;
-;  SETTING_MODE    ; N/A      ; N/A   ; -4.843   ; 0.451   ; -0.610              ;
-; Design-wide TNS  ; -464.758 ; 0.0   ; -287.327 ; 0.0     ; -69.231             ;
-;  CLK_50          ; -130.440 ; 0.000 ; N/A      ; N/A     ; -31.895             ;
-;  ClkFlag         ; -187.732 ; 0.000 ; -91.050  ; 0.000   ; -18.708             ;
-;  RESET           ; -146.586 ; 0.000 ; -99.023  ; 0.000   ; -24.629             ;
-;  SETTING_MODE    ; N/A      ; N/A   ; -97.254  ; 0.000   ; -23.726             ;
-+------------------+----------+-------+----------+---------+---------------------+
++---------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                             ;
++------------------+----------+--------+----------+---------+---------------------+
+; Clock            ; Setup    ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+----------+--------+----------+---------+---------------------+
+; Worst-case Slack ; -9.422   ; -0.221 ; -4.703   ; -0.141  ; -0.646              ;
+;  CLK_50          ; -5.967   ; 0.190  ; N/A      ; N/A     ; -0.646              ;
+;  ClkFlag         ; -9.422   ; 0.359  ; -4.017   ; 0.509   ; -0.538              ;
+;  RESET           ; -6.629   ; -0.221 ; -4.607   ; -0.141  ; -0.534              ;
+;  SETTING_MODE    ; N/A      ; N/A    ; -4.703   ; 0.322   ; -0.563              ;
+; Design-wide TNS  ; -416.155 ; -0.221 ; -245.274 ; -0.172  ; -60.14              ;
+;  CLK_50          ; -128.527 ; 0.000  ; N/A      ; N/A     ; -31.994             ;
+;  ClkFlag         ; -202.925 ; 0.000  ; -86.450  ; 0.000   ; -19.137             ;
+;  RESET           ; -84.703  ; -0.221 ; -97.412  ; -0.172  ; -22.465             ;
+;  SETTING_MODE    ; N/A      ; N/A    ; -61.412  ; 0.000   ; -17.183             ;
++------------------+----------+--------+----------+---------+---------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -478,19 +478,19 @@ No synchronizer chains to report.
 ; Pin          ; I/O Standard ; 10-90 Rise Time ; 90-10 Fall Time ;
 +--------------+--------------+-----------------+-----------------+
 ; RESET        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; ALARM_ON     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; SET_M        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; SET_S        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; SET_H        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; SETTING_MODE ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; BCD_H[0]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; BCD_H[1]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; BCD_H[2]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; BCD_H[3]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; BCD_L[0]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; BCD_L[1]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; BCD_L[2]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; BCD_L[3]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; BCD_H[3]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; BCD_H[1]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
-; BCD_H[2]     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; ALARM_ON     ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; SET_S        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; SET_M        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; SET_H        ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
+; SETTING_MODE ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 ; CLK_50       ; 3.3-V LVTTL  ; 2640 ps         ; 2640 ps         ;
 +--------------+--------------+-----------------+-----------------+
 
@@ -708,14 +708,14 @@ No synchronizer chains to report.
 +--------------+----------+----------+----------+----------+----------+
 ; From Clock   ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +--------------+----------+----------+----------+----------+----------+
-; CLK_50       ; CLK_50   ; 1493     ; 0        ; 0        ; 0        ;
+; CLK_50       ; CLK_50   ; 1483     ; 0        ; 0        ; 0        ;
 ; ClkFlag      ; CLK_50   ; 1        ; 1        ; 0        ; 0        ;
 ; ClkFlag      ; ClkFlag  ; 356      ; 0        ; 0        ; 0        ;
 ; RESET        ; ClkFlag  ; 712      ; 1091     ; 0        ; 0        ;
-; SETTING_MODE ; ClkFlag  ; 356      ; 356      ; 0        ; 0        ;
-; ClkFlag      ; RESET    ; 0        ; 0        ; 23       ; 0        ;
-; RESET        ; RESET    ; 0        ; 0        ; 46       ; 69       ;
-; SETTING_MODE ; RESET    ; 0        ; 0        ; 23       ; 23       ;
+; SETTING_MODE ; ClkFlag  ; 177      ; 177      ; 0        ; 0        ;
+; ClkFlag      ; RESET    ; 0        ; 0        ; 15       ; 0        ;
+; RESET        ; RESET    ; 0        ; 0        ; 30       ; 45       ;
+; SETTING_MODE ; RESET    ; 0        ; 0        ; 15       ; 15       ;
 +--------------+----------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -725,14 +725,14 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +--------------+----------+----------+----------+----------+----------+
 ; From Clock   ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +--------------+----------+----------+----------+----------+----------+
-; CLK_50       ; CLK_50   ; 1493     ; 0        ; 0        ; 0        ;
+; CLK_50       ; CLK_50   ; 1483     ; 0        ; 0        ; 0        ;
 ; ClkFlag      ; CLK_50   ; 1        ; 1        ; 0        ; 0        ;
 ; ClkFlag      ; ClkFlag  ; 356      ; 0        ; 0        ; 0        ;
 ; RESET        ; ClkFlag  ; 712      ; 1091     ; 0        ; 0        ;
-; SETTING_MODE ; ClkFlag  ; 356      ; 356      ; 0        ; 0        ;
-; ClkFlag      ; RESET    ; 0        ; 0        ; 23       ; 0        ;
-; RESET        ; RESET    ; 0        ; 0        ; 46       ; 69       ;
-; SETTING_MODE ; RESET    ; 0        ; 0        ; 23       ; 23       ;
+; SETTING_MODE ; ClkFlag  ; 177      ; 177      ; 0        ; 0        ;
+; ClkFlag      ; RESET    ; 0        ; 0        ; 15       ; 0        ;
+; RESET        ; RESET    ; 0        ; 0        ; 30       ; 45       ;
+; SETTING_MODE ; RESET    ; 0        ; 0        ; 15       ; 15       ;
 +--------------+----------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -744,7 +744,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +------------+--------------+----------+----------+----------+----------+
 ; RESET      ; ClkFlag      ; 46       ; 46       ; 0        ; 0        ;
 ; RESET      ; RESET        ; 0        ; 0        ; 23       ; 23       ;
-; RESET      ; SETTING_MODE ; 0        ; 0        ; 22       ; 22       ;
+; RESET      ; SETTING_MODE ; 0        ; 0        ; 14       ; 14       ;
 +------------+--------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -756,7 +756,7 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 +------------+--------------+----------+----------+----------+----------+
 ; RESET      ; ClkFlag      ; 46       ; 46       ; 0        ; 0        ;
 ; RESET      ; RESET        ; 0        ; 0        ; 23       ; 23       ;
-; RESET      ; SETTING_MODE ; 0        ; 0        ; 22       ; 22       ;
+; RESET      ; SETTING_MODE ; 0        ; 0        ; 14       ; 14       ;
 +------------+--------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -781,9 +781,9 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 14    ; 14   ;
-; Unconstrained Input Port Paths  ; 778   ; 778  ;
+; Unconstrained Input Port Paths  ; 731   ; 731  ;
 ; Unconstrained Output Ports      ; 43    ; 43   ;
-; Unconstrained Output Port Paths ; 723   ; 723  ;
+; Unconstrained Output Port Paths ; 709   ; 709  ;
 +---------------------------------+-------+------+
 
 
@@ -951,14 +951,14 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 25 19:43:01 2023
+    Info: Processing started: Sat Feb 25 20:48:01 2023
 Info: Command: quartus_sta BCDcount -c BCDcount
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
-Warning (335093): The Timing Analyzer is analyzing 46 combinational loops as latches. For more details, run the Check Timing command in the Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
+Warning (335093): The Timing Analyzer is analyzing 38 combinational loops as latches. For more details, run the Check Timing command in the Timing Analyzer or view the "User-Specified and Inferred Latches" table in the Analysis & Synthesis report.
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'BCDcount.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
 Info (332105): Deriving Clocks
@@ -966,272 +966,232 @@ Info (332105): Deriving Clocks
     Info (332105): create_clock -period 1.000 -name ClkFlag ClkFlag
     Info (332105): create_clock -period 1.000 -name RESET RESET
     Info (332105): create_clock -period 1.000 -name SETTING_MODE SETTING_MODE
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "AM_PM_Flag~10|combout"
-    Warning (332126): Node "AM_PM_Flag~2|datad"
+    Warning (332126): Node "AM_PM_Flag~2|datac"
     Warning (332126): Node "AM_PM_Flag~2|combout"
-    Warning (332126): Node "AM_PM_Flag~10|dataf"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "MH_Digit[1]~6|combout"
-    Warning (332126): Node "MH_Digit~28|datad"
-    Warning (332126): Node "MH_Digit~28|combout"
-    Warning (332126): Node "MH_Digit[1]~6|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "MH_Digit[2]~10|combout"
-    Warning (332126): Node "MH_Digit~29|dataa"
-    Warning (332126): Node "MH_Digit~29|combout"
-    Warning (332126): Node "MH_Digit[2]~10|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+    Warning (332126): Node "AM_PM_Flag~10|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "MH_Digit[3]~14|combout"
-    Warning (332126): Node "MH_Digit~30|dataa"
+    Warning (332126): Node "MH_Digit~30|datac"
     Warning (332126): Node "MH_Digit~30|combout"
-    Warning (332126): Node "MH_Digit[3]~14|dataa"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+    Warning (332126): Node "MH_Digit[3]~14|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "MH_Digit[0]~2|combout"
     Warning (332126): Node "MH_Digit~27|datad"
     Warning (332126): Node "MH_Digit~27|combout"
     Warning (332126): Node "MH_Digit[0]~2|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SH_Digit[3]~14|combout"
-    Warning (332126): Node "SH_Digit~32|datad"
-    Warning (332126): Node "SH_Digit~32|combout"
-    Warning (332126): Node "SH_Digit[3]~14|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SH_Digit[2]~10|combout"
-    Warning (332126): Node "SH_Digit~31|datac"
-    Warning (332126): Node "SH_Digit~31|combout"
-    Warning (332126): Node "SH_Digit[2]~10|datac"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SH_Digit[1]~6|combout"
-    Warning (332126): Node "SH_Digit~30|datac"
-    Warning (332126): Node "SH_Digit~30|combout"
-    Warning (332126): Node "SH_Digit[1]~6|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SH_Digit[0]~2|combout"
-    Warning (332126): Node "SH_Digit~29|datad"
-    Warning (332126): Node "SH_Digit~29|combout"
-    Warning (332126): Node "SH_Digit[0]~2|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SL_Digit[2]~10|combout"
-    Warning (332126): Node "SL_Digit~26|datad"
-    Warning (332126): Node "SL_Digit~26|combout"
-    Warning (332126): Node "SL_Digit[2]~10|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SL_Digit[0]~2|combout"
-    Warning (332126): Node "SL_Digit~24|datab"
-    Warning (332126): Node "SL_Digit~24|combout"
-    Warning (332126): Node "SL_Digit[0]~2|datac"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SL_Digit[3]~14|combout"
-    Warning (332126): Node "SL_Digit~27|datad"
-    Warning (332126): Node "SL_Digit~27|combout"
-    Warning (332126): Node "SL_Digit[3]~14|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "SL_Digit[1]~6|combout"
-    Warning (332126): Node "SL_Digit~25|dataa"
-    Warning (332126): Node "SL_Digit~25|combout"
-    Warning (332126): Node "SL_Digit[1]~6|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "MH_Digit[1]~6|combout"
+    Warning (332126): Node "MH_Digit~28|datac"
+    Warning (332126): Node "MH_Digit~28|combout"
+    Warning (332126): Node "MH_Digit[1]~6|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "MH_Digit[2]~10|combout"
+    Warning (332126): Node "MH_Digit~29|datad"
+    Warning (332126): Node "MH_Digit~29|combout"
+    Warning (332126): Node "MH_Digit[2]~10|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "ML_Digit[1]~6|combout"
-    Warning (332126): Node "ML_Digit~26|datad"
+    Warning (332126): Node "ML_Digit~26|datac"
     Warning (332126): Node "ML_Digit~26|combout"
-    Warning (332126): Node "ML_Digit[1]~6|dataa"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+    Warning (332126): Node "ML_Digit[1]~6|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "ML_Digit[0]~2|combout"
+    Warning (332126): Node "ML_Digit~25|datac"
+    Warning (332126): Node "ML_Digit~25|combout"
+    Warning (332126): Node "ML_Digit[0]~2|datac"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "ML_Digit[2]~10|combout"
-    Warning (332126): Node "ML_Digit~27|datab"
+    Warning (332126): Node "ML_Digit~27|datac"
     Warning (332126): Node "ML_Digit~27|combout"
     Warning (332126): Node "ML_Digit[2]~10|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "ML_Digit[3]~14|combout"
-    Warning (332126): Node "ML_Digit~28|datab"
+    Warning (332126): Node "ML_Digit~28|datae"
     Warning (332126): Node "ML_Digit~28|combout"
     Warning (332126): Node "ML_Digit[3]~14|dataa"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "ML_Digit[0]~2|combout"
-    Warning (332126): Node "ML_Digit~25|datad"
-    Warning (332126): Node "ML_Digit~25|combout"
-    Warning (332126): Node "ML_Digit[0]~2|datab"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "HL_Digit[3]~2|combout"
-    Warning (332126): Node "HL_Digit~25|dataf"
+    Warning (332126): Node "HL_Digit~25|datac"
     Warning (332126): Node "HL_Digit~25|combout"
-    Warning (332126): Node "HL_Digit[3]~2|datac"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "HH_Digit[0]~6|combout"
-    Warning (332126): Node "HH_Digit~16|datab"
-    Warning (332126): Node "HH_Digit~16|combout"
-    Warning (332126): Node "HH_Digit[0]~6|datad"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "HL_Digit[1]~10|combout"
-    Warning (332126): Node "HL_Digit~29|datac"
-    Warning (332126): Node "HL_Digit~29|combout"
-    Warning (332126): Node "HL_Digit[1]~10|datac"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (332126): Node "HL_Digit[0]~14|combout"
-    Warning (332126): Node "HL_Digit~30|datac"
-    Warning (332126): Node "HL_Digit~30|combout"
-    Warning (332126): Node "HL_Digit[0]~14|dataa"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+    Warning (332126): Node "HL_Digit[3]~2|datab"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "HL_Digit[2]~6|combout"
-    Warning (332126): Node "HL_Digit~27|datad"
+    Warning (332126): Node "HL_Digit~27|datae"
     Warning (332126): Node "HL_Digit~27|combout"
     Warning (332126): Node "HL_Digit[2]~6|datac"
-Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "HL_Digit[1]~10|combout"
+    Warning (332126): Node "HL_Digit~29|datad"
+    Warning (332126): Node "HL_Digit~29|combout"
+    Warning (332126): Node "HL_Digit[1]~10|datad"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "HH_Digit[0]~6|combout"
+    Warning (332126): Node "HH_Digit~16|dataa"
+    Warning (332126): Node "HH_Digit~16|combout"
+    Warning (332126): Node "HH_Digit[0]~6|dataa"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
     Warning (332126): Node "HH_Digit[1]~2|combout"
     Warning (332126): Node "HH_Digit~14|datad"
     Warning (332126): Node "HH_Digit~14|combout"
-    Warning (332126): Node "HH_Digit[1]~2|datad"
+    Warning (332126): Node "HH_Digit[1]~2|dataa"
+Warning (332125): Found combinational loop of 4 nodes File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (332126): Node "HL_Digit[0]~14|combout"
+    Warning (332126): Node "HL_Digit~30|datac"
+    Warning (332126): Node "HL_Digit~30|combout"
+    Warning (332126): Node "HL_Digit[0]~14|datac"
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1100mV 85C Model
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -10.290
+Info (332146): Worst-case setup slack is -9.422
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):   -10.290            -187.732 ClkFlag 
-    Info (332119):    -9.742            -146.586 RESET 
-    Info (332119):    -6.187            -130.440 CLK_50 
-Info (332146): Worst-case hold slack is 0.437
+    Info (332119):    -9.422            -202.925 ClkFlag 
+    Info (332119):    -6.629             -84.703 RESET 
+    Info (332119):    -5.904            -128.527 CLK_50 
+Info (332146): Worst-case hold slack is 0.442
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.437               0.000 CLK_50 
-    Info (332119):     1.829               0.000 RESET 
-    Info (332119):     2.182               0.000 ClkFlag 
-Info (332146): Worst-case recovery slack is -5.241
+    Info (332119):     0.442               0.000 CLK_50 
+    Info (332119):     0.740               0.000 RESET 
+    Info (332119):     0.997               0.000 ClkFlag 
+Info (332146): Worst-case recovery slack is -4.681
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -5.241             -99.023 RESET 
-    Info (332119):    -4.843             -97.254 SETTING_MODE 
-    Info (332119):    -4.278             -91.050 ClkFlag 
-Info (332146): Worst-case removal slack is 1.609
+    Info (332119):    -4.681             -61.412 SETTING_MODE 
+    Info (332119):    -4.585             -97.412 RESET 
+    Info (332119):    -4.017             -86.450 ClkFlag 
+Info (332146): Worst-case removal slack is 0.608
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.609               0.000 RESET 
-    Info (332119):     2.147               0.000 ClkFlag 
-    Info (332119):     2.210               0.000 SETTING_MODE 
+    Info (332119):     0.608               0.000 RESET 
+    Info (332119):     1.718               0.000 ClkFlag 
+    Info (332119):     1.886               0.000 SETTING_MODE 
 Info (332146): Worst-case minimum pulse width slack is -0.538
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.538             -31.895 CLK_50 
-    Info (332119):    -0.538             -18.708 ClkFlag 
-    Info (332119):    -0.209              -1.870 SETTING_MODE 
-    Info (332119):    -0.189              -2.752 RESET 
+    Info (332119):    -0.538             -31.994 CLK_50 
+    Info (332119):    -0.538             -19.137 ClkFlag 
+    Info (332119):    -0.254              -4.538 SETTING_MODE 
+    Info (332119):    -0.178              -1.737 RESET 
 Info: Analyzing Slow 1100mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -10.217
+Info (332146): Worst-case setup slack is -9.311
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):   -10.217            -185.649 ClkFlag 
-    Info (332119):    -9.554            -142.840 RESET 
-    Info (332119):    -6.311            -130.269 CLK_50 
-Info (332146): Worst-case hold slack is 0.447
+    Info (332119):    -9.311            -201.434 ClkFlag 
+    Info (332119):    -6.321             -82.566 RESET 
+    Info (332119):    -5.967            -127.435 CLK_50 
+Info (332146): Worst-case hold slack is 0.399
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
+    Info (332119):     0.399               0.000 RESET 
     Info (332119):     0.447               0.000 CLK_50 
-    Info (332119):     1.447               0.000 RESET 
-    Info (332119):     2.197               0.000 ClkFlag 
-Info (332146): Worst-case recovery slack is -5.087
+    Info (332119):     0.956               0.000 ClkFlag 
+Info (332146): Worst-case recovery slack is -4.703
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -5.087             -97.887 RESET 
-    Info (332119):    -4.693             -94.971 SETTING_MODE 
-    Info (332119):    -4.223             -90.422 ClkFlag 
-Info (332146): Worst-case removal slack is 1.396
+    Info (332119):    -4.703             -60.864 SETTING_MODE 
+    Info (332119):    -4.607             -96.841 RESET 
+    Info (332119):    -3.995             -86.412 ClkFlag 
+Info (332146): Worst-case removal slack is 0.420
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     1.396               0.000 RESET 
-    Info (332119):     1.756               0.000 SETTING_MODE 
-    Info (332119):     2.158               0.000 ClkFlag 
-Info (332146): Worst-case minimum pulse width slack is -0.538
+    Info (332119):     0.420               0.000 RESET 
+    Info (332119):     1.556               0.000 SETTING_MODE 
+    Info (332119):     1.740               0.000 ClkFlag 
+Info (332146): Worst-case minimum pulse width slack is -0.542
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.538             -28.889 CLK_50 
-    Info (332119):    -0.538             -18.570 ClkFlag 
-    Info (332119):    -0.268              -2.903 SETTING_MODE 
-    Info (332119):    -0.239              -3.950 RESET 
+    Info (332119):    -0.542             -28.920 CLK_50 
+    Info (332119):    -0.538             -19.011 ClkFlag 
+    Info (332119):    -0.234              -2.321 RESET 
+    Info (332119):    -0.216              -4.128 SETTING_MODE 
 Info: Analyzing Fast 1100mV 85C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -6.085
+Info (332146): Worst-case setup slack is -5.377
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -6.085            -108.613 ClkFlag 
-    Info (332119):    -5.181             -73.840 RESET 
-    Info (332119):    -3.228             -50.208 CLK_50 
-Info (332146): Worst-case hold slack is 0.198
+    Info (332119):    -5.377            -116.824 ClkFlag 
+    Info (332119):    -3.380             -39.517 RESET 
+    Info (332119):    -3.237             -49.874 CLK_50 
+Info (332146): Worst-case hold slack is -0.014
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.198               0.000 CLK_50 
-    Info (332119):     0.681               0.000 RESET 
-    Info (332119):     0.827               0.000 ClkFlag 
-Info (332146): Worst-case recovery slack is -2.685
+    Info (332119):    -0.014              -0.014 RESET 
+    Info (332119):     0.199               0.000 CLK_50 
+    Info (332119):     0.392               0.000 ClkFlag 
+Info (332146): Worst-case recovery slack is -2.338
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -2.685             -47.478 RESET 
-    Info (332119):    -2.595             -55.266 ClkFlag 
-    Info (332119):    -2.330             -47.229 SETTING_MODE 
-Info (332146): Worst-case removal slack is 0.534
+    Info (332119):    -2.338             -51.540 ClkFlag 
+    Info (332119):    -2.216             -28.592 SETTING_MODE 
+    Info (332119):    -2.099             -43.911 RESET 
+Info (332146): Worst-case removal slack is -0.012
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.534               0.000 RESET 
-    Info (332119):     0.723               0.000 SETTING_MODE 
-    Info (332119):     0.786               0.000 ClkFlag 
-Info (332146): Worst-case minimum pulse width slack is -0.610
+    Info (332119):    -0.012              -0.012 RESET 
+    Info (332119):     0.514               0.000 ClkFlag 
+    Info (332119):     0.547               0.000 SETTING_MODE 
+Info (332146): Worst-case minimum pulse width slack is -0.621
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.610             -23.304 SETTING_MODE 
-    Info (332119):    -0.587             -17.426 CLK_50 
-    Info (332119):    -0.575             -23.573 RESET 
-    Info (332119):    -0.021              -0.080 ClkFlag 
+    Info (332119):    -0.621             -17.497 CLK_50 
+    Info (332119):    -0.563             -17.183 SETTING_MODE 
+    Info (332119):    -0.534             -22.268 RESET 
+    Info (332119):    -0.011              -0.030 ClkFlag 
 Info: Analyzing Fast 1100mV 0C Model
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
     Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
-Info (332146): Worst-case setup slack is -5.609
+Info (332146): Worst-case setup slack is -4.931
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -5.609            -100.981 ClkFlag 
-    Info (332119):    -4.526             -61.443 RESET 
-    Info (332119):    -2.903             -42.960 CLK_50 
-Info (332146): Worst-case hold slack is 0.188
+    Info (332119):    -4.931            -107.418 ClkFlag 
+    Info (332119):    -2.889             -42.836 CLK_50 
+    Info (332119):    -2.742             -32.531 RESET 
+Info (332146): Worst-case hold slack is -0.221
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.188               0.000 CLK_50 
-    Info (332119):     0.404               0.000 RESET 
-    Info (332119):     0.766               0.000 ClkFlag 
-Info (332146): Worst-case recovery slack is -2.478
+    Info (332119):    -0.221              -0.221 RESET 
+    Info (332119):     0.190               0.000 CLK_50 
+    Info (332119):     0.359               0.000 ClkFlag 
+Info (332146): Worst-case recovery slack is -2.282
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -2.478             -53.188 ClkFlag 
-    Info (332119):    -2.306             -40.359 RESET 
-    Info (332119):    -1.951             -39.649 SETTING_MODE 
-Info (332146): Worst-case removal slack is 0.367
+    Info (332119):    -2.282             -50.272 ClkFlag 
+    Info (332119):    -1.857             -23.824 SETTING_MODE 
+    Info (332119):    -1.767             -36.251 RESET 
+Info (332146): Worst-case removal slack is -0.141
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):     0.367               0.000 RESET 
-    Info (332119):     0.451               0.000 SETTING_MODE 
-    Info (332119):     0.742               0.000 ClkFlag 
-Info (332146): Worst-case minimum pulse width slack is -0.624
+    Info (332119):    -0.141              -0.172 RESET 
+    Info (332119):     0.322               0.000 SETTING_MODE 
+    Info (332119):     0.509               0.000 ClkFlag 
+Info (332146): Worst-case minimum pulse width slack is -0.646
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -0.624             -20.876 CLK_50 
-    Info (332119):    -0.598             -23.726 SETTING_MODE 
-    Info (332119):    -0.574             -24.629 RESET 
-    Info (332119):     0.022               0.000 ClkFlag 
+    Info (332119):    -0.646             -20.998 CLK_50 
+    Info (332119):    -0.545             -16.677 SETTING_MODE 
+    Info (332119):    -0.531             -22.465 RESET 
+    Info (332119):     0.028               0.000 ClkFlag 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
-Info: Quartus Prime Timing Analyzer was successful. 0 errors, 122 warnings
-    Info: Peak virtual memory: 5063 megabytes
-    Info: Processing ended: Sat Feb 25 19:43:07 2023
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 82 warnings
+    Info: Peak virtual memory: 5061 megabytes
+    Info: Processing ended: Sat Feb 25 20:48:07 2023
     Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:07
 

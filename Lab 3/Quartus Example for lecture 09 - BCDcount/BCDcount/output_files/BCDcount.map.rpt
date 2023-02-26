@@ -1,5 +1,5 @@
 Analysis & Synthesis report for BCDcount
-Sat Feb 25 19:42:22 2023
+Sat Feb 25 20:47:23 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -44,7 +44,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sat Feb 25 19:42:22 2023       ;
+; Analysis & Synthesis Status     ; Successful - Sat Feb 25 20:47:23 2023       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; BCDcount                                    ;
 ; Top-level Entity Name           ; BCDcount                                    ;
@@ -183,14 +183,14 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimate of Logic utilization (ALMs needed) ; 131         ;
+; Estimate of Logic utilization (ALMs needed) ; 117         ;
 ;                                             ;             ;
-; Combinational ALUT usage for logic          ; 244         ;
+; Combinational ALUT usage for logic          ; 220         ;
 ;     -- 7 input functions                    ; 0           ;
-;     -- 6 input functions                    ; 18          ;
-;     -- 5 input functions                    ; 33          ;
-;     -- 4 input functions                    ; 113         ;
-;     -- <=3 input functions                  ; 80          ;
+;     -- 6 input functions                    ; 14          ;
+;     -- 5 input functions                    ; 37          ;
+;     -- 4 input functions                    ; 98          ;
+;     -- <=3 input functions                  ; 71          ;
 ;                                             ;             ;
 ; Dedicated logic registers                   ; 53          ;
 ;                                             ;             ;
@@ -199,9 +199,9 @@ refer to the applicable agreement for further details.
 ; Total DSP Blocks                            ; 0           ;
 ;                                             ;             ;
 ; Maximum fan-out node                        ; RESET~input ;
-; Maximum fan-out                             ; 75          ;
-; Total fan-out                               ; 1202        ;
-; Average fan-out                             ; 2.90        ;
+; Maximum fan-out                             ; 67          ;
+; Total fan-out                               ; 1112        ;
+; Average fan-out                             ; 2.84        ;
 +---------------------------------------------+-------------+
 
 
@@ -210,7 +210,7 @@ refer to the applicable agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |BCDcount                  ; 244 (244)           ; 53 (53)                   ; 0                 ; 0          ; 59   ; 0            ; |BCDcount           ; BCDcount    ; work         ;
+; |BCDcount                  ; 220 (220)           ; 53 (53)                   ; 0                 ; 0          ; 59   ; 0            ; |BCDcount           ; BCDcount    ; work         ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -227,23 +227,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; HL_ALARM[1]                                         ; AM_PM_ALARM         ; yes                    ;
 ; HL_ALARM[2]                                         ; AM_PM_ALARM         ; yes                    ;
 ; HL_ALARM[3]                                         ; AM_PM_ALARM         ; yes                    ;
-; MH_ALARM[0]                                         ; ML_ALARM[0]         ; yes                    ;
-; MH_ALARM[1]                                         ; ML_ALARM[0]         ; yes                    ;
-; MH_ALARM[2]                                         ; ML_ALARM[0]         ; yes                    ;
-; MH_ALARM[3]                                         ; ML_ALARM[0]         ; yes                    ;
-; ML_ALARM[0]                                         ; ML_ALARM[0]         ; yes                    ;
-; ML_ALARM[1]                                         ; ML_ALARM[0]         ; yes                    ;
-; ML_ALARM[2]                                         ; ML_ALARM[0]         ; yes                    ;
-; ML_ALARM[3]                                         ; ML_ALARM[0]         ; yes                    ;
-; SH_ALARM[0]                                         ; SH_ALARM[0]         ; yes                    ;
-; SH_ALARM[1]                                         ; SH_ALARM[0]         ; yes                    ;
-; SH_ALARM[2]                                         ; SH_ALARM[0]         ; yes                    ;
-; SH_ALARM[3]                                         ; SH_ALARM[0]         ; yes                    ;
-; SL_ALARM[0]                                         ; SH_ALARM[0]         ; yes                    ;
-; SL_ALARM[1]                                         ; SH_ALARM[0]         ; yes                    ;
-; SL_ALARM[2]                                         ; SH_ALARM[0]         ; yes                    ;
-; SL_ALARM[3]                                         ; SH_ALARM[0]         ; yes                    ;
-; Number of user-specified and inferred latches = 23  ;                     ;                        ;
+; MH_ALARM[0]                                         ; MH_ALARM[1]         ; yes                    ;
+; MH_ALARM[1]                                         ; MH_ALARM[1]         ; yes                    ;
+; MH_ALARM[2]                                         ; MH_ALARM[1]         ; yes                    ;
+; MH_ALARM[3]                                         ; MH_ALARM[1]         ; yes                    ;
+; ML_ALARM[0]                                         ; MH_ALARM[1]         ; yes                    ;
+; ML_ALARM[1]                                         ; MH_ALARM[1]         ; yes                    ;
+; ML_ALARM[2]                                         ; MH_ALARM[1]         ; yes                    ;
+; ML_ALARM[3]                                         ; MH_ALARM[1]         ; yes                    ;
+; Number of user-specified and inferred latches = 15  ;                     ;                        ;
 +-----------------------------------------------------+---------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
@@ -283,21 +275,21 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ;     ENA CLR           ; 20                          ;
 ;     SCLR              ; 29                          ;
 ;     plain             ; 1                           ;
-; arriav_lcell_comb     ; 250                         ;
+; arriav_lcell_comb     ; 226                         ;
 ;     arith             ; 29                          ;
 ;         1 data inputs ; 29                          ;
-;     normal            ; 221                         ;
+;     normal            ; 197                         ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 5                           ;
-;         2 data inputs ; 13                          ;
-;         3 data inputs ; 38                          ;
-;         4 data inputs ; 113                         ;
-;         5 data inputs ; 33                          ;
-;         6 data inputs ; 18                          ;
+;         2 data inputs ; 12                          ;
+;         3 data inputs ; 30                          ;
+;         4 data inputs ; 98                          ;
+;         5 data inputs ; 37                          ;
+;         6 data inputs ; 14                          ;
 ; boundary_port         ; 59                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.41                        ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 2.75                        ;
 +-----------------------+-----------------------------+
 
 
@@ -316,7 +308,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 25 19:42:10 2023
+    Info: Processing started: Sat Feb 25 20:47:11 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off BCDcount -c BCDcount
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -324,121 +316,105 @@ Info (12021): Found 2 design units, including 1 entities, in source file bcdcoun
     Info (12022): Found design unit 1: BCDcount-a File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 15
     Info (12023): Found entity 1: BCDcount File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 6
 Info (12127): Elaborating entity "BCDcount" for the top level hierarchy
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "ALARM_ON" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "HH_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "HH_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "HL_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "HL_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "MH_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "MH_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "ML_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "ML_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "SH_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "SH_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "SL_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "SL_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "AM_PM_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(49): signal "AM_PM_Flag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 49
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(71): signal "SETTING_MODE" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 71
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(73): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 73
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(73): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 73
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(76): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 76
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(79): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 79
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(80): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 80
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "ALARM_ON" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "HH_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "HH_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "HL_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "HL_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "MH_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "MH_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "ML_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "ML_Digit" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "AM_PM_ALARM" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(48): signal "AM_PM_Flag" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 48
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(52): signal "RESET" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 52
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "FLASH_FLAG", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(75): signal "SETTING_MODE" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 75
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(77): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 77
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(77): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 77
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(80): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 80
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(83): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 83
 Warning (10492): VHDL Process Statement warning at BCDcount.vhd(84): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 84
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(89): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 89
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(95): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 95
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(96): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 96
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(101): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 101
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(101): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 101
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(104): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 104
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(107): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 107
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(108): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 108
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(88): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 88
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(93): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 93
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(99): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 99
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(100): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 100
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(105): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 105
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(105): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 105
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(108): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 108
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(111): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 111
 Warning (10492): VHDL Process Statement warning at BCDcount.vhd(112): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 112
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(117): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 117
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(123): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 123
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(124): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 124
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(130): signal "SETTING_MODE" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 130
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(132): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 132
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(133): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 133
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(116): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 116
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(121): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 121
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(127): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 127
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(128): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 128
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(134): signal "SETTING_MODE" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 134
 Warning (10492): VHDL Process Statement warning at BCDcount.vhd(136): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 136
 Warning (10492): VHDL Process Statement warning at BCDcount.vhd(137): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 137
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(141): signal "SETTING_MODE" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 141
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(143): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 143
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(144): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 144
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(147): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 147
-Warning (10492): VHDL Process Statement warning at BCDcount.vhd(148): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 148
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "FLASH_FLAG", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "HH_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "HL_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "MH_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "ML_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "SH_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "SL_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Warning (10631): VHDL Process Statement warning at BCDcount.vhd(46): inferring latch(es) for signal or variable "AM_PM_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "AM_PM_ALARM" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SL_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SL_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SL_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SL_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SH_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SH_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SH_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "SH_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "ML_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "ML_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "ML_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "ML_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "MH_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "MH_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "MH_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "MH_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HL_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HL_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HL_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HL_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HH_ALARM[0]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HH_ALARM[1]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HH_ALARM[2]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
-Info (10041): Inferred latch for "HH_ALARM[3]" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(140): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 140
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(141): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 141
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(146): signal "BCD_H" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 146
+Warning (10492): VHDL Process Statement warning at BCDcount.vhd(147): signal "BCD_L" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 147
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(58): inferring latch(es) for signal or variable "HH_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(58): inferring latch(es) for signal or variable "HL_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(58): inferring latch(es) for signal or variable "MH_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(58): inferring latch(es) for signal or variable "ML_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Warning (10631): VHDL Process Statement warning at BCDcount.vhd(58): inferring latch(es) for signal or variable "AM_PM_ALARM", which holds its previous value in one or more paths through the process File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "AM_PM_ALARM" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "ML_ALARM[0]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "ML_ALARM[1]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "ML_ALARM[2]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "ML_ALARM[3]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "MH_ALARM[0]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "MH_ALARM[1]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "MH_ALARM[2]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "MH_ALARM[3]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HL_ALARM[0]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HL_ALARM[1]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HL_ALARM[2]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HL_ALARM[3]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HH_ALARM[0]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HH_ALARM[1]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HH_ALARM[2]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
+Info (10041): Inferred latch for "HH_ALARM[3]" at BCDcount.vhd(58) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 58
 Info (10041): Inferred latch for "FLASH_FLAG" at BCDcount.vhd(46) File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 46
 Warning (13004): Presettable and clearable registers converted to equivalent circuits with latches. Registers power-up to an undefined state, and DEVCLRn places the registers in an undefined state.
-    Warning (13310): Register "HH_Digit[1]" is converted into an equivalent circuit using register "HH_Digit[1]~_emulated" and latch "HH_Digit[1]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "HH_Digit[0]" is converted into an equivalent circuit using register "HH_Digit[0]~_emulated" and latch "HH_Digit[0]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "HL_Digit[3]" is converted into an equivalent circuit using register "HL_Digit[3]~_emulated" and latch "HL_Digit[3]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "HL_Digit[2]" is converted into an equivalent circuit using register "HL_Digit[2]~_emulated" and latch "HL_Digit[2]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "HL_Digit[1]" is converted into an equivalent circuit using register "HL_Digit[1]~_emulated" and latch "HL_Digit[1]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "HL_Digit[0]" is converted into an equivalent circuit using register "HL_Digit[0]~_emulated" and latch "HL_Digit[0]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "MH_Digit[0]" is converted into an equivalent circuit using register "MH_Digit[0]~_emulated" and latch "MH_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "MH_Digit[1]" is converted into an equivalent circuit using register "MH_Digit[1]~_emulated" and latch "MH_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "MH_Digit[2]" is converted into an equivalent circuit using register "MH_Digit[2]~_emulated" and latch "MH_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "MH_Digit[3]" is converted into an equivalent circuit using register "MH_Digit[3]~_emulated" and latch "MH_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "ML_Digit[0]" is converted into an equivalent circuit using register "ML_Digit[0]~_emulated" and latch "ML_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "ML_Digit[1]" is converted into an equivalent circuit using register "ML_Digit[1]~_emulated" and latch "ML_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "ML_Digit[2]" is converted into an equivalent circuit using register "ML_Digit[2]~_emulated" and latch "ML_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "ML_Digit[3]" is converted into an equivalent circuit using register "ML_Digit[3]~_emulated" and latch "ML_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SH_Digit[0]" is converted into an equivalent circuit using register "SH_Digit[0]~_emulated" and latch "SH_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SH_Digit[1]" is converted into an equivalent circuit using register "SH_Digit[1]~_emulated" and latch "SH_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SH_Digit[2]" is converted into an equivalent circuit using register "SH_Digit[2]~_emulated" and latch "SH_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SH_Digit[3]" is converted into an equivalent circuit using register "SH_Digit[3]~_emulated" and latch "SH_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SL_Digit[0]" is converted into an equivalent circuit using register "SL_Digit[0]~_emulated" and latch "SL_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SL_Digit[1]" is converted into an equivalent circuit using register "SL_Digit[1]~_emulated" and latch "SL_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SL_Digit[2]" is converted into an equivalent circuit using register "SL_Digit[2]~_emulated" and latch "SL_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "SL_Digit[3]" is converted into an equivalent circuit using register "SL_Digit[3]~_emulated" and latch "SL_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
-    Warning (13310): Register "AM_PM_Flag" is converted into an equivalent circuit using register "AM_PM_Flag~_emulated" and latch "AM_PM_Flag~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 53
+    Warning (13310): Register "HH_Digit[1]" is converted into an equivalent circuit using register "HH_Digit[1]~_emulated" and latch "HH_Digit[1]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "HH_Digit[0]" is converted into an equivalent circuit using register "HH_Digit[0]~_emulated" and latch "HH_Digit[0]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "HL_Digit[3]" is converted into an equivalent circuit using register "HL_Digit[3]~_emulated" and latch "HL_Digit[3]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "HL_Digit[2]" is converted into an equivalent circuit using register "HL_Digit[2]~_emulated" and latch "HL_Digit[2]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "HL_Digit[1]" is converted into an equivalent circuit using register "HL_Digit[1]~_emulated" and latch "HL_Digit[1]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "HL_Digit[0]" is converted into an equivalent circuit using register "HL_Digit[0]~_emulated" and latch "HL_Digit[0]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "MH_Digit[0]" is converted into an equivalent circuit using register "MH_Digit[0]~_emulated" and latch "MH_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "MH_Digit[1]" is converted into an equivalent circuit using register "MH_Digit[1]~_emulated" and latch "MH_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "MH_Digit[2]" is converted into an equivalent circuit using register "MH_Digit[2]~_emulated" and latch "MH_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "MH_Digit[3]" is converted into an equivalent circuit using register "MH_Digit[3]~_emulated" and latch "MH_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "ML_Digit[0]" is converted into an equivalent circuit using register "ML_Digit[0]~_emulated" and latch "ML_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "ML_Digit[1]" is converted into an equivalent circuit using register "ML_Digit[1]~_emulated" and latch "ML_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "ML_Digit[2]" is converted into an equivalent circuit using register "ML_Digit[2]~_emulated" and latch "ML_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "ML_Digit[3]" is converted into an equivalent circuit using register "ML_Digit[3]~_emulated" and latch "ML_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SH_Digit[0]" is converted into an equivalent circuit using register "SH_Digit[0]~_emulated" and latch "SH_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SH_Digit[1]" is converted into an equivalent circuit using register "SH_Digit[1]~_emulated" and latch "SH_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SH_Digit[2]" is converted into an equivalent circuit using register "SH_Digit[2]~_emulated" and latch "SH_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SH_Digit[3]" is converted into an equivalent circuit using register "SH_Digit[3]~_emulated" and latch "SH_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SL_Digit[0]" is converted into an equivalent circuit using register "SL_Digit[0]~_emulated" and latch "SL_Digit[0]~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SL_Digit[1]" is converted into an equivalent circuit using register "SL_Digit[1]~_emulated" and latch "SL_Digit[1]~5" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SL_Digit[2]" is converted into an equivalent circuit using register "SL_Digit[2]~_emulated" and latch "SL_Digit[2]~9" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "SL_Digit[3]" is converted into an equivalent circuit using register "SL_Digit[3]~_emulated" and latch "SL_Digit[3]~13" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
+    Warning (13310): Register "AM_PM_Flag" is converted into an equivalent circuit using register "AM_PM_Flag~_emulated" and latch "AM_PM_Flag~1" File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 60
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HH[6]" is stuck at VCC File: C:/Users/mmwil/Desktop/CPEN-312/Lab 3/Quartus Example for lecture 09 - BCDcount/BCDcount/BCDcount.vhd Line: 10
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 305 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 281 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 44 output pins
-    Info (21061): Implemented 246 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 4865 megabytes
-    Info: Processing ended: Sat Feb 25 19:42:22 2023
+    Info (21061): Implemented 222 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 71 warnings
+    Info: Peak virtual memory: 4860 megabytes
+    Info: Processing ended: Sat Feb 25 20:47:23 2023
     Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:26
+    Info: Total CPU time (on all processors): 00:00:25
 
 
