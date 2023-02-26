@@ -1,5 +1,5 @@
 Analysis & Synthesis report for BCDcount
-Sat Feb 25 19:33:56 2023
+Sat Feb 25 19:42:22 2023
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -44,7 +44,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sat Feb 25 19:33:55 2023       ;
+; Analysis & Synthesis Status     ; Successful - Sat Feb 25 19:42:22 2023       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; BCDcount                                    ;
 ; Top-level Entity Name           ; BCDcount                                    ;
@@ -164,7 +164,8 @@ refer to the applicable agreement for further details.
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-4         ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-4         ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -182,13 +183,13 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-------------+
 ; Resource                                    ; Usage       ;
 +---------------------------------------------+-------------+
-; Estimate of Logic utilization (ALMs needed) ; 132         ;
+; Estimate of Logic utilization (ALMs needed) ; 131         ;
 ;                                             ;             ;
 ; Combinational ALUT usage for logic          ; 244         ;
 ;     -- 7 input functions                    ; 0           ;
-;     -- 6 input functions                    ; 19          ;
+;     -- 6 input functions                    ; 18          ;
 ;     -- 5 input functions                    ; 33          ;
-;     -- 4 input functions                    ; 112         ;
+;     -- 4 input functions                    ; 113         ;
 ;     -- <=3 input functions                  ; 80          ;
 ;                                             ;             ;
 ; Dedicated logic registers                   ; 53          ;
@@ -199,7 +200,7 @@ refer to the applicable agreement for further details.
 ;                                             ;             ;
 ; Maximum fan-out node                        ; RESET~input ;
 ; Maximum fan-out                             ; 75          ;
-; Total fan-out                               ; 1204        ;
+; Total fan-out                               ; 1202        ;
 ; Average fan-out                             ; 2.90        ;
 +---------------------------------------------+-------------+
 
@@ -290,13 +291,13 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ;         1 data inputs ; 5                           ;
 ;         2 data inputs ; 13                          ;
 ;         3 data inputs ; 38                          ;
-;         4 data inputs ; 112                         ;
+;         4 data inputs ; 113                         ;
 ;         5 data inputs ; 33                          ;
-;         6 data inputs ; 19                          ;
+;         6 data inputs ; 18                          ;
 ; boundary_port         ; 59                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 4.00                        ;
-; Average LUT depth     ; 2.42                        ;
+; Average LUT depth     ; 2.41                        ;
 +-----------------------+-----------------------------+
 
 
@@ -315,7 +316,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Sat Feb 25 19:33:43 2023
+    Info: Processing started: Sat Feb 25 19:42:10 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off BCDcount -c BCDcount
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -435,9 +436,9 @@ Info (21057): Implemented 305 device resources after synthesis - the final resou
     Info (21059): Implemented 44 output pins
     Info (21061): Implemented 246 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
-    Info: Peak virtual memory: 4849 megabytes
-    Info: Processing ended: Sat Feb 25 19:33:56 2023
-    Info: Elapsed time: 00:00:13
+    Info: Peak virtual memory: 4865 megabytes
+    Info: Processing ended: Sat Feb 25 19:42:22 2023
+    Info: Elapsed time: 00:00:12
     Info: Total CPU time (on all processors): 00:00:26
 
 

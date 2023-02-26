@@ -33,7 +33,7 @@ BEGIN
 	PROCESS(CLK_50)
 	BEGIN
 		if(CLK_50'event and CLK_50='1') then
-			if Internal_Count<25000000/16 then
+			if Internal_Count<(25000000/1) then
 				Internal_Count<=Internal_Count+1;
 			else
 				Internal_Count<=(others => '0'); 
