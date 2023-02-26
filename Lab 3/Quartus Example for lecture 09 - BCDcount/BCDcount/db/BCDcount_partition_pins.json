@@ -1,0 +1,241 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "HH[5]",
+					"strict" : false
+				},
+				{
+					"name" : "HH[4]",
+					"strict" : false
+				},
+				{
+					"name" : "HH[3]",
+					"strict" : false
+				},
+				{
+					"name" : "HH[2]",
+					"strict" : false
+				},
+				{
+					"name" : "HH[1]",
+					"strict" : false
+				},
+				{
+					"name" : "HH[0]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[6]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[5]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[4]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[3]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[2]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[1]",
+					"strict" : false
+				},
+				{
+					"name" : "HL[0]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[6]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[5]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[4]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[3]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[2]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[1]",
+					"strict" : false
+				},
+				{
+					"name" : "MH[0]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[6]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[5]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[4]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[3]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[2]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[1]",
+					"strict" : false
+				},
+				{
+					"name" : "ML[0]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[6]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[5]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[4]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[3]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[2]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[1]",
+					"strict" : false
+				},
+				{
+					"name" : "SH[0]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[6]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[5]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[4]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[3]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[2]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[1]",
+					"strict" : false
+				},
+				{
+					"name" : "SL[0]",
+					"strict" : false
+				},
+				{
+					"name" : "FLASH",
+					"strict" : false
+				},
+				{
+					"name" : "AM_PM",
+					"strict" : false
+				},
+				{
+					"name" : "RESET",
+					"strict" : false
+				},
+				{
+					"name" : "SET_S",
+					"strict" : false
+				},
+				{
+					"name" : "ALARM_ON",
+					"strict" : false
+				},
+				{
+					"name" : "SET_H",
+					"strict" : false
+				},
+				{
+					"name" : "SET_M",
+					"strict" : false
+				},
+				{
+					"name" : "SETTING_MODE",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_H[0]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_L[0]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_L[1]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_L[2]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_L[3]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_H[3]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_H[1]",
+					"strict" : false
+				},
+				{
+					"name" : "BCD_H[2]",
+					"strict" : false
+				},
+				{
+					"name" : "CLK_50",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
