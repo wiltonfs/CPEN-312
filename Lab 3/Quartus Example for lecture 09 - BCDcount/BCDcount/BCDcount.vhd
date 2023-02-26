@@ -33,7 +33,7 @@ BEGIN
 	PROCESS(CLK_50)
 	BEGIN
 		if(CLK_50'event and CLK_50='1') then
-			if Internal_Count<25000000 then
+			if Internal_Count<25000000/16 then
 				Internal_Count<=Internal_Count+1;
 			else
 				Internal_Count<=(others => '0'); 
@@ -42,9 +42,14 @@ BEGIN
 		end if;
 	END PROCESS;
 
-	-- Handles 1 second of incrementation
+	-- Handles 1 second of incrementation OR latching values
 	PROCESS(ClkFlag, RESET, SET_S, SET_M, SET_H)
 	BEGIN
+		-- Check if at alarm time
+		if (ALARM_ON = '1' and HH_ALARM = HH_Digit and HL_ALARM = HL_Digit and MH_ALARM = MH_Digit and ML_ALARM = ML_Digit and SH_ALARM = SH_Digit and SL_ALARM = SL_Digit and AM_PM_ALARM = AM_PM_Flag) then
+			FLASH_FLAG <= '1';
+		end if;
+			
 		if(RESET='0') then -- reset
 			HH_Digit<="0000";
 			HL_Digit<="0000";
@@ -56,10 +61,10 @@ BEGIN
 			-- Reset alarm
 			FLASH_FLAG <= '0';
 			HH_ALARM<="0000";
-			HL_ALARM<="0110";
-			MH_ALARM<="0011";
+			HL_ALARM<="0000";
+			MH_ALARM<="0000";
 			ML_ALARM<="0000";
-			SH_ALARM<="0000";
+			SH_ALARM<="0010";
 			SL_ALARM<="0000";
 			AM_PM_ALARM<= '0';
 		elsif(SET_H='0') then -- setting hours
@@ -179,15 +184,10 @@ BEGIN
 				end if;
 			else SL_Digit<=SL_Digit+'1';
 			end if;
-			
-			
-			-- Check if past alarm time
-			if (ALARM_ON = '1' and HH_ALARM = HH_Digit and HL_ALARM = HL_Digit and MH_ALARM = MH_Digit and ML_ALARM = ML_Digit and SH_ALARM = SH_Digit and SL_ALARM = SL_Digit and AM_PM_ALARM = AM_PM_Flag) then
-				FLASH_FLAG <= '1';
-			end if;
 		end if;
 	END PROCESS;
 
+	-- Display the numbers
 	PROCESS(SL_Digit, SH_Digit, ML_Digit, MH_Digit, HL_Digit, HH_Digit)
 	BEGIN
 		case SL_Digit is

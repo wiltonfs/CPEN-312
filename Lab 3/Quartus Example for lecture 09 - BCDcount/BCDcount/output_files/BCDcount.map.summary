@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Sat Feb 25 18:28:06 2023
+Analysis & Synthesis Status : Successful - Sat Feb 25 19:33:55 2023
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : BCDcount
 Top-level Entity Name : BCDcount
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 54
+Total registers : 53
 Total pins : 59
 Total virtual pins : 0
 Total block memory bits : 0

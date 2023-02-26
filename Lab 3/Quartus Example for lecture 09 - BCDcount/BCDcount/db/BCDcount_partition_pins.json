@@ -180,19 +180,19 @@
 					"strict" : false
 				},
 				{
-					"name" : "SET_S",
-					"strict" : false
-				},
-				{
 					"name" : "ALARM_ON",
 					"strict" : false
 				},
 				{
-					"name" : "SET_H",
+					"name" : "SET_M",
 					"strict" : false
 				},
 				{
-					"name" : "SET_M",
+					"name" : "SET_S",
+					"strict" : false
+				},
+				{
+					"name" : "SET_H",
 					"strict" : false
 				},
 				{
