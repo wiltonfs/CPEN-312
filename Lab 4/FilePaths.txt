@@ -1,0 +1,5 @@
+C:\CrossIDE\Call51\Bin\a51.exe
+
+C:\intelFPGA_lite\18.1\quartus\bin64\quartus_stp.exe
+
+C:\CrossIDE\Load_Script.tcl
