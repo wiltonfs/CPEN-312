@@ -78,7 +78,13 @@ endmac
 
 ;This is a "function", it takes no parameters. It just displays the custom display for mode 7
 Custom_disp mac
-	; Up to you to implement
+	; remove 03 and 06
+	Display_on(HEX0, #00)
+	Display_on(HEX1, #01)
+	Display_on(HEX2, #02)
+	Display_on(HEX3, #04)
+	Display_on(HEX4, #05)
+	Display_on(HEX5, #07)
 endmac
 
 Scrll_left mac
