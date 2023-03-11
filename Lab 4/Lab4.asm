@@ -8,8 +8,8 @@ org 0000H ; Which code memory location to start at after reset
 ;The time between "heartbeats" is a function of product of these three
 ;But none of them can be over 255 (8 bit)
 S_TICKS EQU #100
-M_TICKS EQU #100
-M_TICKS_DOUBLE EQU #200
+M_TICKS EQU #70
+M_TICKS_DOUBLE EQU #140
 L_TICKS EQU #150
 
 ; Look-up table for my student number, blank, and HELLO

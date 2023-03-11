@@ -156,8 +156,8 @@
 0003              8   ;The time between "heartbeats" is a function of product of these three
 0003              9   ;But none of them can be over 255 (8 bit)
 0003             10   S_TICKS EQU #100
-0003             11   M_TICKS EQU #100
-0003             12   M_TICKS_DOUBLE EQU #200
+0003             11   M_TICKS EQU #70
+0003             12   M_TICKS_DOUBLE EQU #140
 0003             13   L_TICKS EQU #150
 0003             14   
 0003             15   ; Look-up table for my student number, blank, and HELLO
@@ -455,7 +455,7 @@
 015B            187            
 015B            188            ; Start timer
 015B 7964       189            mov r1, S_TICKS
-015D 7A64       190            mov r2, M_TICKS
+015D 7A46       190            mov r2, M_TICKS
 015F 7B96       191            mov r3, L_TICKS
 0161            192            
 0161            193            
@@ -776,10 +776,10 @@
 039E DA11       262            djnz r2, ENDTICK
 03A0            263            ; if we got here, that means r2 is zero
 03A0 30EB05     264            JNB SWA.3, LONGERTIME ; Jump if bit = 0
-03A3 7A64       265            mov r2, M_TICKS
+03A3 7A46       265            mov r2, M_TICKS
 03A5 0203AA     266            ljmp SHORTERTIME
 03A8            267            LONGERTIME:
-03A8 7AC8       268            mov r2, M_TICKS_DOUBLE
+03A8 7A8C       268            mov r2, M_TICKS_DOUBLE
 03AA            269            SHORTERTIME:
 03AA DB05       270            djnz r3, ENDTICK
 03AC 7B96       271            mov r3, L_TICKS         ; if we got here, that means r3 is zero
