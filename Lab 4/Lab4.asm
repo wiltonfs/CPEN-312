@@ -204,7 +204,7 @@ MODE5:	CJNE r0, #05, MODE6 		; jump if A != byte
 MODE6:	CJNE r0, #06, MODE7 		; jump if A != byte 
 	; Mode 6
 	Hello()
-	
+	mov r4, #00
 	ljmp ENDLATCH
 MODE7:	; this should be the "else" case
 	; Mode 7
