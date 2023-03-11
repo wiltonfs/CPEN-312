@@ -149,121 +149,273 @@
 0000            148   
 0000              2   
 0000              3   org 0000H ; After reset, the processor starts at location zero
-0000 020011       4            ljmp main
+0000 02000C       4            ljmp main
 0003              5   
-0003              6   S_TICKS EQU #100
-0003              7   M_TICKS EQU #100
-0003              8   L_TICKS EQU #90
-0003              9   
-0003             10   
+0003              6   ;These three values are associated with the timing of the circuit
+0003              7   ;Tune them to set the "heartbeat" of the program
+0003              8   S_TICKS EQU #100
+0003              9   M_TICKS EQU #100
+0003             10   L_TICKS EQU #90
 0003             11   
 0003             12   ; Look-up table for my student number
 0003             13   ; Least sig to most sig
 0003             14   ; 48059760
-0003             15   T_StuNum:
-0003 40027810    16            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
+0003             15   ; last one is just blank
+0003             16   T_StuNum:
+0003 40027810    17            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H, 7FH
      12400019
-000B             17   T_HexDisp:
-000B 91929394    18            DB 91H, HEX1, HEX2, HEX3, HEX4, HEX5
-     8E8F
-0011             19   
-                 20   Display_on mac
-                 21   	mov b, a ; Preserve value of accumulator
-                 22   	
-                 23   	mov dptr, #T_StuNum ; point to student number lookup table
-                 24   	mov a, %1 ; Load input into accumulator
-                 25   	movc a, @dptr+a ; Read from table
-                 26   	
-                 27   	mov %0, a ; Display number
-                 28   
-                 29   	mov a, b ; Restore value of accumulator
-                 30   endmac
-0011             31   
-0011             32   main:
-0011 75817F      33            mov SP, #0x7f
-0014 75E800      34            mov LEDRA, #0 ; Bit addressable
-0017 759500      35            mov LEDRB, #0 ; Not bit addressable
-001A 7964        36            mov r1, S_TICKS
-001C 7A64        37            mov r2, M_TICKS
-001E 7B5A        38            mov r3, L_TICKS
-0020             39   Forever:
-0020             40            ; Latching circuit
-0020 20FB02      41            jb key.3, ENDLATCH              ; jump if bit 3 of switch is = 1
-0023 A8E8        42            mov r0, SWA                     ; store switch values in r0
-0025             43   ENDLATCH: 
-0025             44            
-0025             45            ; Timing circuit
-0025 D955        46            djnz r1, ENDTIME
-0027 7964        47            mov r1, S_TICKS         ; if we got here, that means r1 is zero
-0029 DA51        48            djnz r2, ENDTIME
-002B 7A64        49            mov r2, M_TICKS         ; if we got here, that means r2 is zero
-002D DB4D        50            djnz r3, ENDTIME
-002F 7B5A        51            mov r3, L_TICKS         ; if we got here, that means r3 is zero
-0031             52            ; This line should execute once a second
-0031 B2E8        53            cpl LEDRA.0             ;heartbeat
-0033             54            
-0033 7C00        55            mov r4, #00H
-0035 F5F0        56            mov b, a ; Preserve value of accumulator
-0037             56            
-0037 900003      56            mov dptr, #T_StuNum ; point to student number lookup table
-003A EC          56            mov a, r4 ; Load input into accumulator
-003B 93          56            movc a, @dptr+a ; Read from table
-003C             56            
-003C F591        56            mov HEX0, a ; Display number
-003E             56   
-003E E5F0        56            mov a, b ; Restore value of accumulator
-0040 0C          57            inc r4 ; increment r4
-0041 F5F0        58            mov b, a ; Preserve value of accumulator
-0043             58            
-0043 900003      58            mov dptr, #T_StuNum ; point to student number lookup table
-0046 EC          58            mov a, r4 ; Load input into accumulator
-0047 93          58            movc a, @dptr+a ; Read from table
-0048             58            
-0048 F592        58            mov HEX1, a ; Display number
-004A             58   
-004A E5F0        58            mov a, b ; Restore value of accumulator
-004C 0C          59            inc r4 ; increment r4
-004D F5F0        60            mov b, a ; Preserve value of accumulator
-004F             60            
-004F 900003      60            mov dptr, #T_StuNum ; point to student number lookup table
-0052 EC          60            mov a, r4 ; Load input into accumulator
-0053 93          60            movc a, @dptr+a ; Read from table
-0054             60            
-0054 F593        60            mov HEX2, a ; Display number
-0056             60   
-0056 E5F0        60            mov a, b ; Restore value of accumulator
-0058 0C          61            inc r4 ; increment r4
-0059 F5F0        62            mov b, a ; Preserve value of accumulator
-005B             62            
-005B 900003      62            mov dptr, #T_StuNum ; point to student number lookup table
-005E EC          62            mov a, r4 ; Load input into accumulator
-005F 93          62            movc a, @dptr+a ; Read from table
-0060             62            
-0060 F594        62            mov HEX3, a ; Display number
-0062             62   
-0062 E5F0        62            mov a, b ; Restore value of accumulator
-0064 0C          63            inc r4 ; increment r4
-0065 F5F0        64            mov b, a ; Preserve value of accumulator
-0067             64            
-0067 900003      64            mov dptr, #T_StuNum ; point to student number lookup table
-006A EC          64            mov a, r4 ; Load input into accumulator
-006B 93          64            movc a, @dptr+a ; Read from table
-006C             64            
-006C F58E        64            mov HEX4, a ; Display number
-006E             64   
-006E E5F0        64            mov a, b ; Restore value of accumulator
-0070 0C          65            inc r4 ; increment r4
-0071 F5F0        66            mov b, a ; Preserve value of accumulator
-0073             66            
-0073 900003      66            mov dptr, #T_StuNum ; point to student number lookup table
-0076 EC          66            mov a, r4 ; Load input into accumulator
-0077 93          66            movc a, @dptr+a ; Read from table
-0078             66            
-0078 F58F        66            mov HEX5, a ; Display number
-007A             66   
-007A E5F0        66            mov a, b ; Restore value of accumulator
-007C             67            
-007C             68            
-007C             69   ENDTIME:         
-007C 020020      70            ljmp Forever ; Repeat forever
-007F             71   END
+     7F
+000C             18   
+                 19   Display_on mac
+                 20   	mov b, a ; Preserve value of accumulator (just in case)
+                 21   	
+                 22   	mov dptr, #T_StuNum ; point to student number lookup table
+                 23   	mov a, %1 ; Load macro's input into accumulator
+                 24   	movc a, @dptr+a ; Read from table with the input offset
+                 25   	
+                 26   	mov %0, a ; Display number to given register
+                 27   
+                 28   	mov a, b ; Restore value of accumulator (just in case)
+                 29   endmac
+000C             30   
+000C             31   main:
+000C 75817F      32            mov SP, #0x7f
+000F 75E800      33            mov LEDRA, #0 ; Bit addressable
+0012 759500      34            mov LEDRB, #0 ; Not bit addressable
+0015             35            
+0015             36            ; Start timer
+0015 7964        37            mov r1, S_TICKS
+0017 7A64        38            mov r2, M_TICKS
+0019 7B5A        39            mov r3, L_TICKS
+001B             40            
+001B             41            ; Mode 0 by default
+001B F5F0        42            mov b, a ; Preserve value of accumulator (just in case)
+001D             42            
+001D 900003      42            mov dptr, #T_StuNum ; point to student number lookup table
+0020 7402        42            mov a, #02 ; Load macro's input into accumulator
+0022 93          42            movc a, @dptr+a ; Read from table with the input offset
+0023             42            
+0023 F591        42            mov HEX0, a ; Display number to given register
+0025             42   
+0025 E5F0        42            mov a, b ; Restore value of accumulator (just in case)
+0027 F5F0        43            mov b, a ; Preserve value of accumulator (just in case)
+0029             43            
+0029 900003      43            mov dptr, #T_StuNum ; point to student number lookup table
+002C 7403        43            mov a, #03 ; Load macro's input into accumulator
+002E 93          43            movc a, @dptr+a ; Read from table with the input offset
+002F             43            
+002F F592        43            mov HEX1, a ; Display number to given register
+0031             43   
+0031 E5F0        43            mov a, b ; Restore value of accumulator (just in case)
+0033 F5F0        44            mov b, a ; Preserve value of accumulator (just in case)
+0035             44            
+0035 900003      44            mov dptr, #T_StuNum ; point to student number lookup table
+0038 7404        44            mov a, #04 ; Load macro's input into accumulator
+003A 93          44            movc a, @dptr+a ; Read from table with the input offset
+003B             44            
+003B F593        44            mov HEX2, a ; Display number to given register
+003D             44   
+003D E5F0        44            mov a, b ; Restore value of accumulator (just in case)
+003F F5F0        45            mov b, a ; Preserve value of accumulator (just in case)
+0041             45            
+0041 900003      45            mov dptr, #T_StuNum ; point to student number lookup table
+0044 7405        45            mov a, #05 ; Load macro's input into accumulator
+0046 93          45            movc a, @dptr+a ; Read from table with the input offset
+0047             45            
+0047 F594        45            mov HEX3, a ; Display number to given register
+0049             45   
+0049 E5F0        45            mov a, b ; Restore value of accumulator (just in case)
+004B F5F0        46            mov b, a ; Preserve value of accumulator (just in case)
+004D             46            
+004D 900003      46            mov dptr, #T_StuNum ; point to student number lookup table
+0050 7406        46            mov a, #06 ; Load macro's input into accumulator
+0052 93          46            movc a, @dptr+a ; Read from table with the input offset
+0053             46            
+0053 F58E        46            mov HEX4, a ; Display number to given register
+0055             46   
+0055 E5F0        46            mov a, b ; Restore value of accumulator (just in case)
+0057 F5F0        47            mov b, a ; Preserve value of accumulator (just in case)
+0059             47            
+0059 900003      47            mov dptr, #T_StuNum ; point to student number lookup table
+005C 7407        47            mov a, #07 ; Load macro's input into accumulator
+005E 93          47            movc a, @dptr+a ; Read from table with the input offset
+005F             47            
+005F F58F        47            mov HEX5, a ; Display number to given register
+0061             47   
+0061 E5F0        47            mov a, b ; Restore value of accumulator (just in case)
+0063             48   Forever:
+0063             49            ; Latching circuit
+0063 20FB03      50            jb key.3, ENDLATCHtmp   ; jump if bit 3 of switch is = 1
+0066 02006C      51            ljmp LATCHLOGIC
+0069 02012E      52   ENDLATCHtmp: ljmp ENDLATCH       ; I have to do this weird jumping bc jb can only jump up to 127 lines
+006C             53   
+006C             54   LATCHLOGIC:
+006C A8E8        55            mov r0, SWA                     ; store switch values in r0
+006E             56            ; Evaluate initial load depending on switch value
+006E E8          57            mov a, r0
+006F 5407        58            ANL a, #07                              ; strip A to only the least significant 3 values
+0071             59            
+0071 B4004B      60            CJNE a, #00, MODE1              ; jump if A != byte
+0074             61            ; Mode 0
+0074 F5F0        62            mov b, a ; Preserve value of accumulator (just in case)
+0076             62            
+0076 900003      62            mov dptr, #T_StuNum ; point to student number lookup table
+0079 7402        62            mov a, #02 ; Load macro's input into accumulator
+007B 93          62            movc a, @dptr+a ; Read from table with the input offset
+007C             62            
+007C F591        62            mov HEX0, a ; Display number to given register
+007E             62   
+007E E5F0        62            mov a, b ; Restore value of accumulator (just in case)
+0080 F5F0        63            mov b, a ; Preserve value of accumulator (just in case)
+0082             63            
+0082 900003      63            mov dptr, #T_StuNum ; point to student number lookup table
+0085 7403        63            mov a, #03 ; Load macro's input into accumulator
+0087 93          63            movc a, @dptr+a ; Read from table with the input offset
+0088             63            
+0088 F592        63            mov HEX1, a ; Display number to given register
+008A             63   
+008A E5F0        63            mov a, b ; Restore value of accumulator (just in case)
+008C F5F0        64            mov b, a ; Preserve value of accumulator (just in case)
+008E             64            
+008E 900003      64            mov dptr, #T_StuNum ; point to student number lookup table
+0091 7404        64            mov a, #04 ; Load macro's input into accumulator
+0093 93          64            movc a, @dptr+a ; Read from table with the input offset
+0094             64            
+0094 F593        64            mov HEX2, a ; Display number to given register
+0096             64   
+0096 E5F0        64            mov a, b ; Restore value of accumulator (just in case)
+0098 F5F0        65            mov b, a ; Preserve value of accumulator (just in case)
+009A             65            
+009A 900003      65            mov dptr, #T_StuNum ; point to student number lookup table
+009D 7405        65            mov a, #05 ; Load macro's input into accumulator
+009F 93          65            movc a, @dptr+a ; Read from table with the input offset
+00A0             65            
+00A0 F594        65            mov HEX3, a ; Display number to given register
+00A2             65   
+00A2 E5F0        65            mov a, b ; Restore value of accumulator (just in case)
+00A4 F5F0        66            mov b, a ; Preserve value of accumulator (just in case)
+00A6             66            
+00A6 900003      66            mov dptr, #T_StuNum ; point to student number lookup table
+00A9 7406        66            mov a, #06 ; Load macro's input into accumulator
+00AB 93          66            movc a, @dptr+a ; Read from table with the input offset
+00AC             66            
+00AC F58E        66            mov HEX4, a ; Display number to given register
+00AE             66   
+00AE E5F0        66            mov a, b ; Restore value of accumulator (just in case)
+00B0 F5F0        67            mov b, a ; Preserve value of accumulator (just in case)
+00B2             67            
+00B2 900003      67            mov dptr, #T_StuNum ; point to student number lookup table
+00B5 7407        67            mov a, #07 ; Load macro's input into accumulator
+00B7 93          67            movc a, @dptr+a ; Read from table with the input offset
+00B8             67            
+00B8 F58F        67            mov HEX5, a ; Display number to given register
+00BA             67   
+00BA E5F0        67            mov a, b ; Restore value of accumulator (just in case)
+00BC             68            
+00BC 02012E      69            ljmp ENDLATCH   
+00BF B4014B      70   MODE1:   CJNE a, #01, MODE2              ; jump if A != byte 
+00C2             71            ; Mode 1
+00C2 F5F0        72            mov b, a ; Preserve value of accumulator (just in case)
+00C4             72            
+00C4 900003      72            mov dptr, #T_StuNum ; point to student number lookup table
+00C7 7400        72            mov a, #00 ; Load macro's input into accumulator
+00C9 93          72            movc a, @dptr+a ; Read from table with the input offset
+00CA             72            
+00CA F591        72            mov HEX0, a ; Display number to given register
+00CC             72   
+00CC E5F0        72            mov a, b ; Restore value of accumulator (just in case)
+00CE F5F0        73            mov b, a ; Preserve value of accumulator (just in case)
+00D0             73            
+00D0 900003      73            mov dptr, #T_StuNum ; point to student number lookup table
+00D3 7401        73            mov a, #01 ; Load macro's input into accumulator
+00D5 93          73            movc a, @dptr+a ; Read from table with the input offset
+00D6             73            
+00D6 F592        73            mov HEX1, a ; Display number to given register
+00D8             73   
+00D8 E5F0        73            mov a, b ; Restore value of accumulator (just in case)
+00DA F5F0        74            mov b, a ; Preserve value of accumulator (just in case)
+00DC             74            
+00DC 900003      74            mov dptr, #T_StuNum ; point to student number lookup table
+00DF 7408        74            mov a, #08 ; Load macro's input into accumulator
+00E1 93          74            movc a, @dptr+a ; Read from table with the input offset
+00E2             74            
+00E2 F593        74            mov HEX2, a ; Display number to given register
+00E4             74   
+00E4 E5F0        74            mov a, b ; Restore value of accumulator (just in case)
+00E6 F5F0        75            mov b, a ; Preserve value of accumulator (just in case)
+00E8             75            
+00E8 900003      75            mov dptr, #T_StuNum ; point to student number lookup table
+00EB 7408        75            mov a, #08 ; Load macro's input into accumulator
+00ED 93          75            movc a, @dptr+a ; Read from table with the input offset
+00EE             75            
+00EE F594        75            mov HEX3, a ; Display number to given register
+00F0             75   
+00F0 E5F0        75            mov a, b ; Restore value of accumulator (just in case)
+00F2 F5F0        76            mov b, a ; Preserve value of accumulator (just in case)
+00F4             76            
+00F4 900003      76            mov dptr, #T_StuNum ; point to student number lookup table
+00F7 7408        76            mov a, #08 ; Load macro's input into accumulator
+00F9 93          76            movc a, @dptr+a ; Read from table with the input offset
+00FA             76            
+00FA F58E        76            mov HEX4, a ; Display number to given register
+00FC             76   
+00FC E5F0        76            mov a, b ; Restore value of accumulator (just in case)
+00FE F5F0        77            mov b, a ; Preserve value of accumulator (just in case)
+0100             77            
+0100 900003      77            mov dptr, #T_StuNum ; point to student number lookup table
+0103 7408        77            mov a, #08 ; Load macro's input into accumulator
+0105 93          77            movc a, @dptr+a ; Read from table with the input offset
+0106             77            
+0106 F58F        77            mov HEX5, a ; Display number to given register
+0108             77   
+0108 E5F0        77            mov a, b ; Restore value of accumulator (just in case)
+010A             78                    
+010A 02012E      79            ljmp ENDLATCH
+010D B40203      80   MODE2:   CJNE a, #02, MODE3              ; jump if A != byte 
+0110             81            ; Mode 2
+0110             82            
+0110             83            
+0110 02012E      84            ljmp ENDLATCH
+0113 B40303      85   MODE3:   CJNE a, #03, MODE4              ; jump if A != byte 
+0116             86            ; Mode 3
+0116             87            
+0116             88            
+0116 02012E      89            ljmp ENDLATCH
+0119 B40403      90   MODE4:   CJNE a, #04, MODE5              ; jump if A != byte 
+011C             91            ; Mode 4
+011C             92            
+011C             93            
+011C 02012E      94            ljmp ENDLATCH
+011F B40503      95   MODE5:   CJNE a, #05, MODE6              ; jump if A != byte 
+0122             96            ; Mode 5
+0122             97            
+0122             98            
+0122 02012E      99            ljmp ENDLATCH
+0125 B40603     100   MODE6:   CJNE a, #06, MODE7              ; jump if A != byte 
+0128            101            ; Mode 6
+0128            102            
+0128            103            
+0128 02012E     104            ljmp ENDLATCH
+012B            105   MODE7:   ; this should be the "else" case
+012B            106            ; Mode 7
+012B            107            
+012B            108            
+012B 02012E     109            ljmp ENDLATCH   
+012E            110   ENDLATCH: 
+012E            111            
+012E            112            ; Timing circuit
+012E D90C       113            djnz r1, ENDTIME
+0130 7964       114            mov r1, S_TICKS         ; if we got here, that means r1 is zero
+0132 DA08       115            djnz r2, ENDTIME
+0134 7A64       116            mov r2, M_TICKS         ; if we got here, that means r2 is zero
+0136 DB04       117            djnz r3, ENDTIME
+0138 7B5A       118            mov r3, L_TICKS         ; if we got here, that means r3 is zero
+013A            119            
+013A            120            
+013A            121            ; these lines executes once a "heartbeat"
+013A B2E8       122            cpl LEDRA.0             ;flip LED to visualize heartbeat
+013C            123            
+013C            124   ENDTIME:
+013C            125   
+013C 020063     126            ljmp Forever ; Repeat forever
+013F            127   END
