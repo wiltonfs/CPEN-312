@@ -20,6 +20,8 @@ T_StuNum:
 	DB 7FH
 	;   H 	 E	  L	   O
 	DB 89H, 86H, 0xC7H, 40H
+	; 	C 	 P 	   N 	 3 	  1    2
+	DB 86H, 86H, 0xC7H, 86H, 86H, 86H
 
 ;This is a "function", it takes two parameters. These parameters can be accessed using %0 and %1
 Display_on mac
@@ -70,6 +72,33 @@ Hello mac
 	Display_on(HEX4, #0AH)
 	Display_on(HEX5, #09H)
 endmac
+
+;This is a "function", it takes no parameters. It just displays CPN312
+CPN312 mac
+	Display_on(HEX0, #08)
+	Display_on(HEX1, #08)
+	Display_on(HEX2, #08)
+	Display_on(HEX3, #08)
+	Display_on(HEX4, #08)
+	Display_on(HEX5, #08)
+endmac
+
+MODE6LONG:
+	; Mode 6 - Hello() Most_sig() CPN312()
+	; if r4 == 0, Hello
+	CJNE r4, #00, MODE6JUMP1
+	Most_sig()
+	mov r4, #01
+	ljmp ENDTIME
+	MODE6JUMP1:	
+	CJNE r4, #01, MODE6JUMP2
+	CPN312()
+	mov r4, #02
+	ljmp ENDTIME
+	MODE6JUMP2:
+	Hello()
+	mov r4, #00
+	ljmp ENDTIME
 
 ;This is a "function", it takes no parameters. It just displays the custom display for mode 7
 Custom_disp mac
@@ -230,10 +259,8 @@ MODE5T:	CJNE r0, #05, MODE6T 		; jump if A != byte
 
 	ljmp ENDTIME
 MODE6T:	CJNE r0, #06, ENDTIME 		; jump if A != byte 
-	; Mode 6 - Hello() Most_sig() CPN312()
-
-	ljmp ENDTIME
-	
+	; Couldn't fit it in so had to do a scuffed long jump away then back
+	ljmp MODE6LONG
 ENDTIME:
 
 	ljmp loop ; Go back up to loop to keep repeating forever
