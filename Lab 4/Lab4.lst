@@ -150,114 +150,120 @@
 0000              2   
 0000              3   org 0000H ; After reset, the processor starts at location zero
 0000 020011       4            ljmp main
-0003              5       
-0003              6   ; Look-up table for my student number
-0003              7   ; Least sig to most sig
-0003              8   ; 48059760
-0003              9   T_StuNum:
-0003 40027810    10            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
+0003              5   
+0003              6   S_TICKS EQU #100
+0003              7   M_TICKS EQU #100
+0003              8   L_TICKS EQU #90
+0003              9   
+0003             10   
+0003             11   
+0003             12   ; Look-up table for my student number
+0003             13   ; Least sig to most sig
+0003             14   ; 48059760
+0003             15   T_StuNum:
+0003 40027810    16            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
      12400019
-000B             11   T_HexDisp:
-000B 91929394    12            DB 91H, HEX1, HEX2, HEX3, HEX4, HEX5
+000B             17   T_HexDisp:
+000B 91929394    18            DB 91H, HEX1, HEX2, HEX3, HEX4, HEX5
      8E8F
-0011             13   
-                 14   Display_on mac
-                 15   	mov b, a ; Preserve value of accumulator
-                 16   	
-                 17   	mov dptr, #T_StuNum ; point to student number lookup table
-                 18   	mov a, %1 ; Load input into accumulator
-                 19   	movc a, @dptr+a ; Read from table
-                 20   	
-                 21   	mov %0, a ; Display number
-                 22   
-                 23   	mov a, b ; Restore value of accumulator
-                 24   endmac
-0011             25   
-0011             26   main:
-0011 75817F      27            mov SP, #0x7f
-0014 75E800      28            mov LEDRA, #0 ; Bit addressable
-0017 759500      29            mov LEDRB, #0 ; Not bit addressable
-001A 79FA        30            mov r1, #250
-001C 7AFA        31            mov r2, #250
-001E 7BB4        32            mov r3, #180
-0020             33   Forever:
-0020             34            ; Latching circuit
-0020 E5F8        35            mov a, key      ; put button val into accumulator
-0022 7002        36            jnz ENDLATCH    ; if not zero (button not pressed), jump over the latch
-0024 A8E8        37            mov r0, SWA     ; store switch values in r0
-0026             38   ENDLATCH: 
-0026             39            
-0026             40            ; Timing circuit
-0026 D90C        41            djnz r1, ENDTIME
-0028 79FA        42            mov r1, #250    ; if we got here, that means r1 is zero
-002A DA08        43            djnz r2, ENDTIME
-002C 7AFA        44            mov r2, #250    ; if we got here, that means r2 is zero
-002E DB04        45            djnz r3, ENDTIME
-0030 7BB4        46            mov r3, #180    ; if we got here, that means r3 is zero
-0032             47            ; This line should execute once a second
-0032 B2E8        48            cpl LEDRA.0             ;heartbeat
-0034             49   ENDTIME:                 
-0034             50            
-0034 7900        51            mov r1, #00H
-0036 F5F0        52            mov b, a ; Preserve value of accumulator
-0038             52            
-0038 900003      52            mov dptr, #T_StuNum ; point to student number lookup table
-003B E9          52            mov a, r1 ; Load input into accumulator
-003C 93          52            movc a, @dptr+a ; Read from table
-003D             52            
-003D F591        52            mov HEX0, a ; Display number
-003F             52   
-003F E5F0        52            mov a, b ; Restore value of accumulator
-0041 09          53            inc r1 ; increment r1
-0042 F5F0        54            mov b, a ; Preserve value of accumulator
-0044             54            
-0044 900003      54            mov dptr, #T_StuNum ; point to student number lookup table
-0047 E9          54            mov a, r1 ; Load input into accumulator
-0048 93          54            movc a, @dptr+a ; Read from table
-0049             54            
-0049 F592        54            mov HEX1, a ; Display number
-004B             54   
-004B E5F0        54            mov a, b ; Restore value of accumulator
-004D 09          55            inc r1 ; increment r1
-004E F5F0        56            mov b, a ; Preserve value of accumulator
-0050             56            
-0050 900003      56            mov dptr, #T_StuNum ; point to student number lookup table
-0053 E9          56            mov a, r1 ; Load input into accumulator
-0054 93          56            movc a, @dptr+a ; Read from table
-0055             56            
-0055 F593        56            mov HEX2, a ; Display number
-0057             56   
-0057 E5F0        56            mov a, b ; Restore value of accumulator
-0059 09          57            inc r1 ; increment r1
-005A F5F0        58            mov b, a ; Preserve value of accumulator
-005C             58            
-005C 900003      58            mov dptr, #T_StuNum ; point to student number lookup table
-005F E9          58            mov a, r1 ; Load input into accumulator
-0060 93          58            movc a, @dptr+a ; Read from table
-0061             58            
-0061 F594        58            mov HEX3, a ; Display number
-0063             58   
-0063 E5F0        58            mov a, b ; Restore value of accumulator
-0065 09          59            inc r1 ; increment r1
-0066 F5F0        60            mov b, a ; Preserve value of accumulator
-0068             60            
-0068 900003      60            mov dptr, #T_StuNum ; point to student number lookup table
-006B E9          60            mov a, r1 ; Load input into accumulator
-006C 93          60            movc a, @dptr+a ; Read from table
-006D             60            
-006D F58E        60            mov HEX4, a ; Display number
-006F             60   
-006F E5F0        60            mov a, b ; Restore value of accumulator
-0071 09          61            inc r1 ; increment r1
-0072 F5F0        62            mov b, a ; Preserve value of accumulator
-0074             62            
-0074 900003      62            mov dptr, #T_StuNum ; point to student number lookup table
-0077 E9          62            mov a, r1 ; Load input into accumulator
-0078 93          62            movc a, @dptr+a ; Read from table
-0079             62            
-0079 F58F        62            mov HEX5, a ; Display number
-007B             62   
-007B E5F0        62            mov a, b ; Restore value of accumulator
-007D             63   
-007D 020020      64            ljmp Forever ; Repeat forever
-0080             65   END
+0011             19   
+                 20   Display_on mac
+                 21   	mov b, a ; Preserve value of accumulator
+                 22   	
+                 23   	mov dptr, #T_StuNum ; point to student number lookup table
+                 24   	mov a, %1 ; Load input into accumulator
+                 25   	movc a, @dptr+a ; Read from table
+                 26   	
+                 27   	mov %0, a ; Display number
+                 28   
+                 29   	mov a, b ; Restore value of accumulator
+                 30   endmac
+0011             31   
+0011             32   main:
+0011 75817F      33            mov SP, #0x7f
+0014 75E800      34            mov LEDRA, #0 ; Bit addressable
+0017 759500      35            mov LEDRB, #0 ; Not bit addressable
+001A 7964        36            mov r1, S_TICKS
+001C 7A64        37            mov r2, M_TICKS
+001E 7B5A        38            mov r3, L_TICKS
+0020             39   Forever:
+0020             40            ; Latching circuit
+0020 20FB02      41            jb key.3, ENDLATCH              ; jump if bit 3 of switch is = 1
+0023 A8E8        42            mov r0, SWA                     ; store switch values in r0
+0025             43   ENDLATCH: 
+0025             44            
+0025             45            ; Timing circuit
+0025 D955        46            djnz r1, ENDTIME
+0027 7964        47            mov r1, S_TICKS         ; if we got here, that means r1 is zero
+0029 DA51        48            djnz r2, ENDTIME
+002B 7A64        49            mov r2, M_TICKS         ; if we got here, that means r2 is zero
+002D DB4D        50            djnz r3, ENDTIME
+002F 7B5A        51            mov r3, L_TICKS         ; if we got here, that means r3 is zero
+0031             52            ; This line should execute once a second
+0031 B2E8        53            cpl LEDRA.0             ;heartbeat
+0033             54            
+0033 7C00        55            mov r4, #00H
+0035 F5F0        56            mov b, a ; Preserve value of accumulator
+0037             56            
+0037 900003      56            mov dptr, #T_StuNum ; point to student number lookup table
+003A EC          56            mov a, r4 ; Load input into accumulator
+003B 93          56            movc a, @dptr+a ; Read from table
+003C             56            
+003C F591        56            mov HEX0, a ; Display number
+003E             56   
+003E E5F0        56            mov a, b ; Restore value of accumulator
+0040 0C          57            inc r4 ; increment r4
+0041 F5F0        58            mov b, a ; Preserve value of accumulator
+0043             58            
+0043 900003      58            mov dptr, #T_StuNum ; point to student number lookup table
+0046 EC          58            mov a, r4 ; Load input into accumulator
+0047 93          58            movc a, @dptr+a ; Read from table
+0048             58            
+0048 F592        58            mov HEX1, a ; Display number
+004A             58   
+004A E5F0        58            mov a, b ; Restore value of accumulator
+004C 0C          59            inc r4 ; increment r4
+004D F5F0        60            mov b, a ; Preserve value of accumulator
+004F             60            
+004F 900003      60            mov dptr, #T_StuNum ; point to student number lookup table
+0052 EC          60            mov a, r4 ; Load input into accumulator
+0053 93          60            movc a, @dptr+a ; Read from table
+0054             60            
+0054 F593        60            mov HEX2, a ; Display number
+0056             60   
+0056 E5F0        60            mov a, b ; Restore value of accumulator
+0058 0C          61            inc r4 ; increment r4
+0059 F5F0        62            mov b, a ; Preserve value of accumulator
+005B             62            
+005B 900003      62            mov dptr, #T_StuNum ; point to student number lookup table
+005E EC          62            mov a, r4 ; Load input into accumulator
+005F 93          62            movc a, @dptr+a ; Read from table
+0060             62            
+0060 F594        62            mov HEX3, a ; Display number
+0062             62   
+0062 E5F0        62            mov a, b ; Restore value of accumulator
+0064 0C          63            inc r4 ; increment r4
+0065 F5F0        64            mov b, a ; Preserve value of accumulator
+0067             64            
+0067 900003      64            mov dptr, #T_StuNum ; point to student number lookup table
+006A EC          64            mov a, r4 ; Load input into accumulator
+006B 93          64            movc a, @dptr+a ; Read from table
+006C             64            
+006C F58E        64            mov HEX4, a ; Display number
+006E             64   
+006E E5F0        64            mov a, b ; Restore value of accumulator
+0070 0C          65            inc r4 ; increment r4
+0071 F5F0        66            mov b, a ; Preserve value of accumulator
+0073             66            
+0073 900003      66            mov dptr, #T_StuNum ; point to student number lookup table
+0076 EC          66            mov a, r4 ; Load input into accumulator
+0077 93          66            movc a, @dptr+a ; Read from table
+0078             66            
+0078 F58F        66            mov HEX5, a ; Display number
+007A             66   
+007A E5F0        66            mov a, b ; Restore value of accumulator
+007C             67            
+007C             68            
+007C             69   ENDTIME:         
+007C 020020      70            ljmp Forever ; Repeat forever
+007F             71   END
