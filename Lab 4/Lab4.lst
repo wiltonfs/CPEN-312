@@ -157,730 +157,739 @@
 0003              9   ;But none of them can be over 255 (8 bit)
 0003             10   S_TICKS EQU #100
 0003             11   M_TICKS EQU #100
-0003             12   L_TICKS EQU #150
-0003             13   
-0003             14   ; Look-up table for my student number, blank, and HELLO
-0003             15   ; My student num: 48059760
-0003             16   T_StuNum:
-0003             17            ;       0       6         7        9    5        0        8        4    
-0003 40027810    18            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
+0003             12   M_TICKS_DOUBLE EQU #200
+0003             13   L_TICKS EQU #150
+0003             14   
+0003             15   ; Look-up table for my student number, blank, and HELLO
+0003             16   ; My student num: 48059760
+0003             17   T_StuNum:
+0003             18            ;       0       6         7        9    5        0        8        4    
+0003 40027810    19            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
      12400019
-000B             19            ; BLANK
-000B 7F          20            DB 7FH
-000C             21            ;   H    E        L        O
-000C 8986C740    22            DB 89H, 86H, 0xC7H, 40H
-0010             23            ;       C        P         N            3         1    2
-0010 C68CC8B0    24            DB 0xC6H, 8CH, 0xC8H, 0xB0H, 0xF9H, 0xA4H
+000B             20            ; BLANK
+000B 7F          21            DB 7FH
+000C             22            ;   H    E        L        O
+000C 8986C740    23            DB 89H, 86H, 0xC7H, 40H
+0010             24            ;       C        P         N            3         1    2
+0010 C68CC8B0    25            DB 0xC6H, 8CH, 0xC8H, 0xB0H, 0xF9H, 0xA4H
      F9A4
-0016             25   
-0016             26   ;This is a "function", it takes two parameters. These parameters can be accessed using %0 and %1
-                 27   Display_on mac
-                 28   	mov dptr, #T_StuNum ; point to student number lookup table
-                 29   	mov a, %1 ; Load second input into accumulator
-                 30   	movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-                 31   	mov %0, a ; Display number to given (first input) register
-                 32   endmac
-0016             33   
-0016             34   ;This is a "function", it takes no parameters. It just displays the first 6 digits of my student number
-                 35   Most_sig mac
-                 36   	Display_on(r4, #00)
-                 37   	Display_on(r5, #01)
-                 38   	Display_on(HEX0, #02)
-                 39   	Display_on(HEX1, #03)
-                 40   	Display_on(HEX2, #04)
-                 41   	Display_on(HEX3, #05)
-                 42   	Display_on(HEX4, #06)
-                 43   	Display_on(HEX5, #07)
-                 44   endmac
-0016             45   
-0016             46   ;This is a "function", it takes no parameters. It just displays all blank
-                 47   All_blnk mac
-                 48   	Display_on(HEX0, #08)
-                 49   	Display_on(HEX1, #08)
-                 50   	Display_on(HEX2, #08)
-                 51   	Display_on(HEX3, #08)
-                 52   	Display_on(HEX4, #08)
-                 53   	Display_on(HEX5, #08)
-                 54   endmac
-0016             55   
-0016             56   ;This is a "function", it takes no parameters. It just displays the last 6 digits of my student number
-                 57   Least_sig mac
-                 58   	Display_on(HEX0, #00)
-                 59   	Display_on(HEX1, #01)
-                 60   	Display_on(HEX2, #02)
-                 61   	Display_on(HEX3, #03)
-                 62   	Display_on(HEX4, #04)
-                 63   	Display_on(HEX5, #05)
-                 64   endmac
-0016             65   
-0016             66   ;This is a "function", it takes no parameters. It just displays HELLO
-                 67   Hello mac
-                 68   	Display_on(HEX0, #08H)
-                 69   	Display_on(HEX1, #12)
-                 70   	Display_on(HEX2, #11)
-                 71   	Display_on(HEX3, #11)
-                 72   	Display_on(HEX4, #10)
-                 73   	Display_on(HEX5, #09H)
-                 74   endmac
-0016             75   
-0016             76   ;This is a "function", it takes no parameters. It just displays CPN312
-                 77   CPN312 mac
-                 78   	Display_on(HEX0, #18)
-                 79   	Display_on(HEX1, #17)
-                 80   	Display_on(HEX2, #16)
-                 81   	Display_on(HEX3, #15)
-                 82   	Display_on(HEX4, #14)
-                 83   	Display_on(HEX5, #13)
-                 84   endmac
-0016             85   
-0016             86   MODE6LONG:
-0016             87            ; Mode 6 - Hello() Most_sig() CPN312()
-0016             88            ; if r4 == 0, Hello
-0016 BC0043      89            CJNE r4, #00, MODE6JUMP1
-0019 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-001C 7400        90            mov a, #00 ; Load second input into accumulator
-001E 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-001F FC          90            mov r4, a ; Display number to given (first input) register
-0020 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-0023 7401        90            mov a, #01 ; Load second input into accumulator
-0025 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0026 FD          90            mov r5, a ; Display number to given (first input) register
-0027 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-002A 7402        90            mov a, #02 ; Load second input into accumulator
-002C 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-002D F591        90            mov HEX0, a ; Display number to given (first input) register
-002F 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-0032 7403        90            mov a, #03 ; Load second input into accumulator
-0034 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0035 F592        90            mov HEX1, a ; Display number to given (first input) register
-0037 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-003A 7404        90            mov a, #04 ; Load second input into accumulator
-003C 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-003D F593        90            mov HEX2, a ; Display number to given (first input) register
-003F 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-0042 7405        90            mov a, #05 ; Load second input into accumulator
-0044 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0045 F594        90            mov HEX3, a ; Display number to given (first input) register
-0047 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-004A 7406        90            mov a, #06 ; Load second input into accumulator
-004C 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-004D F58E        90            mov HEX4, a ; Display number to given (first input) register
-004F 900003      90            mov dptr, #T_StuNum ; point to student number lookup table
-0052 7407        90            mov a, #07 ; Load second input into accumulator
-0054 93          90            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0055 F58F        90            mov HEX5, a ; Display number to given (first input) register
-0057 7C01        91            mov r4, #01
-0059 020467      92            ljmp ENDTIME
-005C             93            MODE6JUMP1:     
-005C BC0135      94            CJNE r4, #01, MODE6JUMP2
-005F 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-0062 7412        95            mov a, #18 ; Load second input into accumulator
-0064 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0065 F591        95            mov HEX0, a ; Display number to given (first input) register
-0067 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-006A 7411        95            mov a, #17 ; Load second input into accumulator
-006C 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-006D F592        95            mov HEX1, a ; Display number to given (first input) register
-006F 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-0072 7410        95            mov a, #16 ; Load second input into accumulator
-0074 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0075 F593        95            mov HEX2, a ; Display number to given (first input) register
-0077 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-007A 740F        95            mov a, #15 ; Load second input into accumulator
-007C 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-007D F594        95            mov HEX3, a ; Display number to given (first input) register
-007F 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-0082 740E        95            mov a, #14 ; Load second input into accumulator
-0084 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0085 F58E        95            mov HEX4, a ; Display number to given (first input) register
-0087 900003      95            mov dptr, #T_StuNum ; point to student number lookup table
-008A 740D        95            mov a, #13 ; Load second input into accumulator
-008C 93          95            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-008D F58F        95            mov HEX5, a ; Display number to given (first input) register
-008F 7C02        96            mov r4, #02
-0091 020467      97            ljmp ENDTIME
-0094             98            MODE6JUMP2:
-0094 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-0097 7408        99            mov a, #08H ; Load second input into accumulator
-0099 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-009A F591        99            mov HEX0, a ; Display number to given (first input) register
-009C 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-009F 740C        99            mov a, #12 ; Load second input into accumulator
-00A1 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00A2 F592        99            mov HEX1, a ; Display number to given (first input) register
-00A4 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-00A7 740B        99            mov a, #11 ; Load second input into accumulator
-00A9 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00AA F593        99            mov HEX2, a ; Display number to given (first input) register
-00AC 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-00AF 740B        99            mov a, #11 ; Load second input into accumulator
-00B1 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00B2 F594        99            mov HEX3, a ; Display number to given (first input) register
-00B4 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-00B7 740A        99            mov a, #10 ; Load second input into accumulator
-00B9 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00BA F58E        99            mov HEX4, a ; Display number to given (first input) register
-00BC 900003      99            mov dptr, #T_StuNum ; point to student number lookup table
-00BF 7409        99            mov a, #09H ; Load second input into accumulator
-00C1 93          99            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00C2 F58F        99            mov HEX5, a ; Display number to given (first input) register
-00C4 7C00       100            mov r4, #00
-00C6 020467     101            ljmp ENDTIME
-00C9            102            
-00C9            103   MODE5LONG:
-00C9            104            ; Mode 5 - build it one by one
-00C9            105            ; if r4 == 0, Blank
-00C9 BC0033     106            CJNE r4, #00, MODE5JUMP1
-00CC 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00CF 7408       107            mov a, #08 ; Load second input into accumulator
-00D1 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00D2 F591       107            mov HEX0, a ; Display number to given (first input) register
-00D4 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00D7 7408       107            mov a, #08 ; Load second input into accumulator
-00D9 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00DA F592       107            mov HEX1, a ; Display number to given (first input) register
-00DC 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00DF 7408       107            mov a, #08 ; Load second input into accumulator
-00E1 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00E2 F593       107            mov HEX2, a ; Display number to given (first input) register
-00E4 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00E7 7408       107            mov a, #08 ; Load second input into accumulator
-00E9 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00EA F594       107            mov HEX3, a ; Display number to given (first input) register
-00EC 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00EF 7408       107            mov a, #08 ; Load second input into accumulator
-00F1 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00F2 F58E       107            mov HEX4, a ; Display number to given (first input) register
-00F4 900003     107            mov dptr, #T_StuNum ; point to student number lookup table
-00F7 7408       107            mov a, #08 ; Load second input into accumulator
-00F9 93         107            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-00FA F58F       107            mov HEX5, a ; Display number to given (first input) register
-00FC 020467     108            ljmp ENDTIME
-00FF            109            MODE5JUMP1:     
-00FF BC010B     110            CJNE r4, #01, MODE5JUMP2
-0102 900003     111            mov dptr, #T_StuNum ; point to student number lookup table
-0105 7407       111            mov a, #07 ; Load second input into accumulator
-0107 93         111            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0108 F58F       111            mov HEX5, a ; Display number to given (first input) register
-010A 020467     112            ljmp ENDTIME
-010D            113            MODE5JUMP2:
-010D BC020B     114            CJNE r4, #02, MODE5JUMP3
-0110 900003     115            mov dptr, #T_StuNum ; point to student number lookup table
-0113 7406       115            mov a, #06 ; Load second input into accumulator
-0115 93         115            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0116 F58E       115            mov HEX4, a ; Display number to given (first input) register
-0118 020467     116            ljmp ENDTIME
-011B            117            MODE5JUMP3:
-011B BC030B     118            CJNE r4, #03, MODE5JUMP4
-011E 900003     119            mov dptr, #T_StuNum ; point to student number lookup table
-0121 7405       119            mov a, #05 ; Load second input into accumulator
-0123 93         119            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0124 F594       119            mov HEX3, a ; Display number to given (first input) register
-0126 020467     120            ljmp ENDTIME
-0129            121            MODE5JUMP4:
-0129 BC040B     122            CJNE r4, #04, MODE5JUMP5
-012C 900003     123            mov dptr, #T_StuNum ; point to student number lookup table
-012F 7404       123            mov a, #04 ; Load second input into accumulator
-0131 93         123            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0132 F593       123            mov HEX2, a ; Display number to given (first input) register
-0134 020467     124            ljmp ENDTIME
-0137            125            MODE5JUMP5:
-0137 BC050B     126            CJNE r4, #05, MODE5JUMP6
-013A 900003     127            mov dptr, #T_StuNum ; point to student number lookup table
-013D 7403       127            mov a, #03 ; Load second input into accumulator
-013F 93         127            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0140 F592       127            mov HEX1, a ; Display number to given (first input) register
-0142 020467     128            ljmp ENDTIME
-0145            129            MODE5JUMP6: ; else case
-0145 900003     130            mov dptr, #T_StuNum ; point to student number lookup table
-0148 7402       130            mov a, #02 ; Load second input into accumulator
-014A 93         130            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-014B F591       130            mov HEX0, a ; Display number to given (first input) register
-014D 7CFF       131            mov r4, #0xFFH ; to make sure it overflows
-014F 020467     132            ljmp ENDTIME
-0152            133            
+0016             26   
+0016             27   ;This is a "function", it takes two parameters. These parameters can be accessed using %0 and %1
+                 28   Display_on mac
+                 29   	mov dptr, #T_StuNum ; point to student number lookup table
+                 30   	mov a, %1 ; Load second input into accumulator
+                 31   	movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+                 32   	mov %0, a ; Display number to given (first input) register
+                 33   endmac
+0016             34   
+0016             35   ;This is a "function", it takes no parameters. It just displays the first 6 digits of my student number
+                 36   Most_sig mac
+                 37   	Display_on(r4, #00)
+                 38   	Display_on(r5, #01)
+                 39   	Display_on(HEX0, #02)
+                 40   	Display_on(HEX1, #03)
+                 41   	Display_on(HEX2, #04)
+                 42   	Display_on(HEX3, #05)
+                 43   	Display_on(HEX4, #06)
+                 44   	Display_on(HEX5, #07)
+                 45   endmac
+0016             46   
+0016             47   ;This is a "function", it takes no parameters. It just displays all blank
+                 48   All_blnk mac
+                 49   	Display_on(HEX0, #08)
+                 50   	Display_on(HEX1, #08)
+                 51   	Display_on(HEX2, #08)
+                 52   	Display_on(HEX3, #08)
+                 53   	Display_on(HEX4, #08)
+                 54   	Display_on(HEX5, #08)
+                 55   endmac
+0016             56   
+0016             57   ;This is a "function", it takes no parameters. It just displays the last 6 digits of my student number
+                 58   Least_sig mac
+                 59   	Display_on(HEX0, #00)
+                 60   	Display_on(HEX1, #01)
+                 61   	Display_on(HEX2, #02)
+                 62   	Display_on(HEX3, #03)
+                 63   	Display_on(HEX4, #04)
+                 64   	Display_on(HEX5, #05)
+                 65   endmac
+0016             66   
+0016             67   ;This is a "function", it takes no parameters. It just displays HELLO
+                 68   Hello mac
+                 69   	Display_on(HEX0, #08H)
+                 70   	Display_on(HEX1, #12)
+                 71   	Display_on(HEX2, #11)
+                 72   	Display_on(HEX3, #11)
+                 73   	Display_on(HEX4, #10)
+                 74   	Display_on(HEX5, #09H)
+                 75   endmac
+0016             76   
+0016             77   ;This is a "function", it takes no parameters. It just displays CPN312
+                 78   CPN312 mac
+                 79   	Display_on(HEX0, #18)
+                 80   	Display_on(HEX1, #17)
+                 81   	Display_on(HEX2, #16)
+                 82   	Display_on(HEX3, #15)
+                 83   	Display_on(HEX4, #14)
+                 84   	Display_on(HEX5, #13)
+                 85   endmac
+0016             86   
+0016             87   MODE6LONG:
+0016             88            ; Mode 6 - Hello() Most_sig() CPN312()
+0016             89            ; if r4 == 0, Hello
+0016 BC0043      90            CJNE r4, #00, MODE6JUMP1
+0019 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+001C 7400        91            mov a, #00 ; Load second input into accumulator
+001E 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+001F FC          91            mov r4, a ; Display number to given (first input) register
+0020 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+0023 7401        91            mov a, #01 ; Load second input into accumulator
+0025 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0026 FD          91            mov r5, a ; Display number to given (first input) register
+0027 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+002A 7402        91            mov a, #02 ; Load second input into accumulator
+002C 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+002D F591        91            mov HEX0, a ; Display number to given (first input) register
+002F 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+0032 7403        91            mov a, #03 ; Load second input into accumulator
+0034 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0035 F592        91            mov HEX1, a ; Display number to given (first input) register
+0037 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+003A 7404        91            mov a, #04 ; Load second input into accumulator
+003C 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+003D F593        91            mov HEX2, a ; Display number to given (first input) register
+003F 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+0042 7405        91            mov a, #05 ; Load second input into accumulator
+0044 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0045 F594        91            mov HEX3, a ; Display number to given (first input) register
+0047 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+004A 7406        91            mov a, #06 ; Load second input into accumulator
+004C 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+004D F58E        91            mov HEX4, a ; Display number to given (first input) register
+004F 900003      91            mov dptr, #T_StuNum ; point to student number lookup table
+0052 7407        91            mov a, #07 ; Load second input into accumulator
+0054 93          91            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0055 F58F        91            mov HEX5, a ; Display number to given (first input) register
+0057 7C01        92            mov r4, #01
+0059 02046F      93            ljmp ENDTIME
+005C             94            MODE6JUMP1:     
+005C BC0135      95            CJNE r4, #01, MODE6JUMP2
+005F 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+0062 7412        96            mov a, #18 ; Load second input into accumulator
+0064 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0065 F591        96            mov HEX0, a ; Display number to given (first input) register
+0067 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+006A 7411        96            mov a, #17 ; Load second input into accumulator
+006C 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+006D F592        96            mov HEX1, a ; Display number to given (first input) register
+006F 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+0072 7410        96            mov a, #16 ; Load second input into accumulator
+0074 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0075 F593        96            mov HEX2, a ; Display number to given (first input) register
+0077 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+007A 740F        96            mov a, #15 ; Load second input into accumulator
+007C 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+007D F594        96            mov HEX3, a ; Display number to given (first input) register
+007F 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+0082 740E        96            mov a, #14 ; Load second input into accumulator
+0084 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0085 F58E        96            mov HEX4, a ; Display number to given (first input) register
+0087 900003      96            mov dptr, #T_StuNum ; point to student number lookup table
+008A 740D        96            mov a, #13 ; Load second input into accumulator
+008C 93          96            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+008D F58F        96            mov HEX5, a ; Display number to given (first input) register
+008F 7C02        97            mov r4, #02
+0091 02046F      98            ljmp ENDTIME
+0094             99            MODE6JUMP2:
+0094 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+0097 7408       100            mov a, #08H ; Load second input into accumulator
+0099 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+009A F591       100            mov HEX0, a ; Display number to given (first input) register
+009C 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+009F 740C       100            mov a, #12 ; Load second input into accumulator
+00A1 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00A2 F592       100            mov HEX1, a ; Display number to given (first input) register
+00A4 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+00A7 740B       100            mov a, #11 ; Load second input into accumulator
+00A9 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00AA F593       100            mov HEX2, a ; Display number to given (first input) register
+00AC 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+00AF 740B       100            mov a, #11 ; Load second input into accumulator
+00B1 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00B2 F594       100            mov HEX3, a ; Display number to given (first input) register
+00B4 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+00B7 740A       100            mov a, #10 ; Load second input into accumulator
+00B9 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00BA F58E       100            mov HEX4, a ; Display number to given (first input) register
+00BC 900003     100            mov dptr, #T_StuNum ; point to student number lookup table
+00BF 7409       100            mov a, #09H ; Load second input into accumulator
+00C1 93         100            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00C2 F58F       100            mov HEX5, a ; Display number to given (first input) register
+00C4 7C00       101            mov r4, #00
+00C6 02046F     102            ljmp ENDTIME
+00C9            103            
+00C9            104   MODE5LONG:
+00C9            105            ; Mode 5 - build it one by one
+00C9            106            ; if r4 == 0, Blank
+00C9 BC0033     107            CJNE r4, #00, MODE5JUMP1
+00CC 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00CF 7408       108            mov a, #08 ; Load second input into accumulator
+00D1 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00D2 F591       108            mov HEX0, a ; Display number to given (first input) register
+00D4 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00D7 7408       108            mov a, #08 ; Load second input into accumulator
+00D9 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00DA F592       108            mov HEX1, a ; Display number to given (first input) register
+00DC 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00DF 7408       108            mov a, #08 ; Load second input into accumulator
+00E1 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00E2 F593       108            mov HEX2, a ; Display number to given (first input) register
+00E4 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00E7 7408       108            mov a, #08 ; Load second input into accumulator
+00E9 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00EA F594       108            mov HEX3, a ; Display number to given (first input) register
+00EC 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00EF 7408       108            mov a, #08 ; Load second input into accumulator
+00F1 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00F2 F58E       108            mov HEX4, a ; Display number to given (first input) register
+00F4 900003     108            mov dptr, #T_StuNum ; point to student number lookup table
+00F7 7408       108            mov a, #08 ; Load second input into accumulator
+00F9 93         108            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+00FA F58F       108            mov HEX5, a ; Display number to given (first input) register
+00FC 02046F     109            ljmp ENDTIME
+00FF            110            MODE5JUMP1:     
+00FF BC010B     111            CJNE r4, #01, MODE5JUMP2
+0102 900003     112            mov dptr, #T_StuNum ; point to student number lookup table
+0105 7407       112            mov a, #07 ; Load second input into accumulator
+0107 93         112            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0108 F58F       112            mov HEX5, a ; Display number to given (first input) register
+010A 02046F     113            ljmp ENDTIME
+010D            114            MODE5JUMP2:
+010D BC020B     115            CJNE r4, #02, MODE5JUMP3
+0110 900003     116            mov dptr, #T_StuNum ; point to student number lookup table
+0113 7406       116            mov a, #06 ; Load second input into accumulator
+0115 93         116            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0116 F58E       116            mov HEX4, a ; Display number to given (first input) register
+0118 02046F     117            ljmp ENDTIME
+011B            118            MODE5JUMP3:
+011B BC030B     119            CJNE r4, #03, MODE5JUMP4
+011E 900003     120            mov dptr, #T_StuNum ; point to student number lookup table
+0121 7405       120            mov a, #05 ; Load second input into accumulator
+0123 93         120            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0124 F594       120            mov HEX3, a ; Display number to given (first input) register
+0126 02046F     121            ljmp ENDTIME
+0129            122            MODE5JUMP4:
+0129 BC040B     123            CJNE r4, #04, MODE5JUMP5
+012C 900003     124            mov dptr, #T_StuNum ; point to student number lookup table
+012F 7404       124            mov a, #04 ; Load second input into accumulator
+0131 93         124            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0132 F593       124            mov HEX2, a ; Display number to given (first input) register
+0134 02046F     125            ljmp ENDTIME
+0137            126            MODE5JUMP5:
+0137 BC050B     127            CJNE r4, #05, MODE5JUMP6
+013A 900003     128            mov dptr, #T_StuNum ; point to student number lookup table
+013D 7403       128            mov a, #03 ; Load second input into accumulator
+013F 93         128            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0140 F592       128            mov HEX1, a ; Display number to given (first input) register
+0142 02046F     129            ljmp ENDTIME
+0145            130            MODE5JUMP6: ; else case
+0145 900003     131            mov dptr, #T_StuNum ; point to student number lookup table
+0148 7402       131            mov a, #02 ; Load second input into accumulator
+014A 93         131            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+014B F591       131            mov HEX0, a ; Display number to given (first input) register
+014D 7CFF       132            mov r4, #0xFFH ; to make sure it overflows
+014F 02046F     133            ljmp ENDTIME
 0152            134            
 0152            135            
 0152            136            
 0152            137            
 0152            138            
 0152            139            
-0152            140   
-0152            141   ;This is a "function", it takes no parameters. It just displays the custom display for mode 7
-                142   Custom_disp mac
-                143   	; remove 03 and 06
-                144   	Display_on(HEX0, #00)
-                145   	Display_on(HEX1, #01)
-                146   	Display_on(HEX2, #02)
-                147   	Display_on(HEX3, #04)
-                148   	Display_on(HEX4, #05)
-                149   	Display_on(HEX5, #07)
-                150   endmac
-0152            151   
-                152   Scrll_left mac
-                153   	mov b, r5 ; "temp" keep
-                154   	
-                155   	mov a, r4
-                156   	mov r5, a
-                157   	mov r4, HEX5
-                158   	mov HEX5, HEX4
-                159   	mov HEX4, HEX3
-                160   	mov HEX3, HEX2
-                161   	mov HEX2, HEX1
-                162   	mov HEX1, HEX0
-                163   	mov HEX0, b
-                164   endmac
-0152            165   
-                166   Scrll_right mac
-                167   	mov b, HEX0 ; "temp" keep
-                168   	
-                169   	mov HEX0, HEX1
-                170   	mov HEX1, HEX2
-                171   	mov HEX2, HEX3
-                172   	mov HEX3, HEX4
-                173   	mov HEX4, HEX5
-                174   	mov HEX5, r4
-                175   	mov a, r5
-                176   	mov r4, a
-                177   	mov r5, b
-                178   endmac
-0152            179   
-0152            180   ; The code under this label runs once, when the program starts
-0152            181   pgrmstart:
-0152            182            ; Turns off LEDs and stuff
-0152 75817F     183            mov SP, #0x7f
-0155 75E800     184            mov LEDRA, #0 ; Bit addressable
-0158 759500     185            mov LEDRB, #0 ; Not bit addressable
-015B            186            
-015B            187            ; Start timer
-015B 7964       188            mov r1, S_TICKS
-015D 7A64       189            mov r2, M_TICKS
-015F 7B96       190            mov r3, L_TICKS
-0161            191            
-0161            192            ; Mode 0 by default, display first 6 digits
-0161 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-0164 7400       193            mov a, #00 ; Load second input into accumulator
-0166 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0167 FC         193            mov r4, a ; Display number to given (first input) register
-0168 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-016B 7401       193            mov a, #01 ; Load second input into accumulator
-016D 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-016E FD         193            mov r5, a ; Display number to given (first input) register
-016F 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-0172 7402       193            mov a, #02 ; Load second input into accumulator
-0174 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0175 F591       193            mov HEX0, a ; Display number to given (first input) register
-0177 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-017A 7403       193            mov a, #03 ; Load second input into accumulator
-017C 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-017D F592       193            mov HEX1, a ; Display number to given (first input) register
-017F 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-0182 7404       193            mov a, #04 ; Load second input into accumulator
-0184 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0185 F593       193            mov HEX2, a ; Display number to given (first input) register
-0187 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-018A 7405       193            mov a, #05 ; Load second input into accumulator
-018C 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-018D F594       193            mov HEX3, a ; Display number to given (first input) register
-018F 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-0192 7406       193            mov a, #06 ; Load second input into accumulator
-0194 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0195 F58E       193            mov HEX4, a ; Display number to given (first input) register
-0197 900003     193            mov dptr, #T_StuNum ; point to student number lookup table
-019A 7407       193            mov a, #07 ; Load second input into accumulator
-019C 93         193            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-019D F58F       193            mov HEX5, a ; Display number to given (first input) register
-019F            194            
-019F            195   ; The code under this label runs continuously
-019F            196   loop:
-019F            197            ; Latching logic
-019F 20FB03     198            jb key.3, ENDLATCHtmp   ; jump if bit 3 of switch is = 1
-01A2 0201A8     199            ljmp LATCHLOGIC
-01A5 02039A     200   ENDLATCHtmp: ljmp ENDLATCH       ; I have to do this weird jumping bc jb can only jump up to 127 lines
-01A8            201   
-01A8            202   ; The code under this label has to do with latching our mode, and updating the display
-01A8            203   ; to the "first frame" of that mode
-01A8            204   LATCHLOGIC:
-01A8            205            ; Evaluate initial display depending on mode
-01A8 E5E8       206            mov a, SWA                                                      
-01AA 5407       207            ANL a, #07                              ; strip A to only the least significant 3 values by ANDing it with 00000111 (Not strictly nesc.)
-01AC F8         208            mov r0, a                               ; store switch values in r0
-01AD            209            ; Think of this as a big Switch statement that finds what mode we are in
-01AD            210            ; There is a better way to do this, as a lot of the modes have the same start
-01AD            211            ; However, to start with this is a more clear way to see what is going on
-01AD B80041     212            CJNE r0, #00, MODE1             ; jump if r0 != byte
-01B0            213            ; Mode 0
-01B0 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01B3 7400       214            mov a, #00 ; Load second input into accumulator
-01B5 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01B6 FC         214            mov r4, a ; Display number to given (first input) register
-01B7 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01BA 7401       214            mov a, #01 ; Load second input into accumulator
-01BC 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01BD FD         214            mov r5, a ; Display number to given (first input) register
-01BE 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01C1 7402       214            mov a, #02 ; Load second input into accumulator
-01C3 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01C4 F591       214            mov HEX0, a ; Display number to given (first input) register
-01C6 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01C9 7403       214            mov a, #03 ; Load second input into accumulator
-01CB 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01CC F592       214            mov HEX1, a ; Display number to given (first input) register
-01CE 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01D1 7404       214            mov a, #04 ; Load second input into accumulator
-01D3 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01D4 F593       214            mov HEX2, a ; Display number to given (first input) register
-01D6 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01D9 7405       214            mov a, #05 ; Load second input into accumulator
-01DB 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01DC F594       214            mov HEX3, a ; Display number to given (first input) register
-01DE 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01E1 7406       214            mov a, #06 ; Load second input into accumulator
-01E3 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01E4 F58E       214            mov HEX4, a ; Display number to given (first input) register
-01E6 900003     214            mov dptr, #T_StuNum ; point to student number lookup table
-01E9 7407       214            mov a, #07 ; Load second input into accumulator
-01EB 93         214            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01EC F58F       214            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
-01EE            215            
-01EE 02039A     216            ljmp ENDLATCH   
-01F1 B80143     217   MODE1:   CJNE r0, #01, MODE2             ; jump if A != byte 
-01F4            218            ; Mode 1
-01F4 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-01F7 7408       219            mov a, #08 ; Load second input into accumulator
-01F9 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-01FA F591       219            mov HEX0, a ; Display number to given (first input) register
-01FC 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-01FF 7408       219            mov a, #08 ; Load second input into accumulator
-0201 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0202 F592       219            mov HEX1, a ; Display number to given (first input) register
-0204 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-0207 7408       219            mov a, #08 ; Load second input into accumulator
-0209 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-020A F593       219            mov HEX2, a ; Display number to given (first input) register
-020C 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-020F 7408       219            mov a, #08 ; Load second input into accumulator
-0211 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0212 F594       219            mov HEX3, a ; Display number to given (first input) register
-0214 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-0217 7408       219            mov a, #08 ; Load second input into accumulator
-0219 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-021A F58E       219            mov HEX4, a ; Display number to given (first input) register
-021C 900003     219            mov dptr, #T_StuNum ; point to student number lookup table
-021F 7408       219            mov a, #08 ; Load second input into accumulator
-0221 93         219            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0222 F58F       219            mov HEX5, a ; Display number to given (first input) register
-0224 900003     220            mov dptr, #T_StuNum ; point to student number lookup table
-0227 7400       220            mov a, #00 ; Load second input into accumulator
-0229 93         220            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-022A F591       220            mov HEX0, a ; Display number to given (first input) register
-022C 900003     221            mov dptr, #T_StuNum ; point to student number lookup table
-022F 7401       221            mov a, #01 ; Load second input into accumulator
-0231 93         221            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0232 F592       221            mov HEX1, a ; Display number to given (first input) register
-0234            222                    
-0234 02039A     223            ljmp ENDLATCH
-0237 B80241     224   MODE2:   CJNE r0, #02, MODE3             ; jump if A != byte 
-023A            225            ; Mode 2
-023A 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-023D 7400       226            mov a, #00 ; Load second input into accumulator
-023F 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0240 FC         226            mov r4, a ; Display number to given (first input) register
-0241 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-0244 7401       226            mov a, #01 ; Load second input into accumulator
-0246 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0247 FD         226            mov r5, a ; Display number to given (first input) register
-0248 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-024B 7402       226            mov a, #02 ; Load second input into accumulator
-024D 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-024E F591       226            mov HEX0, a ; Display number to given (first input) register
-0250 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-0253 7403       226            mov a, #03 ; Load second input into accumulator
-0255 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0256 F592       226            mov HEX1, a ; Display number to given (first input) register
-0258 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-025B 7404       226            mov a, #04 ; Load second input into accumulator
-025D 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-025E F593       226            mov HEX2, a ; Display number to given (first input) register
-0260 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-0263 7405       226            mov a, #05 ; Load second input into accumulator
-0265 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0266 F594       226            mov HEX3, a ; Display number to given (first input) register
-0268 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-026B 7406       226            mov a, #06 ; Load second input into accumulator
-026D 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-026E F58E       226            mov HEX4, a ; Display number to given (first input) register
-0270 900003     226            mov dptr, #T_StuNum ; point to student number lookup table
-0273 7407       226            mov a, #07 ; Load second input into accumulator
-0275 93         226            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0276 F58F       226            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
-0278 02039A     227            ljmp ENDLATCH
-027B B80341     228   MODE3:   CJNE r0, #03, MODE4             ; jump if A != byte 
-027E            229            ; Mode 3
-027E 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-0281 7400       230            mov a, #00 ; Load second input into accumulator
-0283 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0284 FC         230            mov r4, a ; Display number to given (first input) register
-0285 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-0288 7401       230            mov a, #01 ; Load second input into accumulator
-028A 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-028B FD         230            mov r5, a ; Display number to given (first input) register
-028C 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-028F 7402       230            mov a, #02 ; Load second input into accumulator
-0291 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0292 F591       230            mov HEX0, a ; Display number to given (first input) register
-0294 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-0297 7403       230            mov a, #03 ; Load second input into accumulator
-0299 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-029A F592       230            mov HEX1, a ; Display number to given (first input) register
-029C 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-029F 7404       230            mov a, #04 ; Load second input into accumulator
-02A1 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02A2 F593       230            mov HEX2, a ; Display number to given (first input) register
-02A4 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-02A7 7405       230            mov a, #05 ; Load second input into accumulator
-02A9 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02AA F594       230            mov HEX3, a ; Display number to given (first input) register
-02AC 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-02AF 7406       230            mov a, #06 ; Load second input into accumulator
-02B1 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02B2 F58E       230            mov HEX4, a ; Display number to given (first input) register
-02B4 900003     230            mov dptr, #T_StuNum ; point to student number lookup table
-02B7 7407       230            mov a, #07 ; Load second input into accumulator
-02B9 93         230            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02BA F58F       230            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
-02BC 02039A     231            ljmp ENDLATCH
-02BF B80435     232   MODE4:   CJNE r0, #04, MODE5             ; jump if A != byte 
-02C2            233            ; Mode 4
-02C2 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02C5 7400       234            mov a, #00 ; Load second input into accumulator
-02C7 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02C8 F591       234            mov HEX0, a ; Display number to given (first input) register
-02CA 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02CD 7401       234            mov a, #01 ; Load second input into accumulator
-02CF 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02D0 F592       234            mov HEX1, a ; Display number to given (first input) register
-02D2 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02D5 7402       234            mov a, #02 ; Load second input into accumulator
-02D7 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02D8 F593       234            mov HEX2, a ; Display number to given (first input) register
-02DA 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02DD 7403       234            mov a, #03 ; Load second input into accumulator
-02DF 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02E0 F594       234            mov HEX3, a ; Display number to given (first input) register
-02E2 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02E5 7404       234            mov a, #04 ; Load second input into accumulator
-02E7 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02E8 F58E       234            mov HEX4, a ; Display number to given (first input) register
-02EA 900003     234            mov dptr, #T_StuNum ; point to student number lookup table
-02ED 7405       234            mov a, #05 ; Load second input into accumulator
-02EF 93         234            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-02F0 F58F       234            mov HEX5, a ; Display number to given (first input) register ; display last 6 digits
-02F2 7C00       235            mov r4, #00
-02F4 02039A     236            ljmp ENDLATCH
-02F7 B80535     237   MODE5:   CJNE r0, #05, MODE6             ; jump if A != byte 
-02FA            238            ; Mode 5
-02FA 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-02FD 7408       239            mov a, #08 ; Load second input into accumulator
-02FF 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0300 F591       239            mov HEX0, a ; Display number to given (first input) register
-0302 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-0305 7408       239            mov a, #08 ; Load second input into accumulator
-0307 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0308 F592       239            mov HEX1, a ; Display number to given (first input) register
-030A 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-030D 7408       239            mov a, #08 ; Load second input into accumulator
-030F 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0310 F593       239            mov HEX2, a ; Display number to given (first input) register
-0312 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-0315 7408       239            mov a, #08 ; Load second input into accumulator
-0317 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0318 F594       239            mov HEX3, a ; Display number to given (first input) register
-031A 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-031D 7408       239            mov a, #08 ; Load second input into accumulator
-031F 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0320 F58E       239            mov HEX4, a ; Display number to given (first input) register
-0322 900003     239            mov dptr, #T_StuNum ; point to student number lookup table
-0325 7408       239            mov a, #08 ; Load second input into accumulator
-0327 93         239            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0328 F58F       239            mov HEX5, a ; Display number to given (first input) register
-032A 7C00       240            mov r4, #00
-032C 02039A     241            ljmp ENDLATCH
-032F B80635     242   MODE6:   CJNE r0, #06, MODE7             ; jump if A != byte 
-0332            243            ; Mode 6
-0332 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-0335 7408       244            mov a, #08H ; Load second input into accumulator
-0337 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0338 F591       244            mov HEX0, a ; Display number to given (first input) register
-033A 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-033D 740C       244            mov a, #12 ; Load second input into accumulator
-033F 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0340 F592       244            mov HEX1, a ; Display number to given (first input) register
-0342 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-0345 740B       244            mov a, #11 ; Load second input into accumulator
-0347 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0348 F593       244            mov HEX2, a ; Display number to given (first input) register
-034A 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-034D 740B       244            mov a, #11 ; Load second input into accumulator
-034F 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0350 F594       244            mov HEX3, a ; Display number to given (first input) register
-0352 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-0355 740A       244            mov a, #10 ; Load second input into accumulator
-0357 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0358 F58E       244            mov HEX4, a ; Display number to given (first input) register
-035A 900003     244            mov dptr, #T_StuNum ; point to student number lookup table
-035D 7409       244            mov a, #09H ; Load second input into accumulator
-035F 93         244            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0360 F58F       244            mov HEX5, a ; Display number to given (first input) register
-0362 7C00       245            mov r4, #00
-0364 02039A     246            ljmp ENDLATCH
-0367            247   MODE7:   ; this should be the "else" case
-0367            248            ; Mode 7
-0367            249            ; remove 03 and 06
-0367 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-036A 7400       249            mov a, #00 ; Load second input into accumulator
-036C 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-036D F591       249            mov HEX0, a ; Display number to given (first input) register
-036F 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-0372 7401       249            mov a, #01 ; Load second input into accumulator
-0374 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0375 F592       249            mov HEX1, a ; Display number to given (first input) register
-0377 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-037A 7402       249            mov a, #02 ; Load second input into accumulator
-037C 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-037D F593       249            mov HEX2, a ; Display number to given (first input) register
-037F 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-0382 7404       249            mov a, #04 ; Load second input into accumulator
-0384 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0385 F594       249            mov HEX3, a ; Display number to given (first input) register
-0387 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-038A 7405       249            mov a, #05 ; Load second input into accumulator
-038C 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-038D F58E       249            mov HEX4, a ; Display number to given (first input) register
-038F 900003     249            mov dptr, #T_StuNum ; point to student number lookup table
-0392 7407       249            mov a, #07 ; Load second input into accumulator
-0394 93         249            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0395 F58F       249            mov HEX5, a ; Display number to given (first input) register
-0397            250            
-0397 02039A     251            ljmp ENDLATCH   
-039A            252   ENDLATCH: 
-039A            253   
-039A            254   ; The code under this label has to do with timekeeping
-039A            255   TIMELOGIC:       
-039A            256            ; Timing logic
-039A D90D       257            djnz r1, ENDTICK
-039C 7964       258            mov r1, S_TICKS         ; if we got here, that means r1 is zero
-039E DA09       259            djnz r2, ENDTICK
-03A0 7A64       260            mov r2, M_TICKS         ; if we got here, that means r2 is zero
-03A2 DB05       261            djnz r3, ENDTICK
-03A4 7B96       262            mov r3, L_TICKS         ; if we got here, that means r3 is zero
-03A6 0203AC     263            ljmp HEARTBEAT
-03A9            264            
-03A9            265            ENDTICK:
-03A9 020467     266            ljmp ENDTIME
-03AC            267            
-03AC            268   
-03AC            269            ; these lines execute once a "heartbeat"
-03AC            270   HEARTBEAT:
-03AC B2E8       271            cpl LEDRA.0             ;flip LED to visualize heartbeat
-03AE            272            
-03AE            273            ; Think of this as a big Switch statement that finds what mode we are in
-03AE            274            ; Modes that have time-dependant behavior: 2, 3, 4, 5, 6
-03AE B8021B     275            CJNE r0, #02, MODE3T            ; jump if r0 != byte
-03B1            276            ; Mode 2
-03B1 8DF0       277            mov b, r5 ; "temp" keep
-03B3            277            
-03B3 EC         277            mov a, r4
-03B4 FD         277            mov r5, a
-03B5 AC8F       277            mov r4, HEX5
-03B7 858E8F     277            mov HEX5, HEX4
-03BA 85948E     277            mov HEX4, HEX3
-03BD 859394     277            mov HEX3, HEX2
-03C0 859293     277            mov HEX2, HEX1
-03C3 859192     277            mov HEX1, HEX0
-03C6 85F091     277            mov HEX0, b
-03C9 020467     278            ljmp ENDTIME    
-03CC B8031B     279   MODE3T:  CJNE r0, #03, MODE4T            ; jump if r0 != byte 
-03CF            280            ; Mode 3
-03CF 8591F0     281            mov b, HEX0 ; "temp" keep
-03D2            281            
-03D2 859291     281            mov HEX0, HEX1
-03D5 859392     281            mov HEX1, HEX2
-03D8 859493     281            mov HEX2, HEX3
-03DB 858E94     281            mov HEX3, HEX4
-03DE 858F8E     281            mov HEX4, HEX5
-03E1 8C8F       281            mov HEX5, r4
-03E3 ED         281            mov a, r5
-03E4 FC         281            mov r4, a
-03E5 ADF0       281            mov r5, b
-03E7            282                    
-03E7 020467     283            ljmp ENDTIME
-03EA B8046D     284   MODE4T:  CJNE r0, #04, MODE5T            ; jump if A != byte 
-03ED            285            ; Mode 4 - Flash
-03ED            286            ; if r4 == 0, blank
-03ED BC0035     287            CJNE r4, #00, FLASHJUMP
-03F0 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-03F3 7408       288            mov a, #08 ; Load second input into accumulator
-03F5 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-03F6 F591       288            mov HEX0, a ; Display number to given (first input) register
-03F8 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-03FB 7408       288            mov a, #08 ; Load second input into accumulator
-03FD 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-03FE F592       288            mov HEX1, a ; Display number to given (first input) register
-0400 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-0403 7408       288            mov a, #08 ; Load second input into accumulator
-0405 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0406 F593       288            mov HEX2, a ; Display number to given (first input) register
-0408 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-040B 7408       288            mov a, #08 ; Load second input into accumulator
-040D 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-040E F594       288            mov HEX3, a ; Display number to given (first input) register
-0410 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-0413 7408       288            mov a, #08 ; Load second input into accumulator
-0415 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0416 F58E       288            mov HEX4, a ; Display number to given (first input) register
-0418 900003     288            mov dptr, #T_StuNum ; point to student number lookup table
-041B 7408       288            mov a, #08 ; Load second input into accumulator
-041D 93         288            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-041E F58F       288            mov HEX5, a ; Display number to given (first input) register
-0420 7C01       289            mov r4, #01
-0422 020467     290            ljmp ENDTIME
-0425            291            FLASHJUMP:      
-0425 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0428 7400       292            mov a, #00 ; Load second input into accumulator
-042A 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-042B F591       292            mov HEX0, a ; Display number to given (first input) register
-042D 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0430 7401       292            mov a, #01 ; Load second input into accumulator
-0432 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0433 F592       292            mov HEX1, a ; Display number to given (first input) register
-0435 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0438 7402       292            mov a, #02 ; Load second input into accumulator
-043A 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-043B F593       292            mov HEX2, a ; Display number to given (first input) register
-043D 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0440 7403       292            mov a, #03 ; Load second input into accumulator
-0442 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0443 F594       292            mov HEX3, a ; Display number to given (first input) register
-0445 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0448 7404       292            mov a, #04 ; Load second input into accumulator
-044A 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-044B F58E       292            mov HEX4, a ; Display number to given (first input) register
-044D 900003     292            mov dptr, #T_StuNum ; point to student number lookup table
-0450 7405       292            mov a, #05 ; Load second input into accumulator
-0452 93         292            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-0453 F58F       292            mov HEX5, a ; Display number to given (first input) register
-0455 7C00       293            mov r4, #00
-0457 020467     294            ljmp ENDTIME
-045A B80504     295   MODE5T:  CJNE r0, #05, MODE6T            ; jump if A != byte 
-045D            296            ; Mode 5 - One by one
-045D 0C         297            inc r4
-045E 0200C9     298            ljmp MODE5LONG
-0461 B80603     299   MODE6T:  CJNE r0, #06, ENDTIME           ; jump if A != byte 
-0464            300            ; Mode 6 - Hello cycle
-0464            301            ; Couldn't fit it in so had to do a scuffed long jump away then back
-0464 020016     302            ljmp MODE6LONG
-0467            303   ENDTIME:
-0467            304   
-0467 02019F     305            ljmp loop ; Go back up to loop to keep repeating forever
-046A            306   END
+0152            140            
+0152            141   
+0152            142   ;This is a "function", it takes no parameters. It just displays the custom display for mode 7
+                143   Custom_disp mac
+                144   	; remove 03 and 06
+                145   	Display_on(HEX0, #00)
+                146   	Display_on(HEX1, #01)
+                147   	Display_on(HEX2, #02)
+                148   	Display_on(HEX3, #04)
+                149   	Display_on(HEX4, #05)
+                150   	Display_on(HEX5, #07)
+                151   endmac
+0152            152   
+                153   Scrll_left mac
+                154   	mov b, r5 ; "temp" keep
+                155   	
+                156   	mov a, r4
+                157   	mov r5, a
+                158   	mov r4, HEX5
+                159   	mov HEX5, HEX4
+                160   	mov HEX4, HEX3
+                161   	mov HEX3, HEX2
+                162   	mov HEX2, HEX1
+                163   	mov HEX1, HEX0
+                164   	mov HEX0, b
+                165   endmac
+0152            166   
+                167   Scrll_right mac
+                168   	mov b, HEX0 ; "temp" keep
+                169   	
+                170   	mov HEX0, HEX1
+                171   	mov HEX1, HEX2
+                172   	mov HEX2, HEX3
+                173   	mov HEX3, HEX4
+                174   	mov HEX4, HEX5
+                175   	mov HEX5, r4
+                176   	mov a, r5
+                177   	mov r4, a
+                178   	mov r5, b
+                179   endmac
+0152            180   
+0152            181   ; The code under this label runs once, when the program starts
+0152            182   pgrmstart:
+0152            183            ; Turns off LEDs and stuff
+0152 75817F     184            mov SP, #0x7f
+0155 75E800     185            mov LEDRA, #0 ; Bit addressable
+0158 759500     186            mov LEDRB, #0 ; Not bit addressable
+015B            187            
+015B            188            ; Start timer
+015B 7964       189            mov r1, S_TICKS
+015D 7A64       190            mov r2, M_TICKS
+015F 7B96       191            mov r3, L_TICKS
+0161            192            
+0161            193            
+0161            194            
+0161            195            ; Mode 0 by default, display first 6 digits
+0161 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+0164 7400       196            mov a, #00 ; Load second input into accumulator
+0166 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0167 FC         196            mov r4, a ; Display number to given (first input) register
+0168 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+016B 7401       196            mov a, #01 ; Load second input into accumulator
+016D 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+016E FD         196            mov r5, a ; Display number to given (first input) register
+016F 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+0172 7402       196            mov a, #02 ; Load second input into accumulator
+0174 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0175 F591       196            mov HEX0, a ; Display number to given (first input) register
+0177 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+017A 7403       196            mov a, #03 ; Load second input into accumulator
+017C 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+017D F592       196            mov HEX1, a ; Display number to given (first input) register
+017F 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+0182 7404       196            mov a, #04 ; Load second input into accumulator
+0184 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0185 F593       196            mov HEX2, a ; Display number to given (first input) register
+0187 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+018A 7405       196            mov a, #05 ; Load second input into accumulator
+018C 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+018D F594       196            mov HEX3, a ; Display number to given (first input) register
+018F 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+0192 7406       196            mov a, #06 ; Load second input into accumulator
+0194 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0195 F58E       196            mov HEX4, a ; Display number to given (first input) register
+0197 900003     196            mov dptr, #T_StuNum ; point to student number lookup table
+019A 7407       196            mov a, #07 ; Load second input into accumulator
+019C 93         196            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+019D F58F       196            mov HEX5, a ; Display number to given (first input) register
+019F            197            
+019F            198   ; The code under this label runs continuously
+019F            199   loop:
+019F            200            ; Latching logic
+019F 20FB03     201            jb key.3, ENDLATCHtmp   ; jump if bit 3 of switch is = 1
+01A2 0201A8     202            ljmp LATCHLOGIC
+01A5 02039A     203   ENDLATCHtmp: ljmp ENDLATCH       ; I have to do this weird jumping bc jb can only jump up to 127 lines
+01A8            204   
+01A8            205   ; The code under this label has to do with latching our mode, and updating the display
+01A8            206   ; to the "first frame" of that mode
+01A8            207   LATCHLOGIC:
+01A8            208            ; Evaluate initial display depending on mode
+01A8 E5E8       209            mov a, SWA                                                      
+01AA 5407       210            ANL a, #07                              ; strip A to only the least significant 3 values by ANDing it with 00000111 (Not strictly nesc.)
+01AC F8         211            mov r0, a                               ; store switch values in r0
+01AD            212            ; Think of this as a big Switch statement that finds what mode we are in
+01AD            213            ; There is a better way to do this, as a lot of the modes have the same start
+01AD            214            ; However, to start with this is a more clear way to see what is going on
+01AD B80041     215            CJNE r0, #00, MODE1             ; jump if r0 != byte
+01B0            216            ; Mode 0
+01B0 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01B3 7400       217            mov a, #00 ; Load second input into accumulator
+01B5 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01B6 FC         217            mov r4, a ; Display number to given (first input) register
+01B7 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01BA 7401       217            mov a, #01 ; Load second input into accumulator
+01BC 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01BD FD         217            mov r5, a ; Display number to given (first input) register
+01BE 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01C1 7402       217            mov a, #02 ; Load second input into accumulator
+01C3 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01C4 F591       217            mov HEX0, a ; Display number to given (first input) register
+01C6 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01C9 7403       217            mov a, #03 ; Load second input into accumulator
+01CB 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01CC F592       217            mov HEX1, a ; Display number to given (first input) register
+01CE 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01D1 7404       217            mov a, #04 ; Load second input into accumulator
+01D3 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01D4 F593       217            mov HEX2, a ; Display number to given (first input) register
+01D6 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01D9 7405       217            mov a, #05 ; Load second input into accumulator
+01DB 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01DC F594       217            mov HEX3, a ; Display number to given (first input) register
+01DE 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01E1 7406       217            mov a, #06 ; Load second input into accumulator
+01E3 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01E4 F58E       217            mov HEX4, a ; Display number to given (first input) register
+01E6 900003     217            mov dptr, #T_StuNum ; point to student number lookup table
+01E9 7407       217            mov a, #07 ; Load second input into accumulator
+01EB 93         217            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01EC F58F       217            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
+01EE            218            
+01EE 02039A     219            ljmp ENDLATCH   
+01F1 B80143     220   MODE1:   CJNE r0, #01, MODE2             ; jump if A != byte 
+01F4            221            ; Mode 1
+01F4 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+01F7 7408       222            mov a, #08 ; Load second input into accumulator
+01F9 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+01FA F591       222            mov HEX0, a ; Display number to given (first input) register
+01FC 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+01FF 7408       222            mov a, #08 ; Load second input into accumulator
+0201 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0202 F592       222            mov HEX1, a ; Display number to given (first input) register
+0204 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+0207 7408       222            mov a, #08 ; Load second input into accumulator
+0209 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+020A F593       222            mov HEX2, a ; Display number to given (first input) register
+020C 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+020F 7408       222            mov a, #08 ; Load second input into accumulator
+0211 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0212 F594       222            mov HEX3, a ; Display number to given (first input) register
+0214 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+0217 7408       222            mov a, #08 ; Load second input into accumulator
+0219 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+021A F58E       222            mov HEX4, a ; Display number to given (first input) register
+021C 900003     222            mov dptr, #T_StuNum ; point to student number lookup table
+021F 7408       222            mov a, #08 ; Load second input into accumulator
+0221 93         222            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0222 F58F       222            mov HEX5, a ; Display number to given (first input) register
+0224 900003     223            mov dptr, #T_StuNum ; point to student number lookup table
+0227 7400       223            mov a, #00 ; Load second input into accumulator
+0229 93         223            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+022A F591       223            mov HEX0, a ; Display number to given (first input) register
+022C 900003     224            mov dptr, #T_StuNum ; point to student number lookup table
+022F 7401       224            mov a, #01 ; Load second input into accumulator
+0231 93         224            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0232 F592       224            mov HEX1, a ; Display number to given (first input) register
+0234            225                    
+0234 02039A     226            ljmp ENDLATCH
+0237 B80241     227   MODE2:   CJNE r0, #02, MODE3             ; jump if A != byte 
+023A            228            ; Mode 2
+023A 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+023D 7400       229            mov a, #00 ; Load second input into accumulator
+023F 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0240 FC         229            mov r4, a ; Display number to given (first input) register
+0241 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+0244 7401       229            mov a, #01 ; Load second input into accumulator
+0246 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0247 FD         229            mov r5, a ; Display number to given (first input) register
+0248 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+024B 7402       229            mov a, #02 ; Load second input into accumulator
+024D 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+024E F591       229            mov HEX0, a ; Display number to given (first input) register
+0250 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+0253 7403       229            mov a, #03 ; Load second input into accumulator
+0255 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0256 F592       229            mov HEX1, a ; Display number to given (first input) register
+0258 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+025B 7404       229            mov a, #04 ; Load second input into accumulator
+025D 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+025E F593       229            mov HEX2, a ; Display number to given (first input) register
+0260 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+0263 7405       229            mov a, #05 ; Load second input into accumulator
+0265 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0266 F594       229            mov HEX3, a ; Display number to given (first input) register
+0268 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+026B 7406       229            mov a, #06 ; Load second input into accumulator
+026D 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+026E F58E       229            mov HEX4, a ; Display number to given (first input) register
+0270 900003     229            mov dptr, #T_StuNum ; point to student number lookup table
+0273 7407       229            mov a, #07 ; Load second input into accumulator
+0275 93         229            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0276 F58F       229            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
+0278 02039A     230            ljmp ENDLATCH
+027B B80341     231   MODE3:   CJNE r0, #03, MODE4             ; jump if A != byte 
+027E            232            ; Mode 3
+027E 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+0281 7400       233            mov a, #00 ; Load second input into accumulator
+0283 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0284 FC         233            mov r4, a ; Display number to given (first input) register
+0285 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+0288 7401       233            mov a, #01 ; Load second input into accumulator
+028A 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+028B FD         233            mov r5, a ; Display number to given (first input) register
+028C 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+028F 7402       233            mov a, #02 ; Load second input into accumulator
+0291 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0292 F591       233            mov HEX0, a ; Display number to given (first input) register
+0294 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+0297 7403       233            mov a, #03 ; Load second input into accumulator
+0299 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+029A F592       233            mov HEX1, a ; Display number to given (first input) register
+029C 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+029F 7404       233            mov a, #04 ; Load second input into accumulator
+02A1 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02A2 F593       233            mov HEX2, a ; Display number to given (first input) register
+02A4 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+02A7 7405       233            mov a, #05 ; Load second input into accumulator
+02A9 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02AA F594       233            mov HEX3, a ; Display number to given (first input) register
+02AC 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+02AF 7406       233            mov a, #06 ; Load second input into accumulator
+02B1 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02B2 F58E       233            mov HEX4, a ; Display number to given (first input) register
+02B4 900003     233            mov dptr, #T_StuNum ; point to student number lookup table
+02B7 7407       233            mov a, #07 ; Load second input into accumulator
+02B9 93         233            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02BA F58F       233            mov HEX5, a ; Display number to given (first input) register ; display first 6 digits
+02BC 02039A     234            ljmp ENDLATCH
+02BF B80435     235   MODE4:   CJNE r0, #04, MODE5             ; jump if A != byte 
+02C2            236            ; Mode 4
+02C2 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02C5 7400       237            mov a, #00 ; Load second input into accumulator
+02C7 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02C8 F591       237            mov HEX0, a ; Display number to given (first input) register
+02CA 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02CD 7401       237            mov a, #01 ; Load second input into accumulator
+02CF 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02D0 F592       237            mov HEX1, a ; Display number to given (first input) register
+02D2 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02D5 7402       237            mov a, #02 ; Load second input into accumulator
+02D7 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02D8 F593       237            mov HEX2, a ; Display number to given (first input) register
+02DA 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02DD 7403       237            mov a, #03 ; Load second input into accumulator
+02DF 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02E0 F594       237            mov HEX3, a ; Display number to given (first input) register
+02E2 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02E5 7404       237            mov a, #04 ; Load second input into accumulator
+02E7 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02E8 F58E       237            mov HEX4, a ; Display number to given (first input) register
+02EA 900003     237            mov dptr, #T_StuNum ; point to student number lookup table
+02ED 7405       237            mov a, #05 ; Load second input into accumulator
+02EF 93         237            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+02F0 F58F       237            mov HEX5, a ; Display number to given (first input) register ; display last 6 digits
+02F2 7C00       238            mov r4, #00
+02F4 02039A     239            ljmp ENDLATCH
+02F7 B80535     240   MODE5:   CJNE r0, #05, MODE6             ; jump if A != byte 
+02FA            241            ; Mode 5
+02FA 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+02FD 7408       242            mov a, #08 ; Load second input into accumulator
+02FF 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0300 F591       242            mov HEX0, a ; Display number to given (first input) register
+0302 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+0305 7408       242            mov a, #08 ; Load second input into accumulator
+0307 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0308 F592       242            mov HEX1, a ; Display number to given (first input) register
+030A 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+030D 7408       242            mov a, #08 ; Load second input into accumulator
+030F 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0310 F593       242            mov HEX2, a ; Display number to given (first input) register
+0312 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+0315 7408       242            mov a, #08 ; Load second input into accumulator
+0317 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0318 F594       242            mov HEX3, a ; Display number to given (first input) register
+031A 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+031D 7408       242            mov a, #08 ; Load second input into accumulator
+031F 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0320 F58E       242            mov HEX4, a ; Display number to given (first input) register
+0322 900003     242            mov dptr, #T_StuNum ; point to student number lookup table
+0325 7408       242            mov a, #08 ; Load second input into accumulator
+0327 93         242            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0328 F58F       242            mov HEX5, a ; Display number to given (first input) register
+032A 7C00       243            mov r4, #00
+032C 02039A     244            ljmp ENDLATCH
+032F B80635     245   MODE6:   CJNE r0, #06, MODE7             ; jump if A != byte 
+0332            246            ; Mode 6
+0332 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+0335 7408       247            mov a, #08H ; Load second input into accumulator
+0337 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0338 F591       247            mov HEX0, a ; Display number to given (first input) register
+033A 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+033D 740C       247            mov a, #12 ; Load second input into accumulator
+033F 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0340 F592       247            mov HEX1, a ; Display number to given (first input) register
+0342 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+0345 740B       247            mov a, #11 ; Load second input into accumulator
+0347 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0348 F593       247            mov HEX2, a ; Display number to given (first input) register
+034A 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+034D 740B       247            mov a, #11 ; Load second input into accumulator
+034F 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0350 F594       247            mov HEX3, a ; Display number to given (first input) register
+0352 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+0355 740A       247            mov a, #10 ; Load second input into accumulator
+0357 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0358 F58E       247            mov HEX4, a ; Display number to given (first input) register
+035A 900003     247            mov dptr, #T_StuNum ; point to student number lookup table
+035D 7409       247            mov a, #09H ; Load second input into accumulator
+035F 93         247            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0360 F58F       247            mov HEX5, a ; Display number to given (first input) register
+0362 7C00       248            mov r4, #00
+0364 02039A     249            ljmp ENDLATCH
+0367            250   MODE7:   ; this should be the "else" case
+0367            251            ; Mode 7
+0367            252            ; remove 03 and 06
+0367 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+036A 7400       252            mov a, #00 ; Load second input into accumulator
+036C 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+036D F591       252            mov HEX0, a ; Display number to given (first input) register
+036F 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+0372 7401       252            mov a, #01 ; Load second input into accumulator
+0374 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0375 F592       252            mov HEX1, a ; Display number to given (first input) register
+0377 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+037A 7402       252            mov a, #02 ; Load second input into accumulator
+037C 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+037D F593       252            mov HEX2, a ; Display number to given (first input) register
+037F 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+0382 7404       252            mov a, #04 ; Load second input into accumulator
+0384 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0385 F594       252            mov HEX3, a ; Display number to given (first input) register
+0387 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+038A 7405       252            mov a, #05 ; Load second input into accumulator
+038C 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+038D F58E       252            mov HEX4, a ; Display number to given (first input) register
+038F 900003     252            mov dptr, #T_StuNum ; point to student number lookup table
+0392 7407       252            mov a, #07 ; Load second input into accumulator
+0394 93         252            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0395 F58F       252            mov HEX5, a ; Display number to given (first input) register
+0397            253            
+0397 02039A     254            ljmp ENDLATCH   
+039A            255   ENDLATCH: 
+039A            256   
+039A            257   ; The code under this label has to do with timekeeping
+039A            258   TIMELOGIC:       
+039A            259            ; Timing logic
+039A D915       260            djnz r1, ENDTICK
+039C 7964       261            mov r1, S_TICKS         ; if we got here, that means r1 is zero
+039E DA11       262            djnz r2, ENDTICK
+03A0            263            ; if we got here, that means r2 is zero
+03A0 30EB05     264            JNB SWA.3, LONGERTIME ; Jump if bit = 0
+03A3 7A64       265            mov r2, M_TICKS
+03A5 0203AA     266            ljmp SHORTERTIME
+03A8            267            LONGERTIME:
+03A8 7AC8       268            mov r2, M_TICKS_DOUBLE
+03AA            269            SHORTERTIME:
+03AA DB05       270            djnz r3, ENDTICK
+03AC 7B96       271            mov r3, L_TICKS         ; if we got here, that means r3 is zero
+03AE 0203B4     272            ljmp HEARTBEAT
+03B1            273            
+03B1            274            ENDTICK:
+03B1 02046F     275            ljmp ENDTIME
+03B4            276            
+03B4            277   
+03B4            278            ; these lines execute once a "heartbeat"
+03B4            279   HEARTBEAT:
+03B4 B2E8       280            cpl LEDRA.0             ;flip LED to visualize heartbeat
+03B6            281            
+03B6            282            ; Think of this as a big Switch statement that finds what mode we are in
+03B6            283            ; Modes that have time-dependant behavior: 2, 3, 4, 5, 6
+03B6 B8021B     284            CJNE r0, #02, MODE3T            ; jump if r0 != byte
+03B9            285            ; Mode 2
+03B9 8DF0       286            mov b, r5 ; "temp" keep
+03BB            286            
+03BB EC         286            mov a, r4
+03BC FD         286            mov r5, a
+03BD AC8F       286            mov r4, HEX5
+03BF 858E8F     286            mov HEX5, HEX4
+03C2 85948E     286            mov HEX4, HEX3
+03C5 859394     286            mov HEX3, HEX2
+03C8 859293     286            mov HEX2, HEX1
+03CB 859192     286            mov HEX1, HEX0
+03CE 85F091     286            mov HEX0, b
+03D1 02046F     287            ljmp ENDTIME    
+03D4 B8031B     288   MODE3T:  CJNE r0, #03, MODE4T            ; jump if r0 != byte 
+03D7            289            ; Mode 3
+03D7 8591F0     290            mov b, HEX0 ; "temp" keep
+03DA            290            
+03DA 859291     290            mov HEX0, HEX1
+03DD 859392     290            mov HEX1, HEX2
+03E0 859493     290            mov HEX2, HEX3
+03E3 858E94     290            mov HEX3, HEX4
+03E6 858F8E     290            mov HEX4, HEX5
+03E9 8C8F       290            mov HEX5, r4
+03EB ED         290            mov a, r5
+03EC FC         290            mov r4, a
+03ED ADF0       290            mov r5, b
+03EF            291                    
+03EF 02046F     292            ljmp ENDTIME
+03F2 B8046D     293   MODE4T:  CJNE r0, #04, MODE5T            ; jump if A != byte 
+03F5            294            ; Mode 4 - Flash
+03F5            295            ; if r4 == 0, blank
+03F5 BC0035     296            CJNE r4, #00, FLASHJUMP
+03F8 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+03FB 7408       297            mov a, #08 ; Load second input into accumulator
+03FD 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+03FE F591       297            mov HEX0, a ; Display number to given (first input) register
+0400 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+0403 7408       297            mov a, #08 ; Load second input into accumulator
+0405 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0406 F592       297            mov HEX1, a ; Display number to given (first input) register
+0408 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+040B 7408       297            mov a, #08 ; Load second input into accumulator
+040D 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+040E F593       297            mov HEX2, a ; Display number to given (first input) register
+0410 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+0413 7408       297            mov a, #08 ; Load second input into accumulator
+0415 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0416 F594       297            mov HEX3, a ; Display number to given (first input) register
+0418 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+041B 7408       297            mov a, #08 ; Load second input into accumulator
+041D 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+041E F58E       297            mov HEX4, a ; Display number to given (first input) register
+0420 900003     297            mov dptr, #T_StuNum ; point to student number lookup table
+0423 7408       297            mov a, #08 ; Load second input into accumulator
+0425 93         297            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0426 F58F       297            mov HEX5, a ; Display number to given (first input) register
+0428 7C01       298            mov r4, #01
+042A 02046F     299            ljmp ENDTIME
+042D            300            FLASHJUMP:      
+042D 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0430 7400       301            mov a, #00 ; Load second input into accumulator
+0432 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0433 F591       301            mov HEX0, a ; Display number to given (first input) register
+0435 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0438 7401       301            mov a, #01 ; Load second input into accumulator
+043A 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+043B F592       301            mov HEX1, a ; Display number to given (first input) register
+043D 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0440 7402       301            mov a, #02 ; Load second input into accumulator
+0442 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0443 F593       301            mov HEX2, a ; Display number to given (first input) register
+0445 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0448 7403       301            mov a, #03 ; Load second input into accumulator
+044A 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+044B F594       301            mov HEX3, a ; Display number to given (first input) register
+044D 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0450 7404       301            mov a, #04 ; Load second input into accumulator
+0452 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+0453 F58E       301            mov HEX4, a ; Display number to given (first input) register
+0455 900003     301            mov dptr, #T_StuNum ; point to student number lookup table
+0458 7405       301            mov a, #05 ; Load second input into accumulator
+045A 93         301            movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
+045B F58F       301            mov HEX5, a ; Display number to given (first input) register
+045D 7C00       302            mov r4, #00
+045F 02046F     303            ljmp ENDTIME
+0462 B80504     304   MODE5T:  CJNE r0, #05, MODE6T            ; jump if A != byte 
+0465            305            ; Mode 5 - One by one
+0465 0C         306            inc r4
+0466 0200C9     307            ljmp MODE5LONG
+0469 B80603     308   MODE6T:  CJNE r0, #06, ENDTIME           ; jump if A != byte 
+046C            309            ; Mode 6 - Hello cycle
+046C            310            ; Couldn't fit it in so had to do a scuffed long jump away then back
+046C 020016     311            ljmp MODE6LONG
+046F            312   ENDTIME:
+046F            313   
+046F 02019F     314            ljmp loop ; Go back up to loop to keep repeating forever
+0472            315   END

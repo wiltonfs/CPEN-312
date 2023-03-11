@@ -9,6 +9,7 @@ org 0000H ; Which code memory location to start at after reset
 ;But none of them can be over 255 (8 bit)
 S_TICKS EQU #100
 M_TICKS EQU #100
+M_TICKS_DOUBLE EQU #200
 L_TICKS EQU #150
 
 ; Look-up table for my student number, blank, and HELLO
@@ -189,6 +190,8 @@ pgrmstart:
 	mov r2, M_TICKS
 	mov r3, L_TICKS
 	
+	
+	
 	; Mode 0 by default, display first 6 digits
 	Most_sig()
 	
@@ -257,7 +260,13 @@ TIMELOGIC:
 	djnz r1, ENDTICK
 	mov r1, S_TICKS 	; if we got here, that means r1 is zero
 	djnz r2, ENDTICK
-	mov r2, M_TICKS	; if we got here, that means r2 is zero
+	; if we got here, that means r2 is zero
+	JNB SWA.3, LONGERTIME ; Jump if bit = 0
+	mov r2, M_TICKS
+	ljmp SHORTERTIME
+	LONGERTIME:
+	mov r2, M_TICKS_DOUBLE
+	SHORTERTIME:
 	djnz r3, ENDTICK
 	mov r3, L_TICKS	; if we got here, that means r3 is zero
 	ljmp HEARTBEAT
