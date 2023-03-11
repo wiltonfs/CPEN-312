@@ -23,34 +23,13 @@ Display_on mac
 	mov a, b ; Restore value of accumulator
 endmac
 
-Display_2 mac
-	mov b, a ; Preserve value of accumulator
-	
-	mov dptr, #T_StuNum ; point to student number lookup table
-	mov a, %0 ; Load input into accumulator
-	movc a, @dptr+a ; Read from table
-	mov r2, a
-	
-	mov dptr, #T_HexDisp ; point to Hex lookup table
-	mov a, %0 ; Load input into accumulator
-	movc a, @dptr+a ; Read from table
-	; mov dptr, a
-	
-	; at this moment in time
-	; r2 holds the HEX version of the lights that need to be on or off for a HEX display
-	; dptr holds the ADDRESS of the hex segment we want to turn on
-	
-	mov 91H, r2 ; Display number
-	mov a, b ; Restore value of accumulator
-endmac
-
 main:
 	mov SP, #0x7f
 	mov LEDRA, #0 ; Bit addressable
 	mov LEDRB, #0 ; Not bit addressable
 Forever:
 	mov r1, #00H
-	Display_2(r1)
+	Display_on(HEX0, r1)
 	inc r1 ; increment r1
 	Display_on(HEX1, r1)
 	inc r1 ; increment r1
