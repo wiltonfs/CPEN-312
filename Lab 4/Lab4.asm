@@ -99,6 +99,44 @@ MODE6LONG:
 	Hello()
 	mov r4, #00
 	ljmp ENDTIME
+	
+MODE5LONG:
+	; Mode 5 - build it one by one
+	; if r4 == 0, Blank
+	CJNE r4, #00, MODE5JUMP1
+	All_blnk()
+	ljmp ENDTIME
+	MODE5JUMP1:	
+	CJNE r4, #01, MODE5JUMP2
+	Display_on(HEX5, #07)
+	ljmp ENDTIME
+	MODE5JUMP2:
+	CJNE r4, #02, MODE5JUMP3
+	Display_on(HEX4, #06)
+	ljmp ENDTIME
+	MODE5JUMP3:
+	CJNE r4, #03, MODE5JUMP4
+	Display_on(HEX3, #05)
+	ljmp ENDTIME
+	MODE5JUMP4:
+	CJNE r4, #04, MODE5JUMP5
+	Display_on(HEX2, #04)
+	ljmp ENDTIME
+	MODE5JUMP5:
+	CJNE r4, #05, MODE5JUMP6
+	Display_on(HEX1, #03)
+	ljmp ENDTIME
+	MODE5JUMP6: ; else case
+	Display_on(HEX0, #02)
+	mov r4, #0xFFH ; to make sure it overflows
+	ljmp ENDTIME
+	
+	
+	
+	
+	
+	
+	
 
 ;This is a "function", it takes no parameters. It just displays the custom display for mode 7
 Custom_disp mac
@@ -199,7 +237,7 @@ MODE4:	CJNE r0, #04, MODE5 		; jump if A != byte
 MODE5:	CJNE r0, #05, MODE6 		; jump if A != byte 
 	; Mode 5
 	All_blnk()
-	
+	mov r4, #00
 	ljmp ENDLATCH
 MODE6:	CJNE r0, #06, MODE7 		; jump if A != byte 
 	; Mode 6
@@ -256,8 +294,8 @@ MODE4T:	CJNE r0, #04, MODE5T 		; jump if A != byte
 	ljmp ENDTIME
 MODE5T:	CJNE r0, #05, MODE6T 		; jump if A != byte 
 	; Mode 5 - One by one
-
-	ljmp ENDTIME
+	inc r4
+	ljmp MODE5LONG
 MODE6T:	CJNE r0, #06, ENDTIME 		; jump if A != byte 
 	; Mode 6 - Hello cycle
 	; Couldn't fit it in so had to do a scuffed long jump away then back
