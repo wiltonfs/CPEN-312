@@ -27,7 +27,27 @@ main:
 	mov SP, #0x7f
 	mov LEDRA, #0 ; Bit addressable
 	mov LEDRB, #0 ; Not bit addressable
+	mov r1, #250
+	mov r2, #250
+	mov r3, #180
 Forever:
+	; Latching circuit
+	mov a, key	; put button val into accumulator
+	jnz ENDLATCH	; if not zero (button not pressed), jump over the latch
+	mov r0, SWA 	; store switch values in r0
+ENDLATCH: 
+	
+	; Timing circuit
+	djnz r1, ENDTIME
+	mov r1, #250 	; if we got here, that means r1 is zero
+	djnz r2, ENDTIME
+	mov r2, #250	; if we got here, that means r2 is zero
+	djnz r3, ENDTIME
+	mov r3, #180	; if we got here, that means r3 is zero
+	; This line should execute once a second
+	cpl LEDRA.0		;heartbeat
+ENDTIME:		
+	
 	mov r1, #00H
 	Display_on(HEX0, r1)
 	inc r1 ; increment r1
