@@ -9,7 +9,7 @@ org 0000H ; Which code memory location to start at after reset
 ;But none of them can be over 255 (8 bit)
 S_TICKS EQU #100
 M_TICKS EQU #100
-L_TICKS EQU #90
+L_TICKS EQU #150
 
 ; Look-up table for my student number, blank, and HELLO
 ; My student num: 48059760
@@ -36,6 +36,8 @@ endmac
 
 ;This is a "function", it takes no parameters. It just displays the first 6 digits of my student number
 Most_sig mac
+	Display_on(r4, #00)
+	Display_on(r5, #01)
 	Display_on(HEX0, #02)
 	Display_on(HEX1, #03)
 	Display_on(HEX2, #04)
@@ -80,7 +82,17 @@ Custom_disp mac
 endmac
 
 Scrll_left mac
+	mov b, r5 ; "temp" keep
 	
+	mov a, r4
+	mov r5, a
+	mov r4, HEX5
+	mov HEX5, HEX4
+	mov HEX4, HEX3
+	mov HEX3, HEX2
+	mov HEX2, HEX1
+	mov HEX1, HEX0
+	mov HEX0, b
 endmac
 
 Scrll_right mac
@@ -144,14 +156,10 @@ MODE1:	CJNE r0, #01, MODE2 		; jump if A != byte
 MODE2:	CJNE r0, #02, MODE3 		; jump if A != byte 
 	; Mode 2
 	Most_sig() ; display first 6 digits
-	mov r4, #02H
-	mov r5, #40H 
 	ljmp ENDLATCH
 MODE3:	CJNE r0, #03, MODE4 		; jump if A != byte 
 	; Mode 3
 	Most_sig() ; display first 6 digits
-	mov r4, #02H
-	mov r5, #40H 
 	ljmp ENDLATCH
 MODE4:	CJNE r0, #04, MODE5 		; jump if A != byte 
 	; Mode 4
