@@ -20,8 +20,8 @@ T_StuNum:
 	DB 7FH
 	;   H 	 E	  L	   O
 	DB 89H, 86H, 0xC7H, 40H
-	; 	C 	 P 	   N 	 3 	  1    2
-	DB 86H, 86H, 0xC7H, 86H, 86H, 86H
+	; 	C 	 P 	   N 	 	3 	  1    2
+	DB 0xC6H, 8CH, 0xC8H, 0xB0H, 0xF9H, 0xA4H
 
 ;This is a "function", it takes two parameters. These parameters can be accessed using %0 and %1
 Display_on mac
@@ -66,21 +66,21 @@ endmac
 ;This is a "function", it takes no parameters. It just displays HELLO
 Hello mac
 	Display_on(HEX0, #08H)
-	Display_on(HEX1, #0CH)
-	Display_on(HEX2, #0BH)
-	Display_on(HEX3, #0BH)
-	Display_on(HEX4, #0AH)
+	Display_on(HEX1, #12)
+	Display_on(HEX2, #11)
+	Display_on(HEX3, #11)
+	Display_on(HEX4, #10)
 	Display_on(HEX5, #09H)
 endmac
 
 ;This is a "function", it takes no parameters. It just displays CPN312
 CPN312 mac
-	Display_on(HEX0, #08)
-	Display_on(HEX1, #08)
-	Display_on(HEX2, #08)
-	Display_on(HEX3, #08)
-	Display_on(HEX4, #08)
-	Display_on(HEX5, #08)
+	Display_on(HEX0, #18)
+	Display_on(HEX1, #17)
+	Display_on(HEX2, #16)
+	Display_on(HEX3, #15)
+	Display_on(HEX4, #14)
+	Display_on(HEX5, #13)
 endmac
 
 MODE6LONG:
@@ -259,6 +259,7 @@ MODE5T:	CJNE r0, #05, MODE6T 		; jump if A != byte
 
 	ljmp ENDTIME
 MODE6T:	CJNE r0, #06, ENDTIME 		; jump if A != byte 
+	; Mode 6 - Hello cycle
 	; Couldn't fit it in so had to do a scuffed long jump away then back
 	ljmp MODE6LONG
 ENDTIME:
