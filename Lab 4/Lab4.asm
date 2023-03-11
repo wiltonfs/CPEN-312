@@ -23,15 +23,10 @@ T_StuNum:
 
 ;This is a "function", it takes two parameters. These parameters can be accessed using %0 and %1
 Display_on mac
-	mov b, a ; Preserve value of accumulator (just in case I was doing something important before)
-	
 	mov dptr, #T_StuNum ; point to student number lookup table
 	mov a, %1 ; Load second input into accumulator
 	movc a, @dptr+a ; Read from table with the input offset. movc means reading from the code dataspace, and the @ is a dereference thing bc its a pointer
-	
 	mov %0, a ; Display number to given (first input) register
-
-	mov a, b ; Restore value of accumulator (just in case I was doing something important before)
 endmac
 
 ;This is a "function", it takes no parameters. It just displays the first 6 digits of my student number
@@ -170,6 +165,7 @@ MODE3:	CJNE r0, #03, MODE4 		; jump if A != byte
 MODE4:	CJNE r0, #04, MODE5 		; jump if A != byte 
 	; Mode 4
 	Least_sig() ; display last 6 digits
+	mov r4, #00
 	ljmp ENDLATCH
 MODE5:	CJNE r0, #05, MODE6 		; jump if A != byte 
 	; Mode 5
@@ -191,14 +187,20 @@ ENDLATCH:
 ; The code under this label has to do with timekeeping
 TIMELOGIC:	
 	; Timing logic
-	djnz r1, ENDTIME
+	djnz r1, ENDTICK
 	mov r1, S_TICKS 	; if we got here, that means r1 is zero
-	djnz r2, ENDTIME
+	djnz r2, ENDTICK
 	mov r2, M_TICKS	; if we got here, that means r2 is zero
-	djnz r3, ENDTIME
+	djnz r3, ENDTICK
 	mov r3, L_TICKS	; if we got here, that means r3 is zero
+	ljmp HEARTBEAT
 	
+	ENDTICK:
+	ljmp ENDTIME
+	
+
 	; these lines execute once a "heartbeat"
+HEARTBEAT:
 	cpl LEDRA.0		;flip LED to visualize heartbeat
 	
 	; Think of this as a big Switch statement that finds what mode we are in
@@ -213,15 +215,22 @@ MODE3T:	CJNE r0, #03, MODE4T 		; jump if r0 != byte
 		
 	ljmp ENDTIME
 MODE4T:	CJNE r0, #04, MODE5T 		; jump if A != byte 
-	; Mode 4
-	
+	; Mode 4 - Flash
+	; if r4 == 0, blank
+	CJNE r4, #00, FLASHJUMP
+	All_blnk()
+	mov r4, #01
+	ljmp ENDTIME
+	FLASHJUMP:	
+	Least_sig()
+	mov r4, #00
 	ljmp ENDTIME
 MODE5T:	CJNE r0, #05, MODE6T 		; jump if A != byte 
-	; Mode 5
+	; Mode 5 - One by one
 
 	ljmp ENDTIME
 MODE6T:	CJNE r0, #06, ENDTIME 		; jump if A != byte 
-	; Mode 6
+	; Mode 6 - Hello() Most_sig() CPN312()
 
 	ljmp ENDTIME
 	
