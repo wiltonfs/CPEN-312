@@ -3,8 +3,8 @@ $MODDE0CV ; Special Function Registers declaration for CV-8052
 org 0000H ; After reset, the processor starts at location zero
 	ljmp main
 
-#These three values are associated with the timing of the circuit
-#Tune them to set the heartbeat of the program
+;These three values are associated with the timing of the circuit
+;Tune them to set the "heartbeat" of the program
 S_TICKS EQU #100
 M_TICKS EQU #100
 L_TICKS EQU #90
@@ -14,19 +14,17 @@ L_TICKS EQU #90
 ; 48059760
 T_StuNum:
 	DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
-T_HexDisp:
-	DB 91H, HEX1, HEX2, HEX3, HEX4, HEX5
 
 Display_on mac
-	mov b, a ; Preserve value of accumulator
+	mov b, a ; Preserve value of accumulator (just in case)
 	
 	mov dptr, #T_StuNum ; point to student number lookup table
-	mov a, %1 ; Load input into accumulator
-	movc a, @dptr+a ; Read from table
+	mov a, %1 ; Load macro's input into accumulator
+	movc a, @dptr+a ; Read from table with the input offset
 	
-	mov %0, a ; Display number
+	mov %0, a ; Display number to given register
 
-	mov a, b ; Restore value of accumulator
+	mov a, b ; Restore value of accumulator (just in case)
 endmac
 
 main:
@@ -49,8 +47,10 @@ ENDLATCH:
 	mov r2, M_TICKS	; if we got here, that means r2 is zero
 	djnz r3, ENDTIME
 	mov r3, L_TICKS	; if we got here, that means r3 is zero
-	; This line should execute once a second
-	cpl LEDRA.0		;heartbeat
+	
+	
+	; these lines executes once a "heartbeat"
+	cpl LEDRA.0		;flip LED to visualize heartbeat
 	
 	mov r4, #00H
 	Display_on(HEX0, r4)
@@ -66,6 +66,8 @@ ENDLATCH:
 	Display_on(HEX5, r4)
 	
 	
-ENDTIME:	
+ENDTIME:
+
+	
 	ljmp Forever ; Repeat forever
 END
