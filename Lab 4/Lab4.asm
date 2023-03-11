@@ -11,10 +11,8 @@ S_TICKS EQU #100
 M_TICKS EQU #100
 L_TICKS EQU #90
 
-; Look-up table for my student number
-; Least sig to most sig
+; Look-up table for my student number, blank, and HELLO
 ; My student num: 48059760
-; last one is just blank
 T_StuNum:
 	; 	0	6	  7	   9	5	 0	  8	   4 	
 	DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
@@ -81,6 +79,24 @@ Custom_disp mac
 	; Up to you to implement
 endmac
 
+Scrll_left mac
+	
+endmac
+
+Scrll_right mac
+	mov b, HEX0 ; "temp" keep
+	
+	mov HEX0, HEX1
+	mov HEX1, HEX2
+	mov HEX2, HEX3
+	mov HEX3, HEX4
+	mov HEX4, HEX5
+	mov HEX5, r4
+	mov a, r5
+	mov r4, a
+	mov r5, b
+endmac
+
 ; The code under this label runs once, when the program starts
 pgrmstart:
 	; Turns off LEDs and stuff
@@ -106,47 +122,47 @@ ENDLATCHtmp: ljmp ENDLATCH	; I have to do this weird jumping bc jb can only jump
 ; The code under this label has to do with latching our mode, and updating the display
 ; to the "first frame" of that mode
 LATCHLOGIC:
-	mov r0, SWA 			; store switch values in r0
 	; Evaluate initial display depending on mode
-	mov a, r0 				
+	mov a, SWA 							
 	ANL a, #07				; strip A to only the least significant 3 values by ANDing it with 00000111 (Not strictly nesc.)
-	
+	mov r0, a				; store switch values in r0
 	; Think of this as a big Switch statement that finds what mode we are in
 	; There is a better way to do this, as a lot of the modes have the same start
 	; However, to start with this is a more clear way to see what is going on
-	CJNE a, #00, MODE1 		; jump if A != byte
+	CJNE r0, #00, MODE1 		; jump if r0 != byte
 	; Mode 0
 	Most_sig() ; display first 6 digits
 	
 	ljmp ENDLATCH	
-MODE1:	CJNE a, #01, MODE2 		; jump if A != byte 
+MODE1:	CJNE r0, #01, MODE2 		; jump if A != byte 
 	; Mode 1
 	All_blnk()
 	Display_on(HEX0, #00)
 	Display_on(HEX1, #01)
 		
 	ljmp ENDLATCH
-MODE2:	CJNE a, #02, MODE3 		; jump if A != byte 
+MODE2:	CJNE r0, #02, MODE3 		; jump if A != byte 
 	; Mode 2
 	Most_sig() ; display first 6 digits
-	
+	mov r4, #02H
+	mov r5, #40H 
 	ljmp ENDLATCH
-MODE3:	CJNE a, #03, MODE4 		; jump if A != byte 
+MODE3:	CJNE r0, #03, MODE4 		; jump if A != byte 
 	; Mode 3
 	Most_sig() ; display first 6 digits
-	
+	mov r4, #02H
+	mov r5, #40H 
 	ljmp ENDLATCH
-MODE4:	CJNE a, #04, MODE5 		; jump if A != byte 
+MODE4:	CJNE r0, #04, MODE5 		; jump if A != byte 
 	; Mode 4
 	Least_sig() ; display last 6 digits
-	
 	ljmp ENDLATCH
-MODE5:	CJNE a, #05, MODE6 		; jump if A != byte 
+MODE5:	CJNE r0, #05, MODE6 		; jump if A != byte 
 	; Mode 5
 	All_blnk()
 	
 	ljmp ENDLATCH
-MODE6:	CJNE a, #06, MODE7 		; jump if A != byte 
+MODE6:	CJNE r0, #06, MODE7 		; jump if A != byte 
 	; Mode 6
 	Hello()
 	
@@ -171,7 +187,31 @@ TIMELOGIC:
 	; these lines execute once a "heartbeat"
 	cpl LEDRA.0		;flip LED to visualize heartbeat
 	
+	; Think of this as a big Switch statement that finds what mode we are in
+	; Modes that have time-dependant behavior: 2, 3, 4, 5, 6
+	CJNE r0, #02, MODE3T 		; jump if r0 != byte
+	; Mode 2
+	Scrll_left()
+	ljmp ENDTIME	
+MODE3T:	CJNE r0, #03, MODE4T 		; jump if r0 != byte 
+	; Mode 3
+	Scrll_right()
+		
+	ljmp ENDTIME
+MODE4T:	CJNE r0, #04, MODE5T 		; jump if A != byte 
+	; Mode 4
+	
+	ljmp ENDTIME
+MODE5T:	CJNE r0, #05, MODE6T 		; jump if A != byte 
+	; Mode 5
+
+	ljmp ENDTIME
+MODE6T:	CJNE r0, #06, ENDTIME 		; jump if A != byte 
+	; Mode 6
+
+	ljmp ENDTIME
+	
 ENDTIME:
 
-	ljmp loop ; Go back up to Forever to keep repeating forever
+	ljmp loop ; Go back up to loop to keep repeating forever
 END
