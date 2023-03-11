@@ -158,7 +158,7 @@
 0003 40027810    10            DB 40H, 02H, 78H, 10H, 12H, 40H, 00H, 19H
      12400019
 000B             11   T_HexDisp:
-000B 91929394    12            DB HEX0, HEX1, HEX2, HEX3, HEX4, HEX5
+000B 91929394    12            DB 91H, HEX1, HEX2, HEX3, HEX4, HEX5
      8E8F
 0011             13   
                  14   Display_on mac
@@ -169,84 +169,105 @@
                  19   	movc a, @dptr+a ; Read from table
                  20   	
                  21   	mov %0, a ; Display number
-                 22   	mov a, b ; Restore value of accumulator
-                 23   endmac
-0011             24   
-                 25   Display_2 mac
-                 26   	mov b, a ; Preserve value of accumulator
-                 27   	
-                 28   	mov dptr, #T_StuNum ; point to student number lookup table
-                 29   	mov a, %0 ; Load input into accumulator
-                 30   	movc a, @dptr+a ; Read from table
-                 31   	mov r2, a ; r2 holds the HEX version of the lights that need to be on or off for a HEX display
-                 32   	
-                 33   	mov dptr, #T_HexDisp ; point to Hex lookup table
-                 34   	mov a, %0 ; Load input into accumulator
-                 35   	movc a, @dptr+a ; Read from table
-                 36   	
-                 37   	mov a, r2 ; Display number
-                 38   	mov a, b ; Restore value of accumulator
-                 39   endmac
-0011             40   
-0011             41   main:
-0011 75817F      42            mov SP, #0x7f
-0014 75E800      43            mov LEDRA, #0 ; Bit addressable
-0017 759500      44            mov LEDRB, #0 ; Not bit addressable
-001A             45   Forever:
-001A 7900        46            mov r1, #00H
-001C F5F0        47            mov b, a ; Preserve value of accumulator
-001E             47            
-001E 900003      47            mov dptr, #T_StuNum ; point to student number lookup table
-0021 E9          47            mov a, r1 ; Load input into accumulator
-0022 93          47            movc a, @dptr+a ; Read from table
-0023             47            
-0023 F591        47            mov HEX0, a ; Display number
-0025 E5F0        47            mov a, b ; Restore value of accumulator
-0027 09          48            inc r1 ; increment r1
-0028 F5F0        49            mov b, a ; Preserve value of accumulator
-002A             49            
-002A 900003      49            mov dptr, #T_StuNum ; point to student number lookup table
-002D E9          49            mov a, r1 ; Load input into accumulator
-002E 93          49            movc a, @dptr+a ; Read from table
-002F             49            
-002F F592        49            mov HEX1, a ; Display number
-0031 E5F0        49            mov a, b ; Restore value of accumulator
-0033 09          50            inc r1 ; increment r1
-0034 F5F0        51            mov b, a ; Preserve value of accumulator
-0036             51            
-0036 900003      51            mov dptr, #T_StuNum ; point to student number lookup table
-0039 E9          51            mov a, r1 ; Load input into accumulator
-003A 93          51            movc a, @dptr+a ; Read from table
-003B             51            
-003B F593        51            mov HEX2, a ; Display number
-003D E5F0        51            mov a, b ; Restore value of accumulator
-003F 09          52            inc r1 ; increment r1
-0040 F5F0        53            mov b, a ; Preserve value of accumulator
-0042             53            
-0042 900003      53            mov dptr, #T_StuNum ; point to student number lookup table
-0045 E9          53            mov a, r1 ; Load input into accumulator
-0046 93          53            movc a, @dptr+a ; Read from table
-0047             53            
-0047 F594        53            mov HEX3, a ; Display number
-0049 E5F0        53            mov a, b ; Restore value of accumulator
-004B 09          54            inc r1 ; increment r1
-004C F5F0        55            mov b, a ; Preserve value of accumulator
-004E             55            
-004E 900003      55            mov dptr, #T_StuNum ; point to student number lookup table
-0051 E9          55            mov a, r1 ; Load input into accumulator
-0052 93          55            movc a, @dptr+a ; Read from table
-0053             55            
-0053 F58E        55            mov HEX4, a ; Display number
-0055 E5F0        55            mov a, b ; Restore value of accumulator
-0057 09          56            inc r1 ; increment r1
-0058 F5F0        57            mov b, a ; Preserve value of accumulator
-005A             57            
-005A 900003      57            mov dptr, #T_StuNum ; point to student number lookup table
-005D E9          57            mov a, r1 ; Load input into accumulator
-005E 93          57            movc a, @dptr+a ; Read from table
-005F             57            
-005F F58F        57            mov HEX5, a ; Display number
-0061 E5F0        57            mov a, b ; Restore value of accumulator
-0063             58   
-0063 02001A      59            ljmp Forever ; Repeat forever
-0066             60   END
+                 22   
+                 23   	mov a, b ; Restore value of accumulator
+                 24   endmac
+0011             25   
+                 26   Display_2 mac
+                 27   	mov b, a ; Preserve value of accumulator
+                 28   	
+                 29   	mov dptr, #T_StuNum ; point to student number lookup table
+                 30   	mov a, %0 ; Load input into accumulator
+                 31   	movc a, @dptr+a ; Read from table
+                 32   	mov r2, a
+                 33   	
+                 34   	mov dptr, #T_HexDisp ; point to Hex lookup table
+                 35   	mov a, %0 ; Load input into accumulator
+                 36   	movc a, @dptr+a ; Read from table
+                 37   	; mov dptr, a
+                 38   	
+                 39   	; at this moment in time
+                 40   	; r2 holds the HEX version of the lights that need to be on or off for a HEX display
+                 41   	; dptr holds the ADDRESS of the hex segment we want to turn on
+                 42   	
+                 43   	mov 91H, r2 ; Display number
+                 44   	mov a, b ; Restore value of accumulator
+                 45   endmac
+0011             46   
+0011             47   main:
+0011 75817F      48            mov SP, #0x7f
+0014 75E800      49            mov LEDRA, #0 ; Bit addressable
+0017 759500      50            mov LEDRB, #0 ; Not bit addressable
+001A             51   Forever:
+001A 7900        52            mov r1, #00H
+001C F5F0        53            mov b, a ; Preserve value of accumulator
+001E             53            
+001E 900003      53            mov dptr, #T_StuNum ; point to student number lookup table
+0021 E9          53            mov a, r1 ; Load input into accumulator
+0022 93          53            movc a, @dptr+a ; Read from table
+0023 FA          53            mov r2, a
+0024             53            
+0024 90000B      53            mov dptr, #T_HexDisp ; point to Hex lookup table
+0027 E9          53            mov a, r1 ; Load input into accumulator
+0028 93          53            movc a, @dptr+a ; Read from table
+0029             53            ; mov dptr, a
+0029             53            
+0029             53            ; at this moment in time
+0029             53            ; r2 holds the HEX version of the lights that need to be on or off for a HEX display
+0029             53            ; dptr holds the ADDRESS of the hex segment we want to turn on
+0029             53            
+0029 8A91        53            mov 91H, r2 ; Display number
+002B E5F0        53            mov a, b ; Restore value of accumulator
+002D 09          54            inc r1 ; increment r1
+002E F5F0        55            mov b, a ; Preserve value of accumulator
+0030             55            
+0030 900003      55            mov dptr, #T_StuNum ; point to student number lookup table
+0033 E9          55            mov a, r1 ; Load input into accumulator
+0034 93          55            movc a, @dptr+a ; Read from table
+0035             55            
+0035 F592        55            mov HEX1, a ; Display number
+0037             55   
+0037 E5F0        55            mov a, b ; Restore value of accumulator
+0039 09          56            inc r1 ; increment r1
+003A F5F0        57            mov b, a ; Preserve value of accumulator
+003C             57            
+003C 900003      57            mov dptr, #T_StuNum ; point to student number lookup table
+003F E9          57            mov a, r1 ; Load input into accumulator
+0040 93          57            movc a, @dptr+a ; Read from table
+0041             57            
+0041 F593        57            mov HEX2, a ; Display number
+0043             57   
+0043 E5F0        57            mov a, b ; Restore value of accumulator
+0045 09          58            inc r1 ; increment r1
+0046 F5F0        59            mov b, a ; Preserve value of accumulator
+0048             59            
+0048 900003      59            mov dptr, #T_StuNum ; point to student number lookup table
+004B E9          59            mov a, r1 ; Load input into accumulator
+004C 93          59            movc a, @dptr+a ; Read from table
+004D             59            
+004D F594        59            mov HEX3, a ; Display number
+004F             59   
+004F E5F0        59            mov a, b ; Restore value of accumulator
+0051 09          60            inc r1 ; increment r1
+0052 F5F0        61            mov b, a ; Preserve value of accumulator
+0054             61            
+0054 900003      61            mov dptr, #T_StuNum ; point to student number lookup table
+0057 E9          61            mov a, r1 ; Load input into accumulator
+0058 93          61            movc a, @dptr+a ; Read from table
+0059             61            
+0059 F58E        61            mov HEX4, a ; Display number
+005B             61   
+005B E5F0        61            mov a, b ; Restore value of accumulator
+005D 09          62            inc r1 ; increment r1
+005E F5F0        63            mov b, a ; Preserve value of accumulator
+0060             63            
+0060 900003      63            mov dptr, #T_StuNum ; point to student number lookup table
+0063 E9          63            mov a, r1 ; Load input into accumulator
+0064 93          63            movc a, @dptr+a ; Read from table
+0065             63            
+0065 F58F        63            mov HEX5, a ; Display number
+0067             63   
+0067 E5F0        63            mov a, b ; Restore value of accumulator
+0069             64   
+0069 02001A      65            ljmp Forever ; Repeat forever
+006C             66   END
