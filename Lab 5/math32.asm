@@ -10,6 +10,35 @@ $NOLIST
 
 CSEG
 
+PUSH_Y MAC
+	push y
+	push y+1
+	push y+2
+	push y+3
+ENDMAC
+
+POP_Y MAC
+	pop y+3
+	pop y+2
+	pop y+1
+	pop y
+ENDMAC
+
+PUSH_X MAC
+	push x
+	push x+1
+	push x+2
+	push x+3
+ENDMAC
+
+POP_X MAC
+	pop x+3
+	pop x+2
+	pop x+1
+	pop x
+ENDMAC
+
+
 ; Copy x to y	
 copy_xy:
 	mov y+0, x+0
@@ -596,24 +625,51 @@ square32:
 ; x = sqrt(x)
 ;------------------------------------------------
 square_root32:
+	lcall xchg_xy ; swap xy so that Y holds the target
+	PUSH_Y() ;stores Y to stack as our target value
+	
+	Load_X(0) ; start at 0
 
-	;int y = 0;
-	;int sqrY = 0;
-	;while (sqrY < x) {
-	;	y++;
-	;	sqrY = y*y;
-	;}
-	;return y--;
+sqrt_loop: ; loop until we find an answer
+	; increment x
+	Load_Y(1)
+	lcall add32
+	
+	; x = x^2
+	lcall square32
+	
+	; Put our target value in y
+	POP_Y();
+	; mf=1 if x >= y
+	lcall x_gteq_y
+	; Resave our target value in y
+	PUSH_Y();
+	
+	jb mf, sqrt_return ; jumps to the return part if mf is equal to 1
+	ljmp sqrt_loop ; else, run loop again
+
+sqrt_return:
+	POP_Y() ; need to leave the stack unchanged to avoid a garbage value on return
+	; decrement x
+	Load_Y(1)
+	lcall sub32
+
+	; x holds the answer
 	ret
 
 ;------------------------------------------------
 ; x = x % y
 ;------------------------------------------------
 mod32:
-	lcall div32 ; x = x / y
-	lcall mul32 ; x = (x/y)*y
-	lcall xchg_xy ; swap xy so I can do x = y - x
-	lcall sub32 ;
+	PUSH_X()  ; store x and y in stack
+	PUSH_Y()  
+	
+	lcall div32 ; Quotient of x=x/y
+	POP_Y() ; Restore original y
+	lcall mul32; Multiplies original y by the quotient, stores it in x
+	lcall copy_xy ; Copy x to y
+	POP_X() ; Restore original x
+	lcall sub32 ; Determines the difference (which is the remainder)
 	ret
 	
 	

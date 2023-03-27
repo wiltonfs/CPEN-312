@@ -149,7 +149,7 @@
 0000            148   
 0000              2   
 0000              3   CSEG at 0
-0000 0203EE       4   ljmp START
+0000 020447       4   ljmp START
 0003              5   
 0030              6   dseg at 30h
 0030              7   x: ds 4 ; 32-bits for variable ‘x’
@@ -159,17 +159,17 @@
 0000             11   bseg
 0000             12   mf: dbit 1 ; Math functions flag
                  -1   $include(math32.asm)
-                726   $LIST
-0347             14   
-0347             15   CSEG     
-0347             16            
-0347             17            ; Look-up table for 7-seg displays
-0347             18   seg_table:
-0347 C0F9A4B0    19       DB 0C0H, 0F9H, 0A4H, 0B0H, 099H        ; 0 TO 4
+                763   $LIST
+03A0             14   
+03A0             15   CSEG     
+03A0             16            
+03A0             17            ; Look-up table for 7-seg displays
+03A0             18   seg_table:
+03A0 C0F9A4B0    19       DB 0C0H, 0F9H, 0A4H, 0B0H, 099H        ; 0 TO 4
      99
-034C 9282F880    20       DB 092H, 082H, 0F8H, 080H, 090H        ; 4 TO 9
+03A5 9282F880    20       DB 092H, 082H, 0F8H, 080H, 090H        ; 4 TO 9
      90
-0351             21   
+03AA             21   
                  22   showBCD MAC
                  23   	; Display LSD
                  24       mov A, %0
@@ -183,231 +183,231 @@
                  32       movc A, @A+dptr
                  33       mov %2, A
                  34   ENDMAC
-0351             35   
-0351             36   Display:
-0351 900347      37            mov dptr, #seg_table
-0354             38            ; Display LSD
-0354 E53C        38       mov A, bcd+0
-0356 540F        38       anl a, #0fh
-0358 93          38       movc A, @A+dptr
-0359 F591        38       mov HEX0, A
-035B             38            ; Display MSD
-035B E53C        38       mov A, bcd+0
-035D C4          38       swap a
-035E 540F        38       anl a, #0fh
-0360 93          38       movc A, @A+dptr
-0361 F592        38       mov HEX1, A
-0363             39            ; Display LSD
-0363 E53D        39       mov A, bcd+1
-0365 540F        39       anl a, #0fh
-0367 93          39       movc A, @A+dptr
-0368 F593        39       mov HEX2, A
-036A             39            ; Display MSD
-036A E53D        39       mov A, bcd+1
-036C C4          39       swap a
-036D 540F        39       anl a, #0fh
-036F 93          39       movc A, @A+dptr
-0370 F594        39       mov HEX3, A
-0372             40            ; Display LSD
-0372 E53E        40       mov A, bcd+2
-0374 540F        40       anl a, #0fh
-0376 93          40       movc A, @A+dptr
-0377 F58E        40       mov HEX4, A
-0379             40            ; Display MSD
-0379 E53E        40       mov A, bcd+2
-037B C4          40       swap a
-037C 540F        40       anl a, #0fh
-037E 93          40       movc A, @A+dptr
-037F F58F        40       mov HEX5, A
-0381 22          41       ret
-0382             42   
+03AA             35   
+03AA             36   Display:
+03AA 9003A0      37            mov dptr, #seg_table
+03AD             38            ; Display LSD
+03AD E53C        38       mov A, bcd+0
+03AF 540F        38       anl a, #0fh
+03B1 93          38       movc A, @A+dptr
+03B2 F591        38       mov HEX0, A
+03B4             38            ; Display MSD
+03B4 E53C        38       mov A, bcd+0
+03B6 C4          38       swap a
+03B7 540F        38       anl a, #0fh
+03B9 93          38       movc A, @A+dptr
+03BA F592        38       mov HEX1, A
+03BC             39            ; Display LSD
+03BC E53D        39       mov A, bcd+1
+03BE 540F        39       anl a, #0fh
+03C0 93          39       movc A, @A+dptr
+03C1 F593        39       mov HEX2, A
+03C3             39            ; Display MSD
+03C3 E53D        39       mov A, bcd+1
+03C5 C4          39       swap a
+03C6 540F        39       anl a, #0fh
+03C8 93          39       movc A, @A+dptr
+03C9 F594        39       mov HEX3, A
+03CB             40            ; Display LSD
+03CB E53E        40       mov A, bcd+2
+03CD 540F        40       anl a, #0fh
+03CF 93          40       movc A, @A+dptr
+03D0 F58E        40       mov HEX4, A
+03D2             40            ; Display MSD
+03D2 E53E        40       mov A, bcd+2
+03D4 C4          40       swap a
+03D5 540F        40       anl a, #0fh
+03D7 93          40       movc A, @A+dptr
+03D8 F58F        40       mov HEX5, A
+03DA 22          41       ret
+03DB             42   
                  43   MYRLC MAC
                  44   	mov a, %0
                  45   	rlc a
                  46   	mov %0, a
                  47   ENDMAC
-0382             48   
-0382             49   Shift_Digits:
-0382 7804        50            mov R0, #4 ; shift left four bits
-0384             51   Shift_Digits_L0:
-0384 C3          52            clr c
-0385 E53C        53            mov a, bcd+0
-0387 33          53            rlc a
-0388 F53C        53            mov bcd+0, a
-038A E53D        54            mov a, bcd+1
-038C 33          54            rlc a
-038D F53D        54            mov bcd+1, a
-038F E53E        55            mov a, bcd+2
-0391 33          55            rlc a
-0392 F53E        55            mov bcd+2, a
-0394 E53F        56            mov a, bcd+3
-0396 33          56            rlc a
-0397 F53F        56            mov bcd+3, a
-0399 E540        57            mov a, bcd+4
-039B 33          57            rlc a
-039C F540        57            mov bcd+4, a
-039E D8E4        58            djnz R0, Shift_Digits_L0
-03A0             59            ; R7 has the new bcd digit      
-03A0 EF          60            mov a, R7
-03A1 453C        61            orl a, bcd+0
-03A3 F53C        62            mov bcd+0, a
-03A5             63            ; bcd+3 and bcd+4 don't fit in the 7-segment displays so make them zero
-03A5 E4          64            clr a
-03A6 F540        65            mov bcd+4, a
-03A8 22          66            ret
-03A9             67   
-03A9             68   Wait50ms:
-03A9             69   ;33.33MHz, 1 clk per cycle: 0.03us
-03A9 781E        70            mov R0, #30
-03AB 794A        71   L3: mov R1, #74
-03AD 7AFA        72   L2: mov R2, #250
-03AF DAFE        73   L1: djnz R2, L1 ;3*250*0.03us=22.5us
-03B1 D9FA        74       djnz R1, L2 ;74*22.5us=1.665ms
-03B3 D8F6        75       djnz R0, L3 ;1.665ms*30=50ms
-03B5 22          76       ret
-03B6             77   
-03B6             78   ; Check if SW0 to SW9 are toggled up.  Returns the toggled switch in
-03B6             79   ; R7.  If the carry is not set, no toggling switches were detected.
-03B6             80   ReadNumber:
-03B6 ACE8        81            mov r4, SWA ; Read switches 0 to 7
-03B8 E595        82            mov a, SWB ; Read switches 8 to 9
-03BA 5403        83            anl a, #00000011B ; Only two bits of SWB available
-03BC FD          84            mov r5, a
-03BD EC          85            mov a, r4
-03BE 4D          86            orl a, r5
-03BF 602B        87            jz ReadNumber_no_number
-03C1 1203A9      88            lcall Wait50ms ; debounce
-03C4 E5E8        89            mov a, SWA
-03C6 C3          90            clr c
-03C7 9C          91            subb a, r4
-03C8 7022        92            jnz ReadNumber_no_number ; it was a bounce
-03CA E595        93            mov a, SWB
-03CC 5403        94            anl a, #00000011B
-03CE C3          95            clr c
-03CF 9D          96            subb a, r5
-03D0 701A        97            jnz ReadNumber_no_number ; it was a bounce
-03D2 7F10        98            mov r7, #16 ; Loop counter
-03D4             99   ReadNumber_L0:
-03D4 C3         100            clr c
-03D5 EC         101            mov a, r4
-03D6 33         102            rlc a
-03D7 FC         103            mov r4, a
-03D8 ED         104            mov a, r5
-03D9 33         105            rlc a
-03DA FD         106            mov r5, a
-03DB 4004       107            jc ReadNumber_decode
-03DD DFF5       108            djnz r7, ReadNumber_L0
-03DF 800B       109            sjmp ReadNumber_no_number       
-03E1            110   ReadNumber_decode:
-03E1 1F         111            dec r7
-03E2 D3         112            setb c
-03E3            113   ReadNumber_L1:
-03E3 E5E8       114            mov a, SWA
-03E5 70FC       115            jnz ReadNumber_L1
-03E7            116   ReadNumber_L2:
-03E7 E595       117            mov a, SWB
-03E9 70FC       118            jnz ReadNumber_L2
-03EB 22         119            ret
-03EC            120   ReadNumber_no_number:
-03EC C3         121            clr c
-03ED 22         122            ret
-03EE            123            
-03EE            124   START: ; Called once on start
-03EE 75817F     125            mov SP, #7FH
-03F1            126            ; set everything to 0
-03F1 E4         127            clr a
-03F2 F5E8       128            mov LEDRA, a
-03F4 F595       129            mov LEDRB, a
-03F6 F53C       130            mov bcd+0, a
-03F8 F53D       131            mov bcd+1, a
-03FA F53E       132            mov bcd+2, a
-03FC F53F       133            mov bcd+3, a
-03FE F540       134            mov bcd+4, a
-0400 120351     135            lcall Display
-0403            136   
-0403 75F001     137            mov b, #1 ; b = 1 for addition
-0406 D2E8       138            setb LEDRA.0 ; Turn LEDR0 on to indicate addition
-0408            139            
-0408            140   LOOP: ; Called forever
-0408 85F0E8     141            mov LEDRA, b                    ; Display Function select on the LEDs
-040B            142   
-040B            143            ; Check if number is being loaded into the calculator
-040B 1203B6     144            lcall ReadNumber
-040E 5006       145            jnc func_button ; If nothing loaded, skip
-0410 120382     146            lcall Shift_Digits
-0413 120351     147            lcall Display
-0416            148            
-0416            149            ;This handles cycling the function
-0416            150   
-0416            151   func_button:     
-0416 20FB14     152            jb KEY.3, load_button           ; If 'Function' key not pressed, skip
-0419 30FBFD     153                    jnb KEY.3, $            ; Jumps to itself until key is relased
-041C E5F0       154                    mov a, b                        ; When the key is pressed, we double B (multiply by 2) to bitshift left one
-041E 75F002     155                    mov b, #02
-0421 A4         156                    mul ab
-0422 F5F0       157                    mov b, a                        ; B is used to store the current function
-0424 B480E1     158                    cjne a, #10000000B, LOOP ; If B is high enough it needs to overflow back down to 1
-0427 75F001     159                    mov b,          #00000001B                      ; B back down to 1
-042A 020408     160                    ljmp LOOP                               ; Restart the loop
-042D            161                    
-042D            162            
-042D            163   load_button:
-042D 20FA1E     164            jb KEY.2, equal_button                  ; If 'Load' key not pressed, skip
-0430 30FAFD     165                    jnb KEY.2, $            ; Jumps to itself until key is relased
-0433 1200B2     166                    lcall bcd2hex           ; Convert the BCD number to hex in x
-0436 120003     167                    lcall copy_xy           ; Copy x to y
-0439 753000     168            mov x+0, #low (0 % 0x10000) 
-043C 753100     168            mov x+1, #high(0 % 0x10000) 
-043F 753200     168            mov x+2, #low (0 / 0x10000) 
-0442 753300     168            mov x+3, #high(0 / 0x10000)                     ; Clear x
-0445 120029     169                    lcall hex2bcd           ; Convert result in x to BCD
-0448 120351     170                    lcall Display           ; Display the new BCD number
-044B 020408     171                    ljmp LOOP               ; Restart the loop
-044E            172            
-044E            173   equal_button:
-044E 20F9B7     174            jb KEY.1, LOOP                  ; If 'equal' key not pressed, skip
-0451 30F9FD     175                    jnb KEY.1, $            ; Jumps to itself until key is relased
-0454 1200B2     176                    lcall bcd2hex           ; Convert the BCD number to hex in x
-0457 E5F0       177                    mov a, b        
-0459            178                    
-0459            179   ; Check for function depending on state
-0459            180   Addition:        
-0459 B40106     181            CJNE a, #00000001B, Subtraction
-045C 1200EE     182                    lcall add32     ; x = x + y
-045F 020495     183                    ljmp DISP_ANSWER
-0462            184                    
-0462            185   Subtraction:
-0462 B40206     186            CJNE a, #00000010B, Multiplication
-0465 12010F     187                    lcall sub32     ; x = x - y
-0468 020495     188                    ljmp DISP_ANSWER
-046B            189                    
-046B            190   Multiplication:
-046B B40406     191            CJNE a, #00000100B, Division
-046E 1201A3     192                    lcall mul32             ; x = x * y     
-0471 020495     193                    ljmp DISP_ANSWER
-0474            194                    
-0474            195   Division:
-0474 B40806     196            CJNE a, #00001000B, Remainder
-0477 1202DE     197                    lcall div32             ; x = x / y
-047A 020495     198                    ljmp DISP_ANSWER
-047D            199                    
-047D            200   Remainder:       
-047D B41006     201            CJNE a, #00010000B, Percentage
-0480 1202BE     202                    lcall mod32 ; x = x % y
-0483 020495     203                    ljmp DISP_ANSWER
-0486            204   
-0486            205   Percentage:
-0486 B42006     206            CJNE a, #00100000B, Square_root                 
-0489 1202CB     207                    lcall perce32           ; x = (x * y) / 100
-048C 020495     208                    ljmp DISP_ANSWER
-048F            209                    
-048F            210   Square_root:
-048F 1202BD     211                    lcall square_root32             ; x = sqrt(x)
-0492 020495     212                    ljmp DISP_ANSWER
-0495            213                    
-0495            214   DISP_ANSWER:     
-0495 120029     215            lcall hex2bcd           ; Convert result in x to BCD
-0498 120351     216            lcall Display           ; Display the result
-049B 020408     217            ljmp LOOP               ; Go check for more input
-049E            218            
-049E            219   end
+03DB             48   
+03DB             49   Shift_Digits:
+03DB 7804        50            mov R0, #4 ; shift left four bits
+03DD             51   Shift_Digits_L0:
+03DD C3          52            clr c
+03DE E53C        53            mov a, bcd+0
+03E0 33          53            rlc a
+03E1 F53C        53            mov bcd+0, a
+03E3 E53D        54            mov a, bcd+1
+03E5 33          54            rlc a
+03E6 F53D        54            mov bcd+1, a
+03E8 E53E        55            mov a, bcd+2
+03EA 33          55            rlc a
+03EB F53E        55            mov bcd+2, a
+03ED E53F        56            mov a, bcd+3
+03EF 33          56            rlc a
+03F0 F53F        56            mov bcd+3, a
+03F2 E540        57            mov a, bcd+4
+03F4 33          57            rlc a
+03F5 F540        57            mov bcd+4, a
+03F7 D8E4        58            djnz R0, Shift_Digits_L0
+03F9             59            ; R7 has the new bcd digit      
+03F9 EF          60            mov a, R7
+03FA 453C        61            orl a, bcd+0
+03FC F53C        62            mov bcd+0, a
+03FE             63            ; bcd+3 and bcd+4 don't fit in the 7-segment displays so make them zero
+03FE E4          64            clr a
+03FF F540        65            mov bcd+4, a
+0401 22          66            ret
+0402             67   
+0402             68   Wait50ms:
+0402             69   ;33.33MHz, 1 clk per cycle: 0.03us
+0402 781E        70            mov R0, #30
+0404 794A        71   L3: mov R1, #74
+0406 7AFA        72   L2: mov R2, #250
+0408 DAFE        73   L1: djnz R2, L1 ;3*250*0.03us=22.5us
+040A D9FA        74       djnz R1, L2 ;74*22.5us=1.665ms
+040C D8F6        75       djnz R0, L3 ;1.665ms*30=50ms
+040E 22          76       ret
+040F             77   
+040F             78   ; Check if SW0 to SW9 are toggled up.  Returns the toggled switch in
+040F             79   ; R7.  If the carry is not set, no toggling switches were detected.
+040F             80   ReadNumber:
+040F ACE8        81            mov r4, SWA ; Read switches 0 to 7
+0411 E595        82            mov a, SWB ; Read switches 8 to 9
+0413 5403        83            anl a, #00000011B ; Only two bits of SWB available
+0415 FD          84            mov r5, a
+0416 EC          85            mov a, r4
+0417 4D          86            orl a, r5
+0418 602B        87            jz ReadNumber_no_number
+041A 120402      88            lcall Wait50ms ; debounce
+041D E5E8        89            mov a, SWA
+041F C3          90            clr c
+0420 9C          91            subb a, r4
+0421 7022        92            jnz ReadNumber_no_number ; it was a bounce
+0423 E595        93            mov a, SWB
+0425 5403        94            anl a, #00000011B
+0427 C3          95            clr c
+0428 9D          96            subb a, r5
+0429 701A        97            jnz ReadNumber_no_number ; it was a bounce
+042B 7F10        98            mov r7, #16 ; Loop counter
+042D             99   ReadNumber_L0:
+042D C3         100            clr c
+042E EC         101            mov a, r4
+042F 33         102            rlc a
+0430 FC         103            mov r4, a
+0431 ED         104            mov a, r5
+0432 33         105            rlc a
+0433 FD         106            mov r5, a
+0434 4004       107            jc ReadNumber_decode
+0436 DFF5       108            djnz r7, ReadNumber_L0
+0438 800B       109            sjmp ReadNumber_no_number       
+043A            110   ReadNumber_decode:
+043A 1F         111            dec r7
+043B D3         112            setb c
+043C            113   ReadNumber_L1:
+043C E5E8       114            mov a, SWA
+043E 70FC       115            jnz ReadNumber_L1
+0440            116   ReadNumber_L2:
+0440 E595       117            mov a, SWB
+0442 70FC       118            jnz ReadNumber_L2
+0444 22         119            ret
+0445            120   ReadNumber_no_number:
+0445 C3         121            clr c
+0446 22         122            ret
+0447            123            
+0447            124   START: ; Called once on start
+0447 75817F     125            mov SP, #7FH
+044A            126            ; set everything to 0
+044A E4         127            clr a
+044B F5E8       128            mov LEDRA, a
+044D F595       129            mov LEDRB, a
+044F F53C       130            mov bcd+0, a
+0451 F53D       131            mov bcd+1, a
+0453 F53E       132            mov bcd+2, a
+0455 F53F       133            mov bcd+3, a
+0457 F540       134            mov bcd+4, a
+0459 1203AA     135            lcall Display
+045C            136   
+045C 75F001     137            mov b, #1 ; b = 1 for addition
+045F D2E8       138            setb LEDRA.0 ; Turn LEDR0 on to indicate addition
+0461            139            
+0461            140   LOOP: ; Called forever
+0461 85F0E8     141            mov LEDRA, b                    ; Display Function select on the LEDs
+0464            142   
+0464            143            ; Check if number is being loaded into the calculator
+0464 12040F     144            lcall ReadNumber
+0467 5006       145            jnc func_button ; If nothing loaded, skip
+0469 1203DB     146            lcall Shift_Digits
+046C 1203AA     147            lcall Display
+046F            148            
+046F            149            ;This handles cycling the function
+046F            150   
+046F            151   func_button:     
+046F 20FB14     152            jb KEY.3, load_button           ; If 'Function' key not pressed, skip
+0472 30FBFD     153                    jnb KEY.3, $            ; Jumps to itself until key is relased
+0475 E5F0       154                    mov a, b                        ; When the key is pressed, we double B (multiply by 2) to bitshift left one
+0477 75F002     155                    mov b, #02
+047A A4         156                    mul ab
+047B F5F0       157                    mov b, a                        ; B is used to store the current function
+047D B480E1     158                    cjne a, #10000000B, LOOP ; If B is high enough it needs to overflow back down to 1
+0480 75F001     159                    mov b,          #00000001B                      ; B back down to 1
+0483 020461     160                    ljmp LOOP                               ; Restart the loop
+0486            161                    
+0486            162            
+0486            163   load_button:
+0486 20FA1E     164            jb KEY.2, equal_button                  ; If 'Load' key not pressed, skip
+0489 30FAFD     165                    jnb KEY.2, $            ; Jumps to itself until key is relased
+048C 1200B2     166                    lcall bcd2hex           ; Convert the BCD number to hex in x
+048F 120003     167                    lcall copy_xy           ; Copy x to y
+0492 753000     168            mov x+0, #low (0 % 0x10000) 
+0495 753100     168            mov x+1, #high(0 % 0x10000) 
+0498 753200     168            mov x+2, #low (0 / 0x10000) 
+049B 753300     168            mov x+3, #high(0 / 0x10000)                     ; Clear x
+049E 120029     169                    lcall hex2bcd           ; Convert result in x to BCD
+04A1 1203AA     170                    lcall Display           ; Display the new BCD number
+04A4 020461     171                    ljmp LOOP               ; Restart the loop
+04A7            172            
+04A7            173   equal_button:
+04A7 20F9B7     174            jb KEY.1, LOOP                  ; If 'equal' key not pressed, skip
+04AA 30F9FD     175                    jnb KEY.1, $            ; Jumps to itself until key is relased
+04AD 1200B2     176                    lcall bcd2hex           ; Convert the BCD number to hex in x
+04B0 E5F0       177                    mov a, b        
+04B2            178                    
+04B2            179   ; Check for function depending on state
+04B2            180   Addition:        
+04B2 B40106     181            CJNE a, #00000001B, Subtraction
+04B5 1200EE     182                    lcall add32     ; x = x + y
+04B8 0204EE     183                    ljmp DISP_ANSWER
+04BB            184                    
+04BB            185   Subtraction:
+04BB B40206     186            CJNE a, #00000010B, Multiplication
+04BE 12010F     187                    lcall sub32     ; x = x - y
+04C1 0204EE     188                    ljmp DISP_ANSWER
+04C4            189                    
+04C4            190   Multiplication:
+04C4 B40406     191            CJNE a, #00000100B, Division
+04C7 1201A3     192                    lcall mul32             ; x = x * y     
+04CA 0204EE     193                    ljmp DISP_ANSWER
+04CD            194                    
+04CD            195   Division:
+04CD B40806     196            CJNE a, #00001000B, Remainder
+04D0 120337     197                    lcall div32             ; x = x / y
+04D3 0204EE     198                    ljmp DISP_ANSWER
+04D6            199                    
+04D6            200   Remainder:       
+04D6 B41006     201            CJNE a, #00010000B, Percentage
+04D9 120317     202                    lcall mod32 ; x = x % y
+04DC 0204EE     203                    ljmp DISP_ANSWER
+04DF            204   
+04DF            205   Percentage:
+04DF B42006     206            CJNE a, #00100000B, Square_root                 
+04E2 120324     207                    lcall perce32           ; x = (x * y) / 100
+04E5 0204EE     208                    ljmp DISP_ANSWER
+04E8            209                    
+04E8            210   Square_root:
+04E8 1202BD     211                    lcall square_root32             ; x = sqrt(x)
+04EB 0204EE     212                    ljmp DISP_ANSWER
+04EE            213                    
+04EE            214   DISP_ANSWER:     
+04EE 120029     215            lcall hex2bcd           ; Convert result in x to BCD
+04F1 1203AA     216            lcall Display           ; Display the result
+04F4 020461     217            ljmp LOOP               ; Go check for more input
+04F7            218            
+04F7            219   end
