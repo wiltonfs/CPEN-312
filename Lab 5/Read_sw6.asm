@@ -1,18 +1,18 @@
 $modde0cv
 
-	CSEG at 0
-	ljmp mycode
+CSEG at 0
+ljmp START
 
 dseg at 30h
-	x: ds 4 ; 32-bits for variable ‘x’
-	y: ds 4 ; 32-bits for variable ‘y’
-	z: ds 4 ; 32 bit holder number 'z'
-	bcd: ds 5 ; 10-digit packed BCD (each byte stores 2 digits)
+x: ds 4 ; 32-bits for variable ‘x’
+y: ds 4 ; 32-bits for variable ‘y’
+z: ds 4 ; 32 bit holder number 'z'
+bcd: ds 5 ; 10-digit packed BCD (each byte stores 2 digits)
 bseg
-	mf: dbit 1 ; Math functions flag
+mf: dbit 1 ; Math functions flag
 $include(math32.asm)
 
-	CSEG
+CSEG
 	
 	
 	; Look-up table for 7-seg displays
@@ -150,7 +150,7 @@ ReadNumber_no_number:
 	clr c
 	ret
 	
-mycode:
+START: ; Called once on start
 	mov SP, #7FH
 	clr a
 	mov LEDRA, a
@@ -165,7 +165,7 @@ mycode:
 	mov b, #00000001B ; b=0:addition, b=1:subtraction, etc.
 	setb LEDRA.0 ; Turn LEDR0 on to indicate addition
 	
-forever:
+LOOP: ; Called forever
 	mov LEDRA, b
 	
 	jb KEY.3, no_funct 		; If 'Function' key not pressed, skip

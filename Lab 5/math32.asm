@@ -431,6 +431,121 @@ mul32:
 	pop acc
 	
 	ret
+	
+;------------------------------------------------
+; x = x^2
+;------------------------------------------------
+mul32:
+
+	push acc
+	push b
+	push psw
+	push AR0
+	push AR1
+	push AR2
+	push AR3
+		
+	; R0 = x+0 * x+0
+	; R1 = x+1 * x+0 + x+0 * x+1
+	; R2 = x+2 * x+0 + x+1 * x+1 + x+0 * x+2
+	; R3 = x+3 * x+0 + x+2 * x+1 + x+1 * x+2 + x+0 * x+3
+	
+	; Byte 0
+	mov	a,x+0
+	mov	b,x+0
+	mul	ab		; x+0 * x+0
+	mov	R0,a
+	mov	R1,b
+	
+	; Byte 1
+	mov	a,x+1
+	mov	b,x+0
+	mul	ab		; x+1 * x+0
+	add	a,R1
+	mov	R1,a
+	clr	a
+	addc a,b
+	mov	R2,a
+	
+	mov	a,x+0
+	mov	b,x+1
+	mul	ab		; x+0 * x+1
+	add	a,R1
+	mov	R1,a
+	mov	a,b
+	addc a,R2
+	mov	R2,a
+	clr	a
+	rlc	a
+	mov	R3,a
+	
+	; Byte 2
+	mov	a,x+2
+	mov	b,x+0
+	mul	ab		; x+2 * x+0
+	add	a,R2
+	mov	R2,a
+	mov	a,b
+	addc a,R3
+	mov	R3,a
+	
+	mov	a,x+1
+	mov	b,x+1
+	mul	ab		; x+1 * x+1
+	add	a,R2
+	mov	R2,a
+	mov	a,b
+	addc a,R3
+	mov	R3,a
+	
+	mov	a,x+0
+	mov	b,x+2
+	mul	ab		; x+0 * x+2
+	add	a,R2
+	mov	R2,a
+	mov	a,b
+	addc a,R3
+	mov	R3,a
+	
+	; Byte 3
+	mov	a,x+3
+	mov	b,x+0
+	mul	ab		; x+3 * x+0
+	add	a,R3
+	mov	R3,a
+	
+	mov	a,x+2
+	mov	b,x+1
+	mul	ab		; x+2 * x+1
+	add	a,R3
+	mov	R3,a
+	
+	mov	a,x+1
+	mov	b,x+2
+	mul	ab		; x+1 * x+2
+	add	a,R3
+	mov	R3,a
+	
+	mov	a,x+0
+	mov	b,x+3
+	mul	ab		; x+0 * x+3
+	add	a,R3
+	mov	R3,a
+	
+	mov	x+3,R3
+	mov	x+2,R2
+	mov	x+1,R1
+	mov	x+0,R0
+
+	pop AR3
+	pop AR2
+	pop AR1
+	pop AR0
+	pop psw
+	pop b
+	pop acc
+	
+	ret
 
 ;------------------------------------------------
 ; x = x / y
