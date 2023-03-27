@@ -139,9 +139,12 @@ START: ; Called once on start
 	
 LOOP: ; Called forever
 	mov LEDRA, b			; Display Function select on the LEDs
-	
-	lcall ReadNumber		; Check if number is being loaded
-	
+
+	; Check if number is being loaded into the calculator
+	lcall ReadNumber
+	jnc func_button ; If nothing loaded, skip
+	lcall Shift_Digits
+	lcall Display
 	
 	;This handles cycling the function
 

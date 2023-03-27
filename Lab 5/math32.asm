@@ -10,6 +10,51 @@ $NOLIST
 
 CSEG
 
+; Copy x to y	
+copy_xy:
+	mov y+0, x+0
+	mov y+1, x+1
+	mov y+2, x+2
+	mov y+3, x+3
+	ret
+
+; Exchange x and y 
+xchg_xy:
+	mov a, x+0
+	xch a, y+0
+	mov x+0, a
+	mov a, x+1
+	xch a, y+1
+	mov x+1, a
+	mov a, x+2
+	xch a, y+2
+	mov x+2, a
+	mov a, x+3
+	xch a, y+3
+	mov x+3, a
+	ret
+
+Load_X MAC
+	mov x+0, #low (%0 % 0x10000) 
+	mov x+1, #high(%0 % 0x10000) 
+	mov x+2, #low (%0 / 0x10000) 
+	mov x+3, #high(%0 / 0x10000) 
+ENDMAC
+
+Load_Y MAC
+	mov y+0, #low (%0 % 0x10000) 
+	mov y+1, #high(%0 % 0x10000) 
+	mov y+2, #low (%0 / 0x10000) 
+	mov y+3, #high(%0 / 0x10000) 
+ENDMAC
+
+Load_Z MAC
+	mov z+0, #low (%0 % 0x10000) 
+	mov z+1, #high(%0 % 0x10000) 
+	mov z+2, #low (%0 / 0x10000) 
+	mov z+3, #high(%0 / 0x10000) 
+ENDMAC
+
 ;----------------------------------------------------
 ; Converts the 32-bit hex number in 'x' to a 
 ; 10-digit packed BCD in 'bcd' using the
@@ -565,7 +610,10 @@ square_root32:
 ; x = x % y
 ;------------------------------------------------
 mod32:
-
+	lcall div32 ; x = x / y
+	lcall mul32 ; x = (x/y)*y
+	lcall xchg_xy ; swap xy so I can do x = y - x
+	lcall sub32 ;
 	ret
 	
 	
@@ -573,7 +621,9 @@ mod32:
 ; x = (x * y) / 100
 ;------------------------------------------------
 perce32:
-
+	lcall mul32
+	Load_Y(100)
+	lcall div32
 	ret
 
 ;------------------------------------------------
@@ -673,50 +723,5 @@ div32_exit:
 	pop acc
 	
 	ret
-
-; Copy x to y	
-copy_xy:
-	mov y+0, x+0
-	mov y+1, x+1
-	mov y+2, x+2
-	mov y+3, x+3
-	ret
-
-; Exchange x and y 
-xchg_xy:
-	mov a, x+0
-	xch a, y+0
-	mov x+0, a
-	mov a, x+1
-	xch a, y+1
-	mov x+1, a
-	mov a, x+2
-	xch a, y+2
-	mov x+2, a
-	mov a, x+3
-	xch a, y+3
-	mov x+3, a
-	ret
-
-Load_X MAC
-	mov x+0, #low (%0 % 0x10000) 
-	mov x+1, #high(%0 % 0x10000) 
-	mov x+2, #low (%0 / 0x10000) 
-	mov x+3, #high(%0 / 0x10000) 
-ENDMAC
-
-Load_Y MAC
-	mov y+0, #low (%0 % 0x10000) 
-	mov y+1, #high(%0 % 0x10000) 
-	mov y+2, #low (%0 / 0x10000) 
-	mov y+3, #high(%0 / 0x10000) 
-ENDMAC
-
-Load_Z MAC
-	mov z+0, #low (%0 % 0x10000) 
-	mov z+1, #high(%0 % 0x10000) 
-	mov z+2, #low (%0 / 0x10000) 
-	mov z+3, #high(%0 / 0x10000) 
-ENDMAC
 	
 $LIST
