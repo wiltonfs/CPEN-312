@@ -6,7 +6,7 @@ ljmp START
 dseg at 30h
 x: ds 4 ; 32-bits for variable ‘x’
 y: ds 4 ; 32-bits for variable ‘y’
-z: ds 4 ; 32 bit for variable 'z'
+target: ds 4 ; 32 bit for variable 'target'
 bcd: ds 5 ; 10-digit packed BCD (each byte stores 2 digits)
 bseg
 mf: dbit 1 ; Math functions flag

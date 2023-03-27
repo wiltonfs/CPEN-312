@@ -10,6 +10,20 @@ $NOLIST
 
 CSEG
 
+Save_target MAC
+	mov target+0, x+0
+	mov target+1, x+1
+	mov target+2, x+2
+	mov target+3, x+3
+ENDMAC
+
+Restore_target MAC
+	mov y+0, target+0
+	mov y+1, target+1
+	mov y+2, target+2
+	mov y+3, target+3
+ENDMAC
+
 PUSH_Y MAC
 	push y
 	push y+1
@@ -507,7 +521,7 @@ mul32:
 	ret
 	
 ;------------------------------------------------
-; x = x^2
+; y = x^2
 ;------------------------------------------------
 square32:
 
@@ -606,10 +620,10 @@ square32:
 	add	a,R3
 	mov	R3,a
 	
-	mov	x+3,R3
-	mov	x+2,R2
-	mov	x+1,R1
-	mov	x+0,R0
+	mov	y+3,R3
+	mov	y+2,R2
+	mov	y+1,R1
+	mov	y+0,R0
 
 	pop AR3
 	pop AR2
@@ -625,9 +639,7 @@ square32:
 ; x = sqrt(x)
 ;------------------------------------------------
 square_root32:
-	lcall xchg_xy ; swap xy so that Y holds the target
-	PUSH_Y() ;stores Y to stack as our target value
-	
+	Save_target() ; save x to target value
 	Load_X(0) ; start at 0
 
 sqrt_loop: ; loop until we find an answer
@@ -635,21 +647,22 @@ sqrt_loop: ; loop until we find an answer
 	Load_Y(1)
 	lcall add32
 	
+	PUSH_X() ; save X to the stack
+	
 	; x = x^2
 	lcall square32
 	
-	; Put our target value in y
-	POP_Y();
+	Restore_target() ; put target back into y
+	
 	; mf=1 if x >= y
 	lcall x_gteq_y
-	; Resave our target value in y
-	PUSH_Y();
+	
+	POP_X() ; restore X from the stack
 	
 	jb mf, sqrt_return ; jumps to the return part if mf is equal to 1
 	ljmp sqrt_loop ; else, run loop again
 
 sqrt_return:
-	POP_Y() ; need to leave the stack unchanged to avoid a garbage value on return
 	; decrement x
 	Load_Y(1)
 	lcall sub32
