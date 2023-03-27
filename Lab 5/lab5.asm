@@ -6,17 +6,16 @@ ljmp START
 dseg at 30h
 x: ds 4 ; 32-bits for variable ‘x’
 y: ds 4 ; 32-bits for variable ‘y’
-z: ds 4 ; 32 bit holder number 'z'
+z: ds 4 ; 32 bit for variable 'z'
 bcd: ds 5 ; 10-digit packed BCD (each byte stores 2 digits)
 bseg
 mf: dbit 1 ; Math functions flag
 $include(math32.asm)
 
-CSEG
-	
+CSEG	
 	
 	; Look-up table for 7-seg displays
-myLUT:
+seg_table:
     DB 0C0H, 0F9H, 0A4H, 0B0H, 099H        ; 0 TO 4
     DB 092H, 082H, 0F8H, 080H, 090H        ; 4 TO 9
 
@@ -35,7 +34,7 @@ showBCD MAC
 ENDMAC
 
 Display:
-	mov dptr, #myLUT
+	mov dptr, #seg_table
 	showBCD(bcd+0, HEX0, HEX1)
 	showBCD(bcd+1, HEX2, HEX3)
 	showBCD(bcd+2, HEX4, HEX5)
@@ -46,34 +45,6 @@ MYRLC MAC
 	rlc a
 	mov %0, a
 ENDMAC
-
-PushX:
-	push x+0
-	push x+1
-	push x+2
-	push x+3
-	ret
-PopX:
-	pop x+3				
-	pop x+2
-	pop x+1
-	pop x+0
-	ret
-
-PushY:
-	push y+0
-	push y+1
-	push y+2
-	push y+3
-	ret
-
-PopY:
-	pop y+3				
-	pop y+2
-	pop y+1
-	pop y+0
-	ret
-
 
 Shift_Digits:
 	mov R0, #4 ; shift left four bits
@@ -152,6 +123,7 @@ ReadNumber_no_number:
 	
 START: ; Called once on start
 	mov SP, #7FH
+	; set everything to 0
 	clr a
 	mov LEDRA, a
 	mov LEDRB, a
@@ -162,127 +134,83 @@ START: ; Called once on start
 	mov bcd+4, a
 	lcall Display
 
-	mov b, #00000001B ; b=0:addition, b=1:subtraction, etc.
+	mov b, #1 ; b = 1 for addition
 	setb LEDRA.0 ; Turn LEDR0 on to indicate addition
 	
 LOOP: ; Called forever
-	mov LEDRA, b
+	mov LEDRA, b			; Display Function select on the LEDs
 	
-	jb KEY.3, no_funct 		; If 'Function' key not pressed, skip
-		jnb KEY.3, $ 		; Wait for release of 'Function' key
-		mov a, b 
-		mov b, #0x02H
+	lcall ReadNumber		; Check if number is being loaded
+	
+	
+	;This handles cycling the function
+
+func_button:	
+	jb KEY.3, load_button 		; If 'Function' key not pressed, skip
+		jnb KEY.3, $ 		; Jumps to itself until key is relased
+		mov a, b 			; When the key is pressed, we double B (multiply by 2) to bitshift left one
+		mov b, #02
 		mul ab
-		mov b, a					; 'b' is used as function select
-		cjne a, #10000000B, forever ; ^
-		mov b, 	#00000001B 			; ^
-		ljmp forever 				; Go check for more input
+		mov b, a			; B is used to store the current function
+		cjne a, #10000000B, LOOP ; If B is high enough it needs to overflow back down to 1
+		mov b, 	#00000001B 			; B back down to 1
+		ljmp LOOP 				; Restart the loop
 		
 	
-no_funct:
-	jb KEY.2, no_load 		; If 'Load' key not pressed, skip
-		jnb KEY.2, $ 		; Wait for user to release 'Load' key
+load_button:
+	jb KEY.2, equal_button 		; If 'Load' key not pressed, skip
+		jnb KEY.2, $ 		; Jumps to itself until key is relased
 		lcall bcd2hex 		; Convert the BCD number to hex in x
 		lcall copy_xy 		; Copy x to y
-		Load_X(0) 			; Clear x (this is a macro)
+		Load_X(0) 			; Clear x
 		lcall hex2bcd 		; Convert result in x to BCD
 		lcall Display 		; Display the new BCD number
-		ljmp forever 		; Go check for more input
+		ljmp LOOP 		; Restart the loop
 	
-no_load:
-	jb KEY.1, no_equal 		; If 'equal' key not pressed, skip
-		jnb KEY.1, $ 		; Wait for user to release 'equal' key
+equal_button:
+	jb KEY.1, LOOP 		; If 'equal' key not pressed, skip
+		jnb KEY.1, $ 		; Jumps to itself until key is relased
 		lcall bcd2hex 		; Convert the BCD number to hex in x
+		mov a, b	
 		
-		mov a, b 			; Check if we are doing addition
-	
-	CJNE a, #00000001B, Addition
-		lcall add32 	; x+y stored in x
-Addition:
-	
-	CJNE a, #00000010B, Subtraction
-		lcall sub32 	; x-y stored in x
+; Check for function depending on state
+Addition:	
+	CJNE a, #00000001B, Subtraction
+		lcall add32 	; x = x + y
+		ljmp DISP_ANSWER
+		
 Subtraction:
-	
-	CJNE a, #00000100B, Multiplication
-		lcall mul32
+	CJNE a, #00000010B, Multiplication
+		lcall sub32 	; x = x - y
+		ljmp DISP_ANSWER
+		
 Multiplication:
-	
-	CJNE a, #00001000B, Division
-		lcall div32
+	CJNE a, #00000100B, Division
+		lcall mul32		; x = x * y	
+		ljmp DISP_ANSWER
+		
 Division:
-	
-	CJNE a, #00010000B, Remainder
+	CJNE a, #00001000B, Remainder
+		lcall div32		; x = x / y
+		ljmp DISP_ANSWER
 		
-		lcall PushX
-							;temporarily store value of x in memory
-		lcall div32			;divides x by y, stores the divided value in x (gets rid of remainder)
-		lcall mul32			;multiplies x by y
-		lcall xchg_xy		;swap x and y
-		
-		lcall PopX
-		
-		lcall sub32			;subtract divided and multiplied value of x from full x
-Remainder:
-	
-	CJNE a, #00100000B, Percentage
-		
-		lcall PushY			;store y in temporary memory
-		
-		load_y(100)
-		lcall mul32 		;mul x by y, store in x
-		
-		lcall PopY
-		lcall div32 		;div x by y, store in x
+Remainder:	
+	CJNE a, #00010000B, Percentage
+		lcall mod32 ; x = x % y
+		ljmp DISP_ANSWER
 
-sjmp no_equal3
-	no_equal:
-	ljmp no_equal2
-no_equal3:		
-		
 Percentage:
-	
-	CJNE a, #01000000B, SQRT
-		;run through all numbers from 0 upwards, square them, and check if it is less
-		;if less, go next, if more, output last value
-		;uses R6 as 
+	CJNE a, #00100000B, Square_root		
+		lcall perce32		; x = (x * y) / 100
+		ljmp DISP_ANSWER
 		
-		Load_y(0)
-		push AR6
-		mov R6, #00000000B
-		SQRTLoop:
-			Push X
-			load_x(y)
-			lcall mul32
-							;square y, store in Y
-			
-			lcall mul32
-			lcall x_gt_y
-			mov R6, mf
-			CJNE R6, #00000001B, SQRTAnswerFound
-			
-			
-			
-		sjmp SQRTLoop
+Square_root:
+		lcall square_root32		; x = sqrt(x)
+		ljmp DISP_ANSWER
 		
-		SQRTAnswerFound:
-						;do something to use R6 to set y = R6 - 1
-		lcall sub32 	;sub x from y
-		
-SQRT:
-	
+DISP_ANSWER:	
 	lcall hex2bcd 		; Convert result in x to BCD
-	lcall Display 		; Display the new BCD number
-	ljmp forever 		; Go check for more input
-	
-no_equal2:
-	; get more numbers
-	lcall ReadNumber
-	jnc no_new_digit ; Indirect jump to 'forever'
-	lcall Shift_Digits
-	lcall Display
-no_new_digit:
-
-	ljmp forever ; 'forever' is to far away, need to use ljmp
+	lcall Display 		; Display the result
+	ljmp LOOP 		; Go check for more input
 	
 end

@@ -1,0 +1,408 @@
+                 -1   $modde0cv
+0000              1   ;  MODDDE2: Register definition for DE2-8052 softcore
+0000              2   ;
+0000              3   ;   Copyright (C) 2011  Jesus Calvino-Fraga, jesusc at ece.ubc.ca
+0000              4   ;
+0000              5   ;   This library is free software; you can redistribute it and/or
+0000              6   ;   modify it under the terms of the GNU Lesser General Public
+0000              7   ;   License as published by the Free Software Foundation; either
+0000              8   ;   version 2.1 of the License, or (at your option) any later version.
+0000              9   ;
+0000             10   ;   This library is distributed in the hope that it will be useful,
+0000             11   ;   but WITHOUT ANY WARRANTY; without even the implied warranty of
+0000             12   ;   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+0000             13   ;   Lesser General Public License for more details.
+0000             14   ;
+0000             15   ;   You should have received a copy of the GNU Lesser General Public
+0000             16   ;   License along with this library; if not, write to the Free Software
+0000             17   ;   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+0000             18   ;
+0000             19       
+0000             20   P0     DATA  080H  ;PORT 0
+0000             21   SP     DATA  081H  ;STACK POINTER
+0000             22   DPL    DATA  082H  ;DATA POINTER 0 - LOW BYTE
+0000             23   DPH    DATA  083H  ;DATA POINTER 0 - HIGH BYTE
+0000             24   DPL1   DATA  084H  ;DATA POINTER 1 - LOW BYTE
+0000             25   DPH1   DATA  085H  ;DATA POINTER 1 - HIGH BYTE
+0000             26   DPS    DATA  086H  ;DATA POINTER SELECT. DPH1, DPL1 active when DPS.0=1
+0000             27   PCON   DATA  087H  ;POWER CONTROL
+0000             28   TCON   DATA  088H  ;TIMER CONTROL
+0000             29   TMOD   DATA  089H  ;TIMER MODE
+0000             30   TL0    DATA  08AH  ;TIMER 0 - LOW BYTE
+0000             31   TL1    DATA  08BH  ;TIMER 1 - LOW BYTE
+0000             32   TH0    DATA  08CH  ;TIMER 0 - HIGH BYTE
+0000             33   TH1    DATA  08DH  ;TIMER 1 - HIGH BYTE
+0000             34   P1     DATA  090H  ;PORT 1
+0000             35   SCON   DATA  098H  ;SERIAL PORT CONTROL
+0000             36   SBUF   DATA  099H  ;SERIAL PORT BUFFER
+0000             37   P2     DATA  0A0H  ;PORT 2
+0000             38   IE     DATA  0A8H  ;INTERRUPT ENABLE
+0000             39   P3     DATA  0B0H  ;PORT 3
+0000             40   IP     DATA  0B8H  ;INTERRUPT PRIORITY
+0000             41   T2CON  DATA  0C8H  ;TIMER 2 CONTROL
+0000             42   T2MOD  DATA  0C9H  ;TIMER 2 MODE
+0000             43   RCAP2L DATA  0CAH  ;TIMER 2 CAPTURE REGISTER - LOW BYTE
+0000             44   RCAP2H DATA  0CBH  ;TIMER 2 CAPTURE REGISTER - HIGH BYTE
+0000             45   TL2    DATA  0CCH  ;TIMER 2 - LOW BYTE
+0000             46   TH2    DATA  0CDH  ;TIMER 2 - HIGH BYTE
+0000             47   PSW    DATA  0D0H  ;PROGRAM STATUS WORD
+0000             48   ACC    DATA  0E0H  ;ACCUMULATOR
+0000             49   B      DATA  0F0H  ;MULTIPLICATION REGISTER
+0000             50   IT0    BIT   088H  ;TCON.0 - EXT. INTERRUPT 0 TYPE
+0000             51   IE0    BIT   089H  ;TCON.1 - EXT. INTERRUPT 0 EDGE FLAG
+0000             52   IT1    BIT   08AH  ;TCON.2 - EXT. INTERRUPT 1 TYPE
+0000             53   IE1    BIT   08BH  ;TCON.3 - EXT. INTERRUPT 1 EDGE FLAG
+0000             54   TR0    BIT   08CH  ;TCON.4 - TIMER 0 ON/OFF CONTROL
+0000             55   TF0    BIT   08DH  ;TCON.5 - TIMER 0 OVERFLOW FLAG
+0000             56   TR1    BIT   08EH  ;TCON.6 - TIMER 1 ON/OFF CONTROL
+0000             57   TF1    BIT   08FH  ;TCON.7 - TIMER 1 OVERFLOW FLAG
+0000             58   RI     BIT   098H  ;SCON.0 - RECEIVE INTERRUPT FLAG
+0000             59   TI     BIT   099H  ;SCON.1 - TRANSMIT INTERRUPT FLAG
+0000             60   RB8    BIT   09AH  ;SCON.2 - RECEIVE BIT 8
+0000             61   TB8    BIT   09BH  ;SCON.3 - TRANSMIT BIT 8
+0000             62   REN    BIT   09CH  ;SCON.4 - RECEIVE ENABLE
+0000             63   SM2    BIT   09DH  ;SCON.5 - SERIAL MODE CONTROL BIT 2
+0000             64   SM1    BIT   09EH  ;SCON.6 - SERIAL MODE CONTROL BIT 1
+0000             65   SM0    BIT   09FH  ;SCON.7 - SERIAL MODE CONTROL BIT 0
+0000             66   EX0    BIT   0A8H  ;IE.0 - EXTERNAL INTERRUPT 0 ENABLE
+0000             67   ET0    BIT   0A9H  ;IE.1 - TIMER 0 INTERRUPT ENABLE
+0000             68   EX1    BIT   0AAH  ;IE.2 - EXTERNAL INTERRUPT 1 ENABLE
+0000             69   ET1    BIT   0ABH  ;IE.3 - TIMER 1 INTERRUPT ENABLE
+0000             70   ES     BIT   0ACH  ;IE.4 - SERIAL PORT INTERRUPT ENABLE
+0000             71   ET2    BIT   0ADH  ;IE.5 - TIMER 2 INTERRUPT ENABLE
+0000             72   EA     BIT   0AFH  ;IE.7 - GLOBAL INTERRUPT ENABLE
+0000             73   RXD    BIT   0B0H  ;P3.0 - SERIAL PORT RECEIVE INPUT
+0000             74   TXD    BIT   0B1H  ;P3.1 - SERIAL PORT TRANSMIT OUTPUT
+0000             75   INT0   BIT   0B2H  ;P3.2 - EXTERNAL INTERRUPT 0 INPUT
+0000             76   INT1   BIT   0B3H  ;P3.3 - EXTERNAL INTERRUPT 1 INPUT
+0000             77   T0     BIT   0B4H  ;P3.4 - TIMER 0 COUNT INPUT
+0000             78   T1     BIT   0B5H  ;P3.5 - TIMER 1 COUNT INPUT
+0000             79   WR     BIT   0B6H  ;P3.6 - WRITE CONTROL FOR EXT. MEMORY
+0000             80   RD     BIT   0B7H  ;P3.7 - READ CONTROL FOR EXT. MEMORY
+0000             81   PX0    BIT   0B8H  ;IP.0 - EXTERNAL INTERRUPT 0 PRIORITY
+0000             82   PT0    BIT   0B9H  ;IP.1 - TIMER 0 PRIORITY
+0000             83   PX1    BIT   0BAH  ;IP.2 - EXTERNAL INTERRUPT 1 PRIORITY
+0000             84   PT1    BIT   0BBH  ;IP.3 - TIMER 1 PRIORITY
+0000             85   PS     BIT   0BCH  ;IP.4 - SERIAL PORT PRIORITY
+0000             86   PT2    BIT   0BDH  ;IP.5 - TIMER 2 PRIORITY
+0000             87   CAP2   BIT   0C8H  ;T2CON.0 - CAPTURE OR RELOAD SELECT
+0000             88   CNT2   BIT   0C9H  ;T2CON.1 - TIMER OR COUNTER SELECT
+0000             89   TR2    BIT   0CAH  ;T2CON.2 - TIMER 2 ON/OFF CONTROL
+0000             90   EXEN2  BIT   0CBH  ;T2CON.3 - TIMER 2 EXTERNAL ENABLE FLAG
+0000             91   TCLK   BIT   0CCH  ;T2CON.4 - TRANSMIT CLOCK SELECT
+0000             92   RCLK   BIT   0CDH  ;T2CON.5 - RECEIVE CLOCK SELECTT
+0000             93   EXF2   BIT   0CEH  ;T2CON.6 - EXTERNAL TRANSITION FLAG
+0000             94   TF2    BIT   0CFH  ;T2CON.7 - TIMER 2 OVERFLOW FLAG
+0000             95   P      BIT   0D0H  ;PSW.0 - ACCUMULATOR PARITY FLAG
+0000             96   OV     BIT   0D2H  ;PSW.2 - OVERFLOW FLAG
+0000             97   RS0    BIT   0D3H  ;PSW.3 - REGISTER BANK SELECT 0
+0000             98   RS1    BIT   0D4H  ;PSW.4 - REGISTER BANK SELECT 1
+0000             99   F0     BIT   0D5H  ;PSW.5 - FLAG 0
+0000            100   AC     BIT   0D6H  ;PSW.6 - AUXILIARY CARRY FLAG
+0000            101   CY     BIT   0D7H  ;PSW.7 - CARRY FLAG
+0000            102   
+0000            103   ; For the altera DE2 configured with an 8051/8052 softcore processor
+0000            104   ; we have the following extra registers:
+0000            105   
+0000            106   HEX0   DATA  091H ; Zero turns the segment on
+0000            107   HEX1   DATA  092H ; 
+0000            108   HEX2   DATA  093H ; 
+0000            109   HEX3   DATA  094H ; 
+0000            110   HEX4   DATA  08EH ;
+0000            111   HEX5   DATA  08FH ;
+0000            112   HEX6   DATA  096H ;
+0000            113   HEX7   DATA  097H ;
+0000            114   
+0000            115   P0MOD  DATA  09AH ; Input/output mode bits for port 0.  '1' sets the port to output mode.
+0000            116   P1MOD  DATA  09BH ; Input/output mode bits for port 1
+0000            117   P2MOD  DATA  09CH ; Input/output mode bits for port 2
+0000            118   P3MOD  DATA  09DH ; Input/output mode bits for port 3
+0000            119   
+0000            120   LEDRA  DATA  0E8H ; LEDs LEDR0 to LEDR7 (bit addressable, ex: LEDRA.1 for LEDR1)
+0000            121   LEDRB  DATA  095H ; LEDs LEDR8 to LEDR15
+0000            122   LEDRC  DATA  09EH ; LEDs LEDR16, LEDR15, and LEDG8
+0000            123   LEDG   DATA  0F8H ; LEDs LEDG0 to LEDG7 (bit addressable, ex: LEDG.3 for LEDG3)
+0000            124   SWA    DATA  0E8H ; Switches SW0 to SW7 (bit addressable, ex: SWA.1 for SW1)
+0000            125   SWB    DATA  095H ; Switches SW8 to SW15
+0000            126   SWC    DATA  09EH ; Switches SW16 and SW17
+0000            127   KEY    DATA  0F8H ; KEY1=KEY.1, KEY2=KEY.2, KEY3=KEY.3.  KEY0 is the reset button! 
+0000            128   
+0000            129   LCD_CMD   DATA 0D8H ;
+0000            130   LCD_DATA  DATA 0D9H ;
+0000            131   LCD_MOD   DATA 0DAH ; Write 0xff to make LCD_DATA an output
+0000            132   LCD_RW    BIT  0D8H ; '0' writes to LCD
+0000            133   LCD_EN    BIT  0D9H ; Toggle from '1' to '0'
+0000            134   LCD_RS    BIT  0DAH ; '0' for commands, '1' for data
+0000            135   LCD_ON    BIT  0DBH ; Write '1' to power the LCD
+0000            136   LCD_BLON  BIT  0DCH ; Write '1' to turn on back light
+0000            137   
+0000            138   FLASH_CMD  data 0DBH ; The control bits of the flash memory:
+0000            139   ; bit 0: FL_RST_N  Set to 1 for normal operation
+0000            140   ; bit 1: FL_WE_N
+0000            141   ; bit 2: FL_OE_N
+0000            142   ; bit 3: FL_CE_N
+0000            143   FLASH_DATA data 0DCH ; 8-bit data bus of flash memory.
+0000            144   FLASH_MOD  data 0DDH ; 0xff makes FLASH_DATA output.  0x00 makes FLASH_DATA input.
+0000            145   FLASH_ADD0 data 0E1H ; address bits 0 to 7.
+0000            146   FLASH_ADD1 data 0E2H ; address bits 8 to 15.
+0000            147   FLASH_ADD2 data 0E3H ; address bits 16 to 21.
+0000            148   
+0000              2   
+0000              3   CSEG at 0
+0000 0203CE       4   ljmp START
+0003              5   
+0030              6   dseg at 30h
+0030              7   x: ds 4 ; 32-bits for variable ‘x’
+0034              8   y: ds 4 ; 32-bits for variable ‘y’
+0038              9   z: ds 4 ; 32 bit for variable 'z'
+003C             10   bcd: ds 5 ; 10-digit packed BCD (each byte stores 2 digits)
+0000             11   bseg
+0000             12   mf: dbit 1 ; Math functions flag
+                 -1   $include(math32.asm)
+                706   $LIST
+0327             14   
+0327             15   CSEG     
+0327             16            
+0327             17            ; Look-up table for 7-seg displays
+0327             18   seg_table:
+0327 C0F9A4B0    19       DB 0C0H, 0F9H, 0A4H, 0B0H, 099H        ; 0 TO 4
+     99
+032C 9282F880    20       DB 092H, 082H, 0F8H, 080H, 090H        ; 4 TO 9
+     90
+0331             21   
+                 22   showBCD MAC
+                 23   	; Display LSD
+                 24       mov A, %0
+                 25       anl a, #0fh
+                 26       movc A, @A+dptr
+                 27       mov %1, A
+                 28   	; Display MSD
+                 29       mov A, %0
+                 30       swap a
+                 31       anl a, #0fh
+                 32       movc A, @A+dptr
+                 33       mov %2, A
+                 34   ENDMAC
+0331             35   
+0331             36   Display:
+0331 900327      37            mov dptr, #seg_table
+0334             38            ; Display LSD
+0334 E53C        38       mov A, bcd+0
+0336 540F        38       anl a, #0fh
+0338 93          38       movc A, @A+dptr
+0339 F591        38       mov HEX0, A
+033B             38            ; Display MSD
+033B E53C        38       mov A, bcd+0
+033D C4          38       swap a
+033E 540F        38       anl a, #0fh
+0340 93          38       movc A, @A+dptr
+0341 F592        38       mov HEX1, A
+0343             39            ; Display LSD
+0343 E53D        39       mov A, bcd+1
+0345 540F        39       anl a, #0fh
+0347 93          39       movc A, @A+dptr
+0348 F593        39       mov HEX2, A
+034A             39            ; Display MSD
+034A E53D        39       mov A, bcd+1
+034C C4          39       swap a
+034D 540F        39       anl a, #0fh
+034F 93          39       movc A, @A+dptr
+0350 F594        39       mov HEX3, A
+0352             40            ; Display LSD
+0352 E53E        40       mov A, bcd+2
+0354 540F        40       anl a, #0fh
+0356 93          40       movc A, @A+dptr
+0357 F58E        40       mov HEX4, A
+0359             40            ; Display MSD
+0359 E53E        40       mov A, bcd+2
+035B C4          40       swap a
+035C 540F        40       anl a, #0fh
+035E 93          40       movc A, @A+dptr
+035F F58F        40       mov HEX5, A
+0361 22          41       ret
+0362             42   
+                 43   MYRLC MAC
+                 44   	mov a, %0
+                 45   	rlc a
+                 46   	mov %0, a
+                 47   ENDMAC
+0362             48   
+0362             49   Shift_Digits:
+0362 7804        50            mov R0, #4 ; shift left four bits
+0364             51   Shift_Digits_L0:
+0364 C3          52            clr c
+0365 E53C        53            mov a, bcd+0
+0367 33          53            rlc a
+0368 F53C        53            mov bcd+0, a
+036A E53D        54            mov a, bcd+1
+036C 33          54            rlc a
+036D F53D        54            mov bcd+1, a
+036F E53E        55            mov a, bcd+2
+0371 33          55            rlc a
+0372 F53E        55            mov bcd+2, a
+0374 E53F        56            mov a, bcd+3
+0376 33          56            rlc a
+0377 F53F        56            mov bcd+3, a
+0379 E540        57            mov a, bcd+4
+037B 33          57            rlc a
+037C F540        57            mov bcd+4, a
+037E D8E4        58            djnz R0, Shift_Digits_L0
+0380             59            ; R7 has the new bcd digit      
+0380 EF          60            mov a, R7
+0381 453C        61            orl a, bcd+0
+0383 F53C        62            mov bcd+0, a
+0385             63            ; bcd+3 and bcd+4 don't fit in the 7-segment displays so make them zero
+0385 E4          64            clr a
+0386 F540        65            mov bcd+4, a
+0388 22          66            ret
+0389             67   
+0389             68   Wait50ms:
+0389             69   ;33.33MHz, 1 clk per cycle: 0.03us
+0389 781E        70            mov R0, #30
+038B 794A        71   L3: mov R1, #74
+038D 7AFA        72   L2: mov R2, #250
+038F DAFE        73   L1: djnz R2, L1 ;3*250*0.03us=22.5us
+0391 D9FA        74       djnz R1, L2 ;74*22.5us=1.665ms
+0393 D8F6        75       djnz R0, L3 ;1.665ms*30=50ms
+0395 22          76       ret
+0396             77   
+0396             78   ; Check if SW0 to SW9 are toggled up.  Returns the toggled switch in
+0396             79   ; R7.  If the carry is not set, no toggling switches were detected.
+0396             80   ReadNumber:
+0396 ACE8        81            mov r4, SWA ; Read switches 0 to 7
+0398 E595        82            mov a, SWB ; Read switches 8 to 9
+039A 5403        83            anl a, #00000011B ; Only two bits of SWB available
+039C FD          84            mov r5, a
+039D EC          85            mov a, r4
+039E 4D          86            orl a, r5
+039F 602B        87            jz ReadNumber_no_number
+03A1 120389      88            lcall Wait50ms ; debounce
+03A4 E5E8        89            mov a, SWA
+03A6 C3          90            clr c
+03A7 9C          91            subb a, r4
+03A8 7022        92            jnz ReadNumber_no_number ; it was a bounce
+03AA E595        93            mov a, SWB
+03AC 5403        94            anl a, #00000011B
+03AE C3          95            clr c
+03AF 9D          96            subb a, r5
+03B0 701A        97            jnz ReadNumber_no_number ; it was a bounce
+03B2 7F10        98            mov r7, #16 ; Loop counter
+03B4             99   ReadNumber_L0:
+03B4 C3         100            clr c
+03B5 EC         101            mov a, r4
+03B6 33         102            rlc a
+03B7 FC         103            mov r4, a
+03B8 ED         104            mov a, r5
+03B9 33         105            rlc a
+03BA FD         106            mov r5, a
+03BB 4004       107            jc ReadNumber_decode
+03BD DFF5       108            djnz r7, ReadNumber_L0
+03BF 800B       109            sjmp ReadNumber_no_number       
+03C1            110   ReadNumber_decode:
+03C1 1F         111            dec r7
+03C2 D3         112            setb c
+03C3            113   ReadNumber_L1:
+03C3 E5E8       114            mov a, SWA
+03C5 70FC       115            jnz ReadNumber_L1
+03C7            116   ReadNumber_L2:
+03C7 E595       117            mov a, SWB
+03C9 70FC       118            jnz ReadNumber_L2
+03CB 22         119            ret
+03CC            120   ReadNumber_no_number:
+03CC C3         121            clr c
+03CD 22         122            ret
+03CE            123            
+03CE            124   START: ; Called once on start
+03CE 75817F     125            mov SP, #7FH
+03D1            126            ; set everything to 0
+03D1 E4         127            clr a
+03D2 F5E8       128            mov LEDRA, a
+03D4 F595       129            mov LEDRB, a
+03D6 F53C       130            mov bcd+0, a
+03D8 F53D       131            mov bcd+1, a
+03DA F53E       132            mov bcd+2, a
+03DC F53F       133            mov bcd+3, a
+03DE F540       134            mov bcd+4, a
+03E0 120331     135            lcall Display
+03E3            136   
+03E3 75F001     137            mov b, #1 ; b = 1 for addition
+03E6 D2E8       138            setb LEDRA.0 ; Turn LEDR0 on to indicate addition
+03E8            139            
+03E8            140   LOOP: ; Called forever
+03E8 85F0E8     141            mov LEDRA, b                    ; Display Function select on the LEDs
+03EB            142            
+03EB            143            ;This handles cycling the function
+03EB            144   
+03EB            145   func_button:     
+03EB 20FB14     146            jb KEY.3, load_button           ; If 'Function' key not pressed, skip
+03EE 30FBFD     147                    jnb KEY.3, $            ; Jumps to itself until key is relased
+03F1 E5F0       148                    mov a, b                        ; When the key is pressed, we double B (multiply by 2) to bitshift left one
+03F3 75F002     149                    mov b, #02
+03F6 A4         150                    mul ab
+03F7 F5F0       151                    mov b, a                        ; B is used to store the current function
+03F9 B480EC     152                    cjne a, #10000000B, LOOP ; If B is high enough it needs to overflow back down to 1
+03FC 75F001     153                    mov b,          #00000001B                      ; B back down to 1
+03FF 0203E8     154                    ljmp LOOP                               ; Restart the loop
+0402            155                    
+0402            156            
+0402            157   load_button:
+0402 20FA1E     158            jb KEY.2, equal_button                  ; If 'Load' key not pressed, skip
+0405 30FAFD     159                    jnb KEY.2, $            ; Jumps to itself until key is relased
+0408 12008C     160                    lcall bcd2hex           ; Convert the BCD number to hex in x
+040B 120301     161                    lcall copy_xy           ; Copy x to y
+040E 753000     162            mov x+0, #low (0 % 0x10000) 
+0411 753100     162            mov x+1, #high(0 % 0x10000) 
+0414 753200     162            mov x+2, #low (0 / 0x10000) 
+0417 753300     162            mov x+3, #high(0 / 0x10000)                     ; Clear x
+041A 120003     163                    lcall hex2bcd           ; Convert result in x to BCD
+041D 120331     164                    lcall Display           ; Display the new BCD number
+0420 0203E8     165                    ljmp LOOP               ; Restart the loop
+0423            166            
+0423            167   equal_button:
+0423 20F9C2     168            jb KEY.1, LOOP                  ; If 'equal' key not pressed, skip
+0426 30F9FD     169                    jnb KEY.1, $            ; Jumps to itself until key is relased
+0429 12008C     170                    lcall bcd2hex           ; Convert the BCD number to hex in x
+042C E5F0       171                    mov a, b                        
+042E            172                    
+042E            173   ; Check for function depending on state
+042E            174   Addition:        
+042E B40106     175            CJNE a, #00000001B, Subtraction
+0431 1200C8     176                    lcall add32     ; x = x + y
+0434 020464     177                    ljmp DISP_ANSWER
+0437            178                    
+0437            179   Subtraction:
+0437 B40206     180            CJNE a, #00000010B, Multiplication
+043A 1200E9     181                    lcall sub32     ; x = x - y
+043D 020464     182                    ljmp DISP_ANSWER
+0440            183                    
+0440            184   Multiplication:
+0440 B40406     185            CJNE a, #00000100B, Division
+0443 12017D     186                    lcall mul32             ; x = x * y     
+0446 020464     187                    ljmp DISP_ANSWER
+0449            188                    
+0449            189   Division:
+0449 B40806     190            CJNE a, #00001000B, Remainder
+044C 120298     191                    lcall div32             ; x = x / y
+044F 020464     192                    ljmp DISP_ANSWER
+0452            193                    
+0452            194   Remainder:       
+0452 B41003     195            CJNE a, #00010000B, Percentage
+0455            196                    ;lcall mod32 ; x = x % y
+0455 020464     197                    ljmp DISP_ANSWER
+0458            198   
+0458            199   Percentage:
+0458 B42003     200            CJNE a, #00100000B, Square_root                 
+045B            201                    ;lcall perce32          ; x = (x / y) * 100
+045B 020464     202                    ljmp DISP_ANSWER
+045E            203                    
+045E            204   Square_root:
+045E 120297     205                    lcall square_root32             ; x = sqrt(x)
+0461 020464     206                    ljmp DISP_ANSWER
+0464            207                    
+0464            208   DISP_ANSWER:
+0464            209            
+0464 120003     210            lcall hex2bcd           ; Convert result in x to BCD
+0467 120331     211            lcall Display           ; Display the result
+046A 0203E8     212            ljmp LOOP               ; Go check for more input
+046D            213            
+046D            214   end
