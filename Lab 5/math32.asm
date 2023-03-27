@@ -654,8 +654,8 @@ sqrt_loop: ; loop until we find an answer
 	
 	Restore_target() ; put target back into y
 	
-	; mf=1 if x >= y
-	lcall x_gteq_y
+	; mf=1 if x > y
+	lcall x_gt_y
 	
 	POP_X() ; restore X from the stack
 	
